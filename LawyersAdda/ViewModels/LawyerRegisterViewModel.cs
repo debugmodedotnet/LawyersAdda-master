@@ -40,8 +40,7 @@ namespace LawyersAdda.ViewModels
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
-
-
+        
         [Display(Name = "About Yourself")]
         public string Bio { get; set; }
 
@@ -51,6 +50,8 @@ namespace LawyersAdda.ViewModels
         [Display(Name = "Blog or Website ")]
         public string BlogUrl { get; set; }
 
+        [Display(Name = "City")]
+        public string City { get; set; }
 
     }
     }

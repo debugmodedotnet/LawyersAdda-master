@@ -18,6 +18,8 @@ namespace LawyersAdda.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+        ApplicationDbContext db = new ApplicationDbContext();
         // GET: Lawyers
         public ActionResult Index()
         {
@@ -33,6 +35,8 @@ namespace LawyersAdda.Controllers
         // GET: Lawyers/Create
         public ActionResult RegisterAsLawyer()
         {
+            var cityList = new CitiesController().GetCities();
+            ViewBag.city = cityList;
             return View();
         }
 
@@ -64,6 +68,7 @@ namespace LawyersAdda.Controllers
                     lawyerToAdd.ModifiedDate = DateTime.Now;
                     lawyerToAdd.WebSiteUrl = model.BlogUrl;
                     lawyerToAdd.Id = user.Id;
+                    lawyerToAdd.City = model.City;
                    // lawyerToAdd.User = user;
                     try
                     {
@@ -94,7 +99,7 @@ namespace LawyersAdda.Controllers
                 //TempData["LUser"] = user;
                 //TempData["LUserId"] = user.Id;
 
-                return RedirectToAction("AddLawyerProfile");
+                return RedirectToAction("AddLawyerProfile", new { city="1" });
             }
            return View(model);
             //  AddErrors(result);
@@ -103,9 +108,13 @@ namespace LawyersAdda.Controllers
 
 
         // GET: Lawyers/Create
-        public ActionResult AddLawyerProfile()
+        public ActionResult AddLawyerProfile(string city)
         {
-            return View();
+            var courtList = new CourtsController().GetCourts();
+            //ViewBag.city = courtList;
+            LawyerProfileViewModel obj = new LawyerProfileViewModel();
+            obj.ListOfCourts = courtList;
+            return View(obj);
         }
 
         [HttpPost]

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -37,9 +38,12 @@ namespace LawyersAdda.Entities
         public string CourtImageUrl { get; set; }
 
         [Required]
-        public string City { get; set; }
+        [ForeignKey("City")]
+        public string CityId { get; set; }
 
         public string Address { get; set; }
+
+        public City City { get; set; }
 
         public ICollection<Lawyer> Lawyers { get; set; }
     }

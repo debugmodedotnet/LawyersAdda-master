@@ -48,7 +48,10 @@ namespace LawyersAdda.Entities
 
         public string WebSiteUrl { get; set; }
 
-      
+        public string CityId { get; set; }
+
+        public string City { get; set; }
+
         public virtual ApplicationUser User { get; set; }
 
         public ICollection<Court> Courts { get; set; }

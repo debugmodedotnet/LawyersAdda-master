@@ -18,6 +18,7 @@ namespace LawyersAdda.ViewModels
         [Display(Name = "Blog or Website ")]
         public string BlogUrl { get; set; }
 
+        public IQueryable<Entities.Court> ListOfCourts { get; set; }
 
     }
 }
