@@ -15,12 +15,12 @@
         <ol data-draggable="target" id="source">
             @foreach (var court in Model.ListOfCourts)
             {
-                <li data-draggable='@court.Id' ondblclick="add('@court.Id', '@court.Name')">@court.Name</li>
+                <li value='@court.Id' ondblclick="add('@court.Id', '@court.Name', 'target')">@court.Name</li>
             }
         </ol>
-        <ol data-draggable="target" id="target">
+        <ol data-draggable="target" id="target"></ol>
 
-        </ol>
+
 
         <!--<div class="form-group">
             @Html.LabelFor(model => model.Bio, htmlAttributes: new { @class = "control-label col-md-2" })

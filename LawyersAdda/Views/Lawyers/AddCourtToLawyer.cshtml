@@ -1,0 +1,31 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "AddCourtToLawyer";
+}
+
+<h2>AddCourtToLawyer</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+        <ol data-draggable="target" id="source">
+            @foreach (var court in Model)
+            {
+                <li value='@court.Id' ondblclick="add('@court.Id', '@court.Name', 'target')">@court.Name</li>
+            }
+        </ol>
+        <ol data-draggable="target" id="target"></ol>
+
+<ul>
+    @foreach (var cities in ViewBag.cities)
+    {
+        <li>@cities.CityName</li>
+    }
+
+</ul>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Save and go to next section" class="btn btn-lg btn-success" />
+    </div>
+</div>
+}

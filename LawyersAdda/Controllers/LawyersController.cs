@@ -48,7 +48,7 @@ namespace LawyersAdda.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, FullName = model.FullName, Email = model.Email,PhoneNumber=model.PhoneNumber };
+                var user = new ApplicationUser { UserName = model.Email, FullName = model.FullName, Email = model.Email, PhoneNumber = model.PhoneNumber };
                 //normal user registeration. Hence islawyer is set to false
                 user.isLawyer = true;
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -58,7 +58,7 @@ namespace LawyersAdda.Controllers
                     Lawyer lawyerToAdd = new Lawyer();
                     lawyerToAdd.Email = model.Email;
                     lawyerToAdd.Name = model.FullName;
-                    lawyerToAdd.PhoneNumber = model.PhoneNumber;                   
+                    lawyerToAdd.PhoneNumber = model.PhoneNumber;
                     lawyerToAdd.Bio = model.Bio;
                     lawyerToAdd.AlternatePhoneNumber = model.AlternatePhoneNumber;
                     lawyerToAdd.Sex = "Male";
@@ -69,7 +69,7 @@ namespace LawyersAdda.Controllers
                     lawyerToAdd.WebSiteUrl = model.BlogUrl;
                     lawyerToAdd.Id = user.Id;
                     lawyerToAdd.City = model.City;
-                   // lawyerToAdd.User = user;
+                    // lawyerToAdd.User = user;
                     try
                     {
                         ApplicationDbContext c = new ApplicationDbContext();
@@ -83,79 +83,66 @@ namespace LawyersAdda.Controllers
                             var str = string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:", eve.Entry.Entity.GetType().Name, eve.Entry.State);
                             foreach (var ve in eve.ValidationErrors)
                             {
-                             var a = string.Format("- Property: \"{0}\", Error: \"{1}\"",
-                                    ve.PropertyName, ve.ErrorMessage);
+                                var a = string.Format("- Property: \"{0}\", Error: \"{1}\"",
+                                       ve.PropertyName, ve.ErrorMessage);
                             }
                         }
 
                     }
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                     
+
                 }
                 //TempData["LName"] = model.FullName;
                 //TempData["LEmail"] = model.Email;
                 //TempData["LPhoneNumber"] = model.PhoneNumber;
                 //TempData["LUser"] = user;
-                //TempData["LUserId"] = user.Id;
-
-                return RedirectToAction("AddLawyerProfile", new { city="1" });
+                TempData["LUserId"] = user.Id;
+                TempData["Lcity"] = model.City;
+                TempData.Keep();
+                return RedirectToAction("AddCourtToLawyer");
             }
-           return View(model);
+            return View(model);
             //  AddErrors(result);
         }
 
-
-
         // GET: Lawyers/Create
-        public ActionResult AddLawyerProfile(string city)
+        public ActionResult AddCourtToLawyer()
         {
-            var courtList = new CourtsController().GetCourts();
-            //ViewBag.city = courtList;
-            LawyerProfileViewModel obj = new LawyerProfileViewModel();
-            obj.ListOfCourts = courtList;
-            return View(obj);
+            var cid = TempData["Lcity"].ToString();
+            TempData.Keep();
+            ApplicationDbContext db = new ApplicationDbContext();
+            var ListofCities = (from r in db.Cities select r);
+            var ListOfCourts = (from r in db.Courts where r.CityId == cid select r);
+            ViewBag.cities = ListofCities;
+            return View(ListOfCourts);
         }
 
         [HttpPost]
         //[AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult AddLawyerProfile(LawyerProfileViewModel model)
+        public ActionResult AddCourtToLawyer(List<string> assignedCourts)
         {
-            if (ModelState.IsValid)
+            assignedCourts.Add("1");
+            assignedCourts.Add("2");
+            try
             {
-                Lawyer lawyerToAdd = new Lawyer();
-                lawyerToAdd.Email = TempData["LEmail"].ToString();
-                lawyerToAdd.Name = TempData["LName"].ToString();
-                lawyerToAdd.PhoneNumber = TempData["LPhoneNumber"].ToString();
-                lawyerToAdd.Id = TempData["LUserId"].ToString();
-                lawyerToAdd.Bio = model.Bio;
-                lawyerToAdd.AlternatePhoneNumber = model.AlternatePhoneNumber;
-                lawyerToAdd.Sex = "Male";
-                lawyerToAdd.CreatedBy = "DJ";
-                lawyerToAdd.ModifiedBy = "DJ";
-                lawyerToAdd.CreatedDate = DateTime.Now;
-                lawyerToAdd.ModifiedDate = DateTime.Now;
-                lawyerToAdd.WebSiteUrl = model.BlogUrl;
-                 lawyerToAdd.User = TempData["LUser"] as ApplicationUser;
-                try
+                ApplicationDbContext c = new ApplicationDbContext();
+                foreach(var assignedCourt in assignedCourts)
                 {
-                    ApplicationDbContext c = new ApplicationDbContext();
-                    c.Lawyers.Add(lawyerToAdd);
+                    var court = new Court { Id = assignedCourt };
+                    Lawyer l = new Lawyer();
+                    l.Courts.Add(court);
                     c.SaveChanges();
                 }
-                catch(Exception ex)
-                {
-                    var r = ex.InnerException.Message;
-
-                }
-                return RedirectToAction("Index", "Home");
             }
-            else
+            catch (Exception ex)
             {
-                return View();
+                var r = ex.InnerException.Message;
+
             }
-            
+            return RedirectToAction("Index", "Home");
+
         }
 
 

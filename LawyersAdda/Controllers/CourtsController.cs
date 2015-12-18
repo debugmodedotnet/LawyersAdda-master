@@ -118,6 +118,13 @@ namespace LawyersAdda.Controllers
             return Ok(court);
         }
 
+        //custom calls
+        [HttpGet]
+        public IQueryable<Court> CourtsInCity(string cid)
+        {
+           return (from r in db.Courts where r.CityId == cid select r);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
