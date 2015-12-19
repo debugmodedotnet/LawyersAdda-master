@@ -109,13 +109,13 @@ namespace LawyersAdda.Controllers
         // GET: Lawyers/Create
         public ActionResult AddCourtToLawyer()
         {
-            var cid = TempData["Lcity"].ToString();
-            TempData.Keep();
-            ApplicationDbContext db = new ApplicationDbContext();
-            var ListofCities = (from r in db.Cities select r);
-            var ListOfCourts = (from r in db.Courts where r.CityId == cid select r);
-            ViewBag.cities = ListofCities;
-            return View(ListOfCourts);
+         //   var cid = TempData["Lcity"].ToString();
+           // TempData.Keep();
+          //  ApplicationDbContext db = new ApplicationDbContext();
+           // var ListofCities = (from r in db.Cities select r);
+          //  var ListOfCourts = (from r in db.Courts where r.CityId == cid select r);
+          //  ViewBag.cities = ListofCities;
+            return View();
         }
 
         [HttpPost]
@@ -147,6 +147,23 @@ namespace LawyersAdda.Controllers
 
 
 
+        //Fetching Cities as JSON
+        public JsonResult GetCities()
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+            var cities = from r in context.Cities select r;
+            return Json(cities, JsonRequestBehavior.AllowGet);
+          
+        }
+
+        // Fetching Courts of a city as JSON
+        public JsonResult GetCourts(string cityId)
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+            var courts = from r in context.Courts where r.CityId==cityId select r;
+            return Json(courts, JsonRequestBehavior.AllowGet);
+
+        }
 
 
         // GET: Lawyers/Edit/5

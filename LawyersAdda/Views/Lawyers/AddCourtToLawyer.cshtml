@@ -1,31 +1,169 @@
-﻿@model dynamic
+﻿
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+@model dynamic
 @{
     ViewBag.Title = "AddCourtToLawyer";
 }
 
 <h2>AddCourtToLawyer</h2>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-        <ol data-draggable="target" id="source">
-            @foreach (var court in Model)
-            {
-                <li value='@court.Id' ondblclick="add('@court.Id', '@court.Name', 'target')">@court.Name</li>
-            }
-        </ol>
-        <ol data-draggable="target" id="target"></ol>
+<div class="row">
+    <div class="class=" form-horizontal">
+        <div class="col-md-6">
+            @Html.Label("Select City")
+            <div class="form-group">
+                @Html.DropDownList("CityList", new SelectList(string.Empty, "Value", "Text"), "Please select a City", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            @Html.Label("Select Court")
+            <div class="form-group">
+                @Html.DropDownList("CourtList", new SelectList(string.Empty, "Value", "Text"), "Please select a Court", new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
 
-<ul>
-    @foreach (var cities in ViewBag.cities)
-    {
-        <li>@cities.CityName</li>
-    }
 
-</ul>
+</div>
 
-<div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Save and go to next section" class="btn btn-lg btn-success" />
+<div class="row">
+    <div class="col-md-5 col-md-offset-4">
+        <button id="btnAddCourts" class="btn btn-warning btn-lg">Add to your profile</button>
     </div>
 </div>
-}
+<br/>
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <table id="courttable" style="visibility:hidden" class="table">
+            <tr>
+                <th>City</th>
+                <th>Court</th>
+            </tr>
+            @*<tr>
+                <td>Delhi</td>
+                <td>High Court</td>
+                <td><button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+            </tr>
+            <tr>
+                <td>Delhi</td>
+                <td>High Court</td>
+                <td><button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+            </tr>*@
+        </table>
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-md-5 col-md-offset-4">
+        <button id="btnSaveStep2" style="visibility:hidden" class="btn btn-lg btn-warning">Save and Go to next step</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var courtsoflawyer = [];
+      
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "@(Url.Action("GetCities"))",
+            success: function (data) {                      
+            $.each(data, function (id, option) {
+                $('#CityList').append($('<option></option>').val(option.Id).html(option.CityName));
+            });
+            //statesProgress.hide();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert('Failed to retrieve states.');
+            statesProgress.hide();
+        }
+        });
+
+
+
+        $("#CityList").change(function () {
+
+           
+            $("#CourtList").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetCourts")',
+                dataType: 'json',
+                data: { cityId: $("#CityList").val() },
+                success: function (courts) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+
+                    $.each(courts, function (i, court) {
+                        //$("#CourtList").append('<option value="' + court.Value + '">' +
+                        //     court.Name + '</option>');
+                        // here we are adding option for States
+
+                        $('#CourtList').append($('<option></option>').val(court.Id).html(court.Name));
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+
+        });
+
+
+
+
+
+        $('#btnAddCourts').click(function () {
+
+            var alredayaddedflag = false; 
+            var cityname = $("#CityList option:selected").text();
+            var cityid = $("#CityList option:selected").val();            
+            var courtname = $("#CourtList option:selected").text();
+            var courtid = $("#CourtList option:selected").val();
+           
+            // Creating object to add to array of courts 
+            var objcourtsoflawyer = {
+                "cname": cityname,
+                "cid": cityid,
+                "crtname": courtname,
+                "crtid": courtid
+            };
+
+           
+            // Logic to find whether court is already added before
+
+            for (var i = 0; i < courtsoflawyer.length; i++) {
+
+                if (courtsoflawyer[i]["crtid"] == courtid) {                
+                   
+                    alredayaddedflag = true;
+                    break;
+                }
+            }
+
+
+     
+            // if already added alert else add 
+       
+            if (alredayaddedflag == true ) {
+
+                alert("Alreday added");
+            }
+            else
+            {
+                courtsoflawyer.push(objcourtsoflawyer);
+                $("#courttable").append('<tr><td>' + cityname + '</td><td>' + courtname + '</td><td><button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>');
+                $("#courttable").css('visibility', 'visible');
+                $("#btnSaveStep2").css('visibility', 'visible');
+
+            }
+           
+        })
+
+    });
+
+
+</script>
