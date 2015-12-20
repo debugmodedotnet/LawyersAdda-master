@@ -118,12 +118,12 @@
 
         $('#btnAddCourts').click(function () {
 
-            var alredayaddedflag = false; 
+            var alredayaddedflag = false;
             var cityname = $("#CityList option:selected").text();
-            var cityid = $("#CityList option:selected").val();            
+            var cityid = $("#CityList option:selected").val();
             var courtname = $("#CourtList option:selected").text();
             var courtid = $("#CourtList option:selected").val();
-           
+
             // Creating object to add to array of courts 
             var objcourtsoflawyer = {
                 "cname": cityname,
@@ -132,36 +132,51 @@
                 "crtid": courtid
             };
 
-           
+
             // Logic to find whether court is already added before
 
             for (var i = 0; i < courtsoflawyer.length; i++) {
 
-                if (courtsoflawyer[i]["crtid"] == courtid) {                
-                   
+                if (courtsoflawyer[i]["crtid"] == courtid) {
+
                     alredayaddedflag = true;
                     break;
                 }
             }
 
 
-     
+
             // if already added alert else add 
-       
-            if (alredayaddedflag == true ) {
+
+            if (alredayaddedflag == true) {
 
                 alert("Alreday added");
             }
-            else
-            {
+            else {
                 courtsoflawyer.push(objcourtsoflawyer);
                 $("#courttable").append('<tr><td>' + cityname + '</td><td>' + courtname + '</td><td><button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>');
                 $("#courttable").css('visibility', 'visible');
                 $("#btnSaveStep2").css('visibility', 'visible');
 
             }
-           
-        })
+
+        });
+
+
+        
+
+        $('#btnSaveStep2').click(function () {
+
+
+            var courttosave = JSON.stringify(courtsoflawyer);
+            alert(courttosave);
+
+
+
+        });
+
+
+
 
     });
 

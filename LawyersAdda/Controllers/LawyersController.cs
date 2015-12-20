@@ -165,6 +165,8 @@ namespace LawyersAdda.Controllers
 
         }
 
+        //public JsonResult AddCourtsToLawyers(List<>)
+
 
         // GET: Lawyers/Edit/5
         public ActionResult Edit(int id)
