@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "AddServiceToLawyer";
+}
+
+<h2>AddServiceToLawyer</h2>
+<div class="row text-center" id="total"></div>
+<br />
+<div class="row">
+    @foreach (var service in ViewBag.ListofServices)
+    {
+            <div id='@service.Id' class="btn-default btn" onclick="addService('@service.Id')">
+                @service.Name
+            </div>
+    }
+</div>
+<br />
+<div class="row text-center">
+    <input type="button" class="btn-success btn" onclick="addServiceToLawyer()" value="Save and go to next step" />
+</div>
+
+
+<script>
+    var lawyerServices = [];
+    function addService(id) {
+
+
+        var service = document.getElementById(id);
+        if (service.className == "btn-default btn") {
+            lawyerServices.push(id);
+            service.className = "btn-warning btn";
+        }
+        else {
+            lawyerServices.splice(lawyerServices.indexOf(id), 1)
+            service.className = "btn-default btn";
+        }
+
+        console.log(lawyerServices);
+
+        var total = document.getElementById("total");
+        if (lawyerServices.length > 0)
+            total.innerHTML = "<h4>total " + lawyerServices.length + " services selected</h4>";
+        else
+            total.innerHTML = "";
+    }
+
+    function addServiceToLawyer() {
+        alert("Add these services" + lawyerServices);
+    }
+</script>

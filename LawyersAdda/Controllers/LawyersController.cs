@@ -97,7 +97,7 @@ namespace LawyersAdda.Controllers
                 //TempData["LEmail"] = model.Email;
                 //TempData["LPhoneNumber"] = model.PhoneNumber;
                 //TempData["LUser"] = user;
-                TempData["LUserId"] = user.Id;
+                Session["LUserId"] = TempData["LUserId"] = user.Id;
                 TempData["Lcity"] = model.City;
                 TempData.Keep();
                 return RedirectToAction("AddCourtToLawyer");
@@ -109,12 +109,26 @@ namespace LawyersAdda.Controllers
         // GET: Lawyers/Create
         public ActionResult AddCourtToLawyer()
         {
-         //   var cid = TempData["Lcity"].ToString();
-           // TempData.Keep();
-          //  ApplicationDbContext db = new ApplicationDbContext();
-           // var ListofCities = (from r in db.Cities select r);
-          //  var ListOfCourts = (from r in db.Courts where r.CityId == cid select r);
-          //  ViewBag.cities = ListofCities;
+            //   var cid = TempData["Lcity"].ToString();
+            // TempData.Keep();
+            //  ApplicationDbContext db = new ApplicationDbContext();
+            // var ListofCities = (from r in db.Cities select r);
+            //  var ListOfCourts = (from r in db.Courts where r.CityId == cid select r);
+            //  ViewBag.cities = ListofCities;
+            return View();
+        }
+
+        // GET: Lawyers/Create
+        public ActionResult AddServiceToLawyer()
+        {
+            var ListofServices = (from r in db.ServiceTypes select r);
+            ViewBag.ListofServices = ListofServices;
+            return View();
+        }
+
+        // GET: Lawyers/Create
+        public ActionResult AddImagesToLawyer()
+        {
             return View();
         }
 
@@ -123,24 +137,28 @@ namespace LawyersAdda.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddCourtToLawyer(List<string> assignedCourts)
         {
-            assignedCourts.Add("1");
-            assignedCourts.Add("2");
             try
             {
-                ApplicationDbContext c = new ApplicationDbContext();
-                foreach(var assignedCourt in assignedCourts)
-                {
-                    var court = new Court { Id = assignedCourt };
-                    Lawyer l = new Lawyer();
-                    l.Courts.Add(court);
-                    c.SaveChanges();
-                }
+                var l = GetLawyerById(Session["LUserId"].ToString());
+                //var court = new Court { Id = "1" };
+                l.Courts.Add(db.Courts.Find("1"));
+                db.SaveChanges();
             }
             catch (Exception ex)
             {
                 var r = ex.InnerException.Message;
 
             }
+            return RedirectToAction("Index", "Home");
+
+        }
+
+        [HttpPost]
+        //[AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddImagesToLawyer(List<string> assignedCourts)
+        {
+            //write some code
             return RedirectToAction("Index", "Home");
 
         }
@@ -153,16 +171,23 @@ namespace LawyersAdda.Controllers
             ApplicationDbContext context = new ApplicationDbContext();
             var cities = from r in context.Cities select r;
             return Json(cities, JsonRequestBehavior.AllowGet);
-          
+
         }
 
         // Fetching Courts of a city as JSON
         public JsonResult GetCourts(string cityId)
         {
             ApplicationDbContext context = new ApplicationDbContext();
-            var courts = from r in context.Courts where r.CityId==cityId select r;
+            var courts = from r in context.Courts where r.CityId == cityId select r;
             return Json(courts, JsonRequestBehavior.AllowGet);
 
+        }
+
+        //get laywer object by id
+        public Lawyer GetLawyerById(string id)
+        {
+            var lawyer = db.Lawyers.Find(id);
+            return lawyer;
         }
 
         //public JsonResult AddCourtsToLawyers(List<>)
