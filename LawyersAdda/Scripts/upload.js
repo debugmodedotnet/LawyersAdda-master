@@ -18,6 +18,8 @@
             data.append("file" + x, files[x]);
         }
         console.log(data);
+        var progress = document.getElementById("progress");
+        progress.style.display = "inline";
         $.ajax({
             type: "POST",
             url: 'http://localhost:63025/Image/AddImage',
@@ -27,8 +29,9 @@
             success: function(result) {
                 console.log(result);
                 uploadedImage.style.display = "inline";
-                uploadedImage.innerHTML = data;
+                uploadedImage.innerHTML = uploadedImage.innerHTML + "<a href='"+result+"' class='list-group-item list-group-item-success'><span class='badge alert-success pull-right'>Success</span>"+ files[0].name.toString() +"</a>";
                 uploadedImage.setAttribute("href", result);
+                progress.style.display = "none";
             },
             error: function (xhr, status, p3, p4){
                 var err = "Error " + " " + status + " " + p3 + " " + p4;
@@ -37,12 +40,11 @@
                 console.log(err);
             }
         });
+
     }
 
     uploadFormFiles.addEventListener('change', function (e) {
         filesToUpload = e.target.files;
-        uploadedImage.style.display = "none";
-        uploadedImage.setAttribute("href", "#");
     })
 
     uploadForm.addEventListener('submit', function (e) {
