@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Net;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using System.Threading.Tasks;
 
 namespace LawyersAdda.Controllers
 {
@@ -17,7 +18,7 @@ namespace LawyersAdda.Controllers
             return View();
         }
 
-        public string AddImage(object a)
+        public async Task<string> AddImage()
         {
             HttpStatusCode result = new HttpStatusCode();
 
@@ -73,6 +74,10 @@ namespace LawyersAdda.Controllers
 
             }
 
+            ImgReturn a = new ImgReturn();
+            a.imgUrl = url;
+            a.response = result;
+            a.msg = msg;
             return url;
         }
     }

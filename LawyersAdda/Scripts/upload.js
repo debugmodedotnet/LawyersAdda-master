@@ -6,30 +6,49 @@
 
     var dropZone = document.getElementById('drop-zone');
     var uploadForm = document.getElementById('js-upload-form');
+    var uploadFormFiles = document.getElementById('js-upload-files');
+    var uploadedImage = document.getElementById("uploadedImage");
+
+    var filesToUpload;
 
     var startUpload = function(files) {
         alert("call api to upload");
-        console.log(files);
-        $.ajax({
-            cache: false,
-            type: "POST",
-            url: "http://localhost:63025/Image/AddImage",
-            success: function (data) {                      
-                alert(data);
-                //statesProgress.hide();
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert('Failed to retrieve states.');
-            statesProgress.hide();
+        var data = new FormData();
+        for (var x = 0; x < files.length; x++) {
+            data.append("file" + x, files[x]);
         }
-    });
+        console.log(data);
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost:63025/Image/AddImage',
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function(result) {
+                console.log(result);
+                uploadedImage.style.display = "inline";
+                uploadedImage.innerHTML = data;
+                uploadedImage.setAttribute("href", result);
+            },
+            error: function (xhr, status, p3, p4){
+                var err = "Error " + " " + status + " " + p3 + " " + p4;
+                if (xhr.responseText && xhr.responseText[0] == "{")
+                    err = JSON.parse(xhr.responseText).Message;
+                console.log(err);
+            }
+        });
     }
 
-    uploadForm.addEventListener('submit', function(e) {
-        var uploadFiles = document.getElementById('js-upload-files').files;
-        e.preventDefault()
+    uploadFormFiles.addEventListener('change', function (e) {
+        filesToUpload = e.target.files;
+        uploadedImage.style.display = "none";
+        uploadedImage.setAttribute("href", "#");
+    })
 
-        startUpload(uploadFiles)
+    uploadForm.addEventListener('submit', function (e) {
+        var uploadFiles = filesToUpload;
+        e.preventDefault();
+        startUpload(uploadFiles);
     })
 
     dropZone.ondrop = function(e) {
