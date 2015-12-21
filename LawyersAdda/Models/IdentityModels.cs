@@ -44,6 +44,8 @@ namespace LawyersAdda.Models
 
         public virtual DbSet<ServiceType> ServiceTypes { get; set; }
 
+        public virtual DbSet<LawyerImage> LawyerImages { get; set; }
+
         public System.Data.Entity.DbSet<LawyersAdda.Entities.City> Cities { get; set; }
     }
 }

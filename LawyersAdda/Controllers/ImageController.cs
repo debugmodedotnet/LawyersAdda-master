@@ -7,11 +7,15 @@ using System.Net;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.Threading.Tasks;
+using LawyersAdda.Models;
+using LawyersAdda.Entities;
+using System.Data.Entity.Infrastructure;
 
 namespace LawyersAdda.Controllers
 {
     public class ImageController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
         // GET: Image
         public ActionResult Index()
         {
@@ -21,58 +25,77 @@ namespace LawyersAdda.Controllers
         public async Task<string> AddImage()
         {
             HttpStatusCode result = new HttpStatusCode();
-
-            var httpRequest = HttpContext.Request;
             var url = ""; var msg = "";
-            try
+            string lawyerId = Session["LUserId"].ToString();
+            if (lawyerId != null && lawyerId.Length != 0)
             {
-                var docfiles = new List<string>();
-                foreach (string file in httpRequest.Files)
+                var httpRequest = HttpContext.Request;
+
+                try
                 {
-                    var postedFile = httpRequest.Files[file];
+                    var docfiles = new List<string>();
+                    foreach (string file in httpRequest.Files)
+                    {
+                        var postedFile = httpRequest.Files[file];
 
-                    //Azure Upload
-                    var contentType = postedFile.ContentType;
-                    var streamContents = postedFile.InputStream;
-                    var blobName = postedFile.FileName;
-                    string UserConnectionString = string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}", "debugmodelab", "t2yJAWoR8tcL0fcz6TbP/5m3fSmgWS0qIAY2aj8G9k4vbhdzlKsKpmrHJ3AgWP5GsyTkPM8g9lGSyPG2MhNVzQ==");
-                    CloudStorageAccount storageAccount = CloudStorageAccount.Parse(UserConnectionString);
-                    CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-                    CloudBlobContainer blobContainer = blobClient.GetContainerReference("masterjee");
-                    blobContainer.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
+                        //Azure Upload
+                        var contentType = postedFile.ContentType;
+                        var streamContents = postedFile.InputStream;
+                        var blobName = postedFile.FileName;
+                        string UserConnectionString = string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}", "debugmodelab", "t2yJAWoR8tcL0fcz6TbP/5m3fSmgWS0qIAY2aj8G9k4vbhdzlKsKpmrHJ3AgWP5GsyTkPM8g9lGSyPG2MhNVzQ==");
+                        CloudStorageAccount storageAccount = CloudStorageAccount.Parse(UserConnectionString);
+                        CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+                        CloudBlobContainer blobContainer = blobClient.GetContainerReference("masterjee");
+                        blobContainer.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
 
 
-                    //Random Name
-                    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-                    var stringChars = new char[8];
-                    var random = new Random();
+                        //Random Name
+                        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                        var stringChars = new char[8];
+                        var random = new Random();
 
-                    for (int i = 0; i < stringChars.Length; i++)
-                        stringChars[i] = chars[random.Next(chars.Length)];
+                        for (int i = 0; i < stringChars.Length; i++)
+                            stringChars[i] = chars[random.Next(chars.Length)];
 
-                    var finalString = new String(stringChars);
-                    //Random Name
+                        var finalString = new String(stringChars);
+                        //Random Name
 
-                    var blob1 = blobContainer.GetBlockBlobReference(finalString);
-                    blob1.Properties.ContentType = contentType;
-                    blob1.UploadFromStream(streamContents);
+                        var blob1 = blobContainer.GetBlockBlobReference(finalString);
+                        blob1.Properties.ContentType = contentType;
+                        blob1.UploadFromStream(streamContents);
 
-                    url = "https://debugmodelab.blob.core.windows.net/" + blobContainer.Name + "/" + finalString;
-                    //Azure Upload
+                        url = "https://debugmodelab.blob.core.windows.net/" + blobContainer.Name + "/" + finalString;
+                        //Azure Upload
+
+                    }
+                    result = HttpStatusCode.Created;
+                    if (url != "")
+                        msg = "Uploaded Successfully";
+
 
                 }
-                result = HttpStatusCode.Created;
-                if (url != "")
-                    msg = "Uploaded Successfully";
+                catch (Exception errMsg)
+                {
+                    result = HttpStatusCode.BadRequest;
+                    msg = "Error Uploading file" + errMsg;
 
-
+                }
             }
-            catch (Exception errMsg)
-            {
-                result = HttpStatusCode.BadRequest;
-                msg = "Error Uploading file" + errMsg;
 
-            }
+            //LawyerImage image = new LawyerImage();
+            //image.ImageUrl = url;
+            //image.isDisplayPic = false;
+            //image.LawyerId = lawyerId;
+
+            ////db.LawyerImages.Add(image);
+            //try
+            //{
+            //    await db.SaveChangesAsync();
+            //}
+            //catch (DbUpdateException)
+            //{
+            //    throw;
+            //}
 
             ImgReturn a = new ImgReturn();
             a.imgUrl = url;

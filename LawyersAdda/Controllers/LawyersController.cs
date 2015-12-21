@@ -135,12 +135,11 @@ namespace LawyersAdda.Controllers
         [HttpPost]
         //[AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult AddCourtToLawyer(List<string> assignedCourts)
+        public ActionResult AddCourtToLawyer(Array assignedCourts)
         {
             try
             {
                 var l = GetLawyerById(Session["LUserId"].ToString());
-                //var court = new Court { Id = "1" };
                 l.Courts.Add(db.Courts.Find("1"));
                 db.SaveChanges();
             }
@@ -152,18 +151,6 @@ namespace LawyersAdda.Controllers
             return RedirectToAction("Index", "Home");
 
         }
-
-        [HttpPost]
-        //[AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddImagesToLawyer(List<string> assignedCourts)
-        {
-            //write some code
-            return RedirectToAction("Index", "Home");
-
-        }
-
-
 
         //Fetching Cities as JSON
         public JsonResult GetCities()

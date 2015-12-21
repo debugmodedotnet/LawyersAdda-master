@@ -66,12 +66,12 @@
     $(document).ready(function () {
 
         var courtsoflawyer = [];
-      
+
         $.ajax({
             cache: false,
             type: "GET",
             url: "@(Url.Action("GetCities"))",
-            success: function (data) {                      
+            success: function (data) {
             $.each(data, function (id, option) {
                 $('#CityList').append($('<option></option>').val(option.Id).html(option.CityName));
             });
@@ -87,7 +87,7 @@
 
         $("#CityList").change(function () {
 
-           
+
             $("#CourtList").empty();
             $.ajax({
                 type: 'POST',
@@ -125,7 +125,7 @@
             var courtname = $("#CourtList option:selected").text();
             var courtid = $("#CourtList option:selected").val();
 
-            // Creating object to add to array of courts 
+            // Creating object to add to array of courts
             var objcourtsoflawyer = {
                 "cname": cityname,
                 "cid": cityid,
@@ -147,7 +147,7 @@
 
 
 
-            // if already added alert else add 
+            // if already added alert else add
 
             if (alredayaddedflag == true) {
 
@@ -164,13 +164,20 @@
         });
 
 
-        
+
 
         $('#btnSaveStep2').click(function () {
 
 
             var courttosave = JSON.stringify(courtsoflawyer);
             alert(courttosave);
+
+            $.ajax({
+                url: '@Url.Action("GetCities")',
+                method: 'POST',
+                data: courttosave,
+                success: function(data) { alert(data); }
+            });
 
 
         });

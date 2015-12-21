@@ -29,7 +29,8 @@
             success: function(result) {
                 console.log(result);
                 uploadedImage.style.display = "inline";
-                uploadedImage.innerHTML = uploadedImage.innerHTML + "<a href='"+result+"' class='list-group-item list-group-item-success'><span class='badge alert-success pull-right'>Success</span>"+ files[0].name.toString() +"</a>";
+                //uploadedImage.innerHTML = uploadedImage.innerHTML + "<a href='" + result + "' class='list-group-item list-group-item-success'><span class='badge alert-success pull-right'>Success</span>" + files[0].name.toString() + "</a>";
+                uploadedImage.innerHTML = uploadedImage.innerHTML + "<div class='col-md-4'><img class='img-thumbnail img-responsive' src='" + result + "' /></div>";
                 uploadedImage.setAttribute("href", result);
                 progress.style.display = "none";
             },

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LawyersAdda.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,10 @@ namespace LawyersAdda.Controllers
 {
     public class HomeController : Controller
     {
+        ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
+            ViewBag.Cities = (from r in db.Cities select r);
             return View();
         }
 

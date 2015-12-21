@@ -216,6 +216,7 @@
     <Compile Include="Entities\City.cs" />
     <Compile Include="Entities\Court.cs" />
     <Compile Include="Entities\Lawyer.cs" />
+    <Compile Include="Entities\LawyerImage.cs" />
     <Compile Include="Entities\ServiceType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -227,6 +228,10 @@
     <Compile Include="Migrations\201512161703327_CityTable.cs" />
     <Compile Include="Migrations\201512161703327_CityTable.Designer.cs">
       <DependentUpon>201512161703327_CityTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512211303482_LawyerImages.cs" />
+    <Compile Include="Migrations\201512211303482_LawyerImages.Designer.cs">
+      <DependentUpon>201512211303482_LawyerImages.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -322,6 +327,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512161703327_CityTable.resx">
       <DependentUpon>201512161703327_CityTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512211303482_LawyerImages.resx">
+      <DependentUpon>201512211303482_LawyerImages.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

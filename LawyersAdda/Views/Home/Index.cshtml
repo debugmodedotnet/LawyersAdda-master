@@ -1,4 +1,12 @@
-﻿@{
+﻿<style>
+    .ui-autocomplete {
+        cursor: pointer;
+        height: 120px;
+        overflow-y: scroll;
+    }
+</style>
+
+@{
     ViewBag.Title = "Home Page";
 }
 <header class="business-header">
@@ -8,7 +16,9 @@
                 <h1 class="tagline text-center">One Stop Place for law advice and consulting</h1>
                 <div class="col-md-8 col-md-offset-2">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search by lawyer, court, location...">
+                        @Html.DropDownList("CityList", new SelectList(ViewBag.Cities, "Id", "CityName"), "Select your city", new { @class = "form-control" })
+                        <span class="input-group-addon"></span>
+                        <input type="text" id="tbservices" class="form-control" placeholder="Search by lawyer, court, location...">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button">Go!</button>
                         </span>
