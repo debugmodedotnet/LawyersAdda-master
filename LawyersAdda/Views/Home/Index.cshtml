@@ -1,4 +1,5 @@
-﻿<style>
+﻿<script src="~/Scripts/jquery-2.1.4.js"></script>
+<style>
     .ui-autocomplete {
         cursor: pointer;
         height: 120px;
@@ -16,11 +17,11 @@
                 <h1 class="tagline text-center">One Stop Place for law advice and consulting</h1>
                 <div class="col-md-8 col-md-offset-2">
                     <div class="input-group">
-                        @Html.DropDownList("CityList", new SelectList(ViewBag.Cities, "Id", "CityName"), "Select your city", new { @class = "form-control" })
+                        @Html.DropDownList("CityList", new SelectList(ViewBag.Cities, "Id", "CityName"), "Select your city", new {@id="CityList", @class = "form-control" })
                         <span class="input-group-addon"></span>
-                        <input type="text" id="tbservices" class="form-control" placeholder="Search by lawyer, court, location...">
+                        <input type="text" id="tbservices" onfocus="getC();" onchange="getC();" class="form-control" placeholder="Search by lawyer, court, location...">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
+                            <button id="searchbtn" class="btn btn-default" type="button">Go!</button>
                         </span>
                     </div>
                     <div class="col-md-8" id="popularSearch">
@@ -82,3 +83,53 @@
         </div>
     </div>
 </div>
+
+
+
+<script>
+    $(function () {
+
+        $("#searchbtn").click(function () {
+
+            var data = {
+                "City":$("#CityList").val(),
+               "Service":$("#tbservices").val()
+            }
+
+            var url = '@Url.Action("AddImagesToLawyer", "Lawyers")';
+            if ($("#CityList").val() == "" && $("#tbservices").val() == ""){
+                alert("choose options");
+                return;
+            }
+            else if ($("#CityList").val() != "" && $("#tbservices").val() == ""){
+                url = url + "?city=" + $("#CityList").val();
+            }
+            else if ($("#CityList").val() == "" && $("#tbservices").val() != ""){
+                url = url + "?service=" + $("#tbservices").val();
+            }
+            else
+                url = url + "?city=" + $("#CityList").val() + "service=" + $("#tbservices").val();
+            window.location.href = url;
+
+            @*$.ajax({
+               url: "@Url.Action("AddImagesToLawyer2", "Lawyers")",
+               data: data,
+               dataType: "json",
+               type: "POST",
+            error: function (e) {
+
+                alert(" An error occurred." + e.message);
+            },
+            success: function (result) {
+                $("#NoResultEmail").val("");
+                $("#NoResultLookingFor").val("");
+                var url = '@Url.Action("Thanks", "Home")';
+                window.location.href = url;
+            }*@
+
+
+
+        });
+
+    });
+</script>

@@ -15,7 +15,7 @@ namespace LawyersAdda.Controllers
 {
     public class ImageController : Controller
     {
-        ApplicationDbContext db = new ApplicationDbContext();
+        
         // GET: Image
         public ActionResult Index()
         {
@@ -25,7 +25,7 @@ namespace LawyersAdda.Controllers
         public async Task<string> AddImage()
         {
             HttpStatusCode result = new HttpStatusCode();
-            var url = ""; var msg = "";
+            var url = ""; var msg = ""; var finalString = "";
             string lawyerId = Session["LUserId"].ToString();
             if (lawyerId != null && lawyerId.Length != 0)
             {
@@ -57,7 +57,7 @@ namespace LawyersAdda.Controllers
                         for (int i = 0; i < stringChars.Length; i++)
                             stringChars[i] = chars[random.Next(chars.Length)];
 
-                        var finalString = new String(stringChars);
+                        finalString = new String(stringChars);
                         //Random Name
 
                         var blob1 = blobContainer.GetBlockBlobReference(finalString);
@@ -82,20 +82,21 @@ namespace LawyersAdda.Controllers
                 }
             }
 
-            //LawyerImage image = new LawyerImage();
-            //image.ImageUrl = url;
-            //image.isDisplayPic = false;
-            //image.LawyerId = lawyerId;
-
-            ////db.LawyerImages.Add(image);
-            //try
-            //{
-            //    await db.SaveChangesAsync();
-            //}
-            //catch (DbUpdateException)
-            //{
-            //    throw;
-            //}
+            LawyerImage image = new LawyerImage();
+            image.Id = finalString;
+            image.ImageUrl = url;
+            image.isDisplayPic = false;
+            image.LawyerId = lawyerId;
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.LawyerImages.Add(image);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
 
             ImgReturn a = new ImgReturn();
             a.imgUrl = url;

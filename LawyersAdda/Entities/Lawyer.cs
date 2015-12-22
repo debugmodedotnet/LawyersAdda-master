@@ -14,6 +14,7 @@ namespace LawyersAdda.Entities
         {
             Courts = new HashSet<Court>();
             ServiceTypes = new HashSet<ServiceType>();
+            LawyerImages = new HashSet<LawyerImage>();
         }
         [MaxLength(128)]
         [ForeignKey("User")]
@@ -50,12 +51,16 @@ namespace LawyersAdda.Entities
 
         public string CityId { get; set; }
 
-        public string City { get; set; }
+        //public virtual City City { get; set; }
+        //public string City { get; set; }
 
         public virtual ApplicationUser User { get; set; }
 
         public ICollection<Court> Courts { get; set; }
 
         public ICollection<ServiceType> ServiceTypes { get; set; }
+
+        public ICollection<LawyerImage> LawyerImages { get; set; }
+
     }
 }

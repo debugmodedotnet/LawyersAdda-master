@@ -68,7 +68,7 @@ namespace LawyersAdda.Controllers
                     lawyerToAdd.ModifiedDate = DateTime.Now;
                     lawyerToAdd.WebSiteUrl = model.BlogUrl;
                     lawyerToAdd.Id = user.Id;
-                    lawyerToAdd.City = model.City;
+                    lawyerToAdd.CityId = model.City;
                     // lawyerToAdd.User = user;
                     try
                     {

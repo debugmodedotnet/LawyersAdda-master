@@ -9,7 +9,6 @@ namespace LawyersAdda.Entities
 {
     public class City
     {
-        [Required]
         [StringLength(100)]
         public string Id { get; set; }
 

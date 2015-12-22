@@ -6,6 +6,8 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top">
@@ -39,6 +41,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/customjs")
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

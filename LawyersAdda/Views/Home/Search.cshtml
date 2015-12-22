@@ -1,0 +1,118 @@
+﻿@model LawyersAdda.Entities.Lawyer
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+<div>
+    <h4>Lawyer</h4>
+    <hr />
+@foreach (var lawyer in ViewBag.ListOfLawyers)
+{
+    <div class="col-md-4 table-bordered">
+        <img class="img-rounded" />
+        <h4>@lawyer.Name</h4>
+        @foreach (var court in @lawyer.Courts)
+        {
+        @court.Name
+        }
+    </div>
+}
+
+    @*<dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImageUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlternatePhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlternatePhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WebSiteUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WebSiteUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CityId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CityId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>*@
+
+    </dl>
+    
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

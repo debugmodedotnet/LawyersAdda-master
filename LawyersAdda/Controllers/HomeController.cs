@@ -1,6 +1,8 @@
-﻿using LawyersAdda.Models;
+﻿using LawyersAdda.Entities;
+using LawyersAdda.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -27,6 +29,13 @@ namespace LawyersAdda.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult Search(string City, string Service)
+        {
+            //var lawyers = db.Lawyers as DbSet<Lawyer>;
+            ViewBag.ListOfLawyers = (from r in db.Lawyers.Include(i => i.Courts) where r.City.Id == City select r);
             return View();
         }
     }
