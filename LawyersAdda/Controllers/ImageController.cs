@@ -88,6 +88,8 @@ namespace LawyersAdda.Controllers
             image.isDisplayPic = false;
             image.LawyerId = lawyerId;
             ApplicationDbContext db = new ApplicationDbContext();
+            var l = db.Lawyers.Find(lawyerId);
+            l.ImageUrl = url;
             db.LawyerImages.Add(image);
             try
             {

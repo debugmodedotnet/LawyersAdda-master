@@ -96,7 +96,7 @@
                "Service":$("#tbservices").val()
             }
 
-            var url = '@Url.Action("AddImagesToLawyer", "Lawyers")';
+            var url = '@Url.Action("Search", "Home")';
             if ($("#CityList").val() == "" && $("#tbservices").val() == ""){
                 alert("choose options");
                 return;

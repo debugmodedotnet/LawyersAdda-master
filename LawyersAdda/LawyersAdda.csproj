@@ -305,6 +305,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\upload.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\images\avatar_default.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -350,7 +351,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Image\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

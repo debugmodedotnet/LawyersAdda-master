@@ -132,26 +132,6 @@ namespace LawyersAdda.Controllers
             return View();
         }
 
-        [HttpPost]
-        //[AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddCourtToLawyer(Array assignedCourts)
-        {
-            try
-            {
-                var l = GetLawyerById(Session["LUserId"].ToString());
-                l.Courts.Add(db.Courts.Find("1"));
-                db.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                var r = ex.InnerException.Message;
-
-            }
-            return RedirectToAction("Index", "Home");
-
-        }
-
         //Fetching Cities as JSON
         public JsonResult GetCities()
         {
@@ -177,7 +157,44 @@ namespace LawyersAdda.Controllers
             return lawyer;
         }
 
-        //public JsonResult AddCourtsToLawyers(List<>)
+        //add court to lawyer
+        public JsonResult SaveCourtsToLawyers(List<string> courts)
+        {
+            var l = GetLawyerById(Session["LUserId"].ToString());
+            try
+            {
+                foreach (var court in courts)
+                {
+                    var courtToAdd = db.Courts.Find(court);
+                    l.Courts.Add(courtToAdd);
+                }
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return Json(false);
+            }
+            return Json(true);
+        }
+
+        //add services to lawyer
+        public JsonResult SaveServicesToLawyers(List<string> services)
+        {
+            var l = GetLawyerById(Session["LUserId"].ToString());
+            try
+            {
+                foreach (var service in services)
+                {
+                    l.ServiceTypes.Add(db.ServiceTypes.Find(service));
+                }
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return Json(false);
+            }
+            return Json(true);
+        }
 
 
         // GET: Lawyers/Edit/5

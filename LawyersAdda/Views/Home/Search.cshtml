@@ -9,17 +9,25 @@
 <div>
     <h4>Lawyer</h4>
     <hr />
-@foreach (var lawyer in ViewBag.ListOfLawyers)
-{
-    <div class="col-md-4 table-bordered">
-        <img class="img-rounded" />
-        <h4>@lawyer.Name</h4>
-        @foreach (var court in @lawyer.Courts)
+    <div class="row">
+        @{}
+        @foreach (var lawyer in ViewBag.ListOfLawyers)
         {
-        @court.Name
+            string img = "../images/avatar_default.png";
+            if (lawyer.ImageUrl != "")
+            {
+                img = lawyer.ImageUrl;
+            }
+            <div class="col-md-4 panel-body table-bordered">
+                <img class="img-circle left" height="100px" src="@img" />
+                <b>@lawyer.Name</b>
+                @foreach (var court in @lawyer.Courts)
+                {
+                    @court.Name
+                }
+            </div>
         }
     </div>
-}
 
     @*<dl class="dl-horizontal">
         <dt>
@@ -111,7 +119,7 @@
         </dd>*@
 
     </dl>
-    
+
 </div>
 <p>
     @Html.ActionLink("Back to List", "Index")

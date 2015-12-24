@@ -45,6 +45,17 @@
     }
 
     function addServiceToLawyer() {
-        alert("Add these services" + lawyerServices);
+        $.ajax({
+            url: '@Url.Action("SaveServicesToLawyers", "Lawyers")',
+            type: 'POST',
+            data: {
+                "services": lawyerServices
+            },
+            success: function (data) {
+                alert(data);
+                var url = '@Url.Action("AddImagesToLawyer", "Lawyers")';
+                window.location.href = url;
+            }
+        });
     }
 </script>

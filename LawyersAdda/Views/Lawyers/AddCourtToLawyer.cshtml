@@ -66,6 +66,7 @@
     $(document).ready(function () {
 
         var courtsoflawyer = [];
+        var courtListToSave = [];
 
         $.ajax({
             cache: false,
@@ -155,6 +156,7 @@
             }
             else {
                 courtsoflawyer.push(objcourtsoflawyer);
+                courtListToSave.push(courtid);
                 $("#courttable").append('<tr><td>' + cityname + '</td><td>' + courtname + '</td><td><button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>');
                 $("#courttable").css('visibility', 'visible');
                 $("#btnSaveStep2").css('visibility', 'visible');
@@ -168,15 +170,17 @@
 
         $('#btnSaveStep2').click(function () {
 
-
-            var courttosave = JSON.stringify(courtsoflawyer);
-            alert(courttosave);
-
             $.ajax({
-                url: '@Url.Action("GetCities")',
-                method: 'POST',
-                data: courttosave,
-                success: function(data) { alert(data); }
+                url: '@Url.Action("SaveCourtsToLawyers", "Lawyers")',
+                type: 'POST',
+                data: {
+                    "courts": courtListToSave
+                },
+                success: function (data) {
+                    alert(data);
+                    var url = '@Url.Action("AddServiceToLawyer", "Lawyers")';
+                    window.location.href = url;
+                }
             });
 
 

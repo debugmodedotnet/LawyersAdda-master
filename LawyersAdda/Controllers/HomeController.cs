@@ -35,7 +35,7 @@ namespace LawyersAdda.Controllers
         public ActionResult Search(string City, string Service)
         {
             //var lawyers = db.Lawyers as DbSet<Lawyer>;
-            ViewBag.ListOfLawyers = (from r in db.Lawyers.Include(i => i.Courts) where r.City.Id == City select r);
+            ViewBag.ListOfLawyers = (from r in db.Lawyers.Include(i => i.Courts) where r.CityId == City select r);
             return View();
         }
     }
