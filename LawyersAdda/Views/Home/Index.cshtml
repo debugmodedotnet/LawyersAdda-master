@@ -1,135 +1,54 @@
-﻿<script src="~/Scripts/jquery-2.1.4.js"></script>
-<style>
-    .ui-autocomplete {
-        cursor: pointer;
-        height: 120px;
-        overflow-y: scroll;
-    }
-</style>
+﻿
+@*<script src="~/Scripts/jquery-2.1.4.js"></script>*@
+
+
 
 @{
     ViewBag.Title = "Home Page";
 }
-<header class="business-header">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="tagline text-center">One Stop Place for law advice and consulting</h1>
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="input-group">
-                        @Html.DropDownList("CityList", new SelectList(ViewBag.Cities, "Id", "CityName"), "Select your city", new {@id="CityList", @class = "form-control" })
-                        <span class="input-group-addon"></span>
-                        <input type="text" id="tbservices" onfocus="getC();" onchange="getC();" class="form-control" placeholder="Search by lawyer, court, location...">
-                        <span class="input-group-btn">
-                            <button id="searchbtn" class="btn btn-default" type="button">Go!</button>
-                        </span>
-                    </div>
-                    <div class="col-md-8" id="popularSearch">
-                        <span class="tag">Popular: </span><span>shubham saxena</span>
+
+ <header class="business-header">
+        <div class="container">
+         
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="tagline text-center">One Stop Place for law advice and consulting</h1>
+                        <div class="col-md-4">
+
+                            @Html.DropDownList("CityList", new SelectList(ViewBag.Cities, "Id", "CityName"), "Select city", new {@id="CityList", @class = "form-control" })
+
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("LawServiceList", new SelectList(ViewBag.LawServices, "Id", "Name"), "Select Service", new { @id = "ServiceList", @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+
+                            <button id="searchbtn" class="btn btn-danger" type="button">SEARCH</button>
+
+                        </div>
+
+
+
+                        @*<div class="col-md-8" id="popularSearch">
+                <span class="tag">Popular: </span><span>Delhi</span>
+            </div>*@
+
+                        <video autoplay loop poster="polina.jpg" id="bgvid">
+                            <source src="http://d2w4gictyunaqp.cloudfront.net/vid/home-hero.webm" type="video/webm">
+                            <source src="http://d2w4gictyunaqp.cloudfront.net/vid/home-hero.mp4" type="video/mp4">
+                        </video>
                     </div>
                 </div>
-                <video autoplay loop poster="polina.jpg" id="bgvid">
-                    <source src="http://d2w4gictyunaqp.cloudfront.net/vid/home-hero.webm" type="video/webm">
-                    <source src="http://d2w4gictyunaqp.cloudfront.net/vid/home-hero.mp4" type="video/mp4">
-                </video>
-            </div>
+          
         </div>
-    </div>
+
 </header>
 
-<div class="container">
-    <hr>
-    <div class="row">
-        <div class="col-sm-8">
-            <h2>What We Do</h2>
-            <p>Introduce the visitor to the business using clear, informative text. Use well-targeted keywords within your sentences to make sure search engines can find the business.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et molestiae similique eligendi reiciendis sunt distinctio odit? Quia, neque, ipsa, adipisci quisquam ullam deserunt accusantium illo iste exercitationem nemo voluptates asperiores.</p>
-            <p>
-                <a class="btn btn-default btn-lg" href="#">Call to Action &raquo;</a>
-            </p>
-        </div>
-        <div class="col-sm-4">
-            <h2>Contact Us</h2>
-            <address>
-                <strong>Start Bootstrap</strong>
-                <br>3481 Melrose Place
-                <br>Beverly Hills, CA 90210
-                <br>
-            </address>
-            <address>
-                <abbr title="Phone">P:</abbr>(123) 456-7890
-                <br>
-                <abbr title="Email">E:</abbr> <a href="mailto:#">name@example.com</a>
-            </address>
-        </div>
-    </div>
-    <!-- /.row -->
-    <hr>
-    <div class="row">
-        <div class="col-sm-4">
-            <img class="img-circle img-responsive img-center" src="http://placehold.it/300x300" alt="">
-            <h2>Marketing Box #1</h2>
-            <p>These marketing boxes are a great place to put some information. These can contain summaries of what the company does, promotional information, or anything else that is relevant to the company. These will usually be below-the-fold.</p>
-        </div>
-        <div class="col-sm-4">
-            <img class="img-circle img-responsive img-center" src="http://placehold.it/300x300" alt="">
-            <h2>Marketing Box #2</h2>
-            <p>The images are set to be circular and responsive. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
-        </div>
-        <div class="col-sm-4">
-            <img class="img-circle img-responsive img-center" src="http://placehold.it/300x300" alt="">
-            <h2>Marketing Box #3</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
-        </div>
-    </div>
+
+<div class="row">
+    <h1> lasnlknsadlknsalk</h1>
 </div>
 
 
 
-<script>
-    $(function () {
 
-        $("#searchbtn").click(function () {
-
-            var data = {
-                "City":$("#CityList").val(),
-               "Service":$("#tbservices").val()
-            }
-
-            var url = '@Url.Action("Search", "Home")';
-            if ($("#CityList").val() == "" && $("#tbservices").val() == ""){
-                alert("choose options");
-                return;
-            }
-            else if ($("#CityList").val() != "" && $("#tbservices").val() == ""){
-                url = url + "?city=" + $("#CityList").val();
-            }
-            else if ($("#CityList").val() == "" && $("#tbservices").val() != ""){
-                url = url + "?service=" + $("#tbservices").val();
-            }
-            else
-                url = url + "?city=" + $("#CityList").val() + "service=" + $("#tbservices").val();
-            window.location.href = url;
-
-            @*$.ajax({
-               url: "@Url.Action("AddImagesToLawyer2", "Lawyers")",
-               data: data,
-               dataType: "json",
-               type: "POST",
-            error: function (e) {
-
-                alert(" An error occurred." + e.message);
-            },
-            success: function (result) {
-                $("#NoResultEmail").val("");
-                $("#NoResultLookingFor").val("");
-                var url = '@Url.Action("Thanks", "Home")';
-                window.location.href = url;
-            }*@
-
-
-
-        });
-
-    });
-</script>

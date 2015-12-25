@@ -14,23 +14,19 @@ namespace LawyersAdda.Controllers
         ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            ViewBag.Cities = (from r in db.Cities select r);
+            var cities = from r in db.Cities select r;
+            ViewBag.Cities = cities;
+            var lawservices = from r in db.ServiceTypes select r;
+            ViewBag.LawServices = lawservices;
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult GetCities()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            var cities = from r in db.Cities select r;
+            return Json(cities, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
 
         public ActionResult Search(string City, string Service)
         {
