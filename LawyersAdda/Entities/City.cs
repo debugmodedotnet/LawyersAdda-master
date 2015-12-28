@@ -23,5 +23,6 @@ namespace LawyersAdda.Entities
 
         [Required]
         public bool isPriority { get; set; }
+        //sldnlkdsnflds
     }
 }
