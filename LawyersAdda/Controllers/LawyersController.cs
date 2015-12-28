@@ -280,7 +280,8 @@ namespace LawyersAdda.Controllers
                 foreach (ServiceType s in l.ServiceTypes)
                 {
                     lstServices.Add(s);
-                }
+                } 
+
             }            
             return View("SearchLawyer", lstLawyers);
         }
