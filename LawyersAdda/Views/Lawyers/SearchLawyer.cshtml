@@ -1,4 +1,6 @@
-﻿@model IEnumerable<LawyersAdda.Entities.Lawyer>
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList<LawyersAdda.Entities.Lawyer>
 @{
     ViewBag.Title = "Lawyers";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,31 +8,54 @@
 
 <h2>Lawyers</h2>
 <div class="container">
-    @foreach (var item in Model)
-    {
-        <div class="row" style="border:1px solid #cccccc">
-            <div class="col-md-2"><br /><img src="@item.ImageUrl" style="width:100%;" /></div>
-            <div class="col-md-6">
-                <h3 style="text-transform:capitalize"><a href="#"> @item.Name </a></h3><br />
-                <p>
-                    @item.Bio
-                </p>
-                <p>Services : 
-                    @foreach (var service in item.ServiceTypes)
-                    {
-                        <a href="#"> @service.Name ,</a>
-                    }
-                </p>
-            </div>
-            <div class="col-md-4">
-                <p>
-                    <br />
-                    <i class="glyphicon glyphicon-envelope"> </i> @item.Email <br />
-                    <i class="glyphicon glyphicon-earphone"> </i> @item.PhoneNumber , @item.AlternatePhoneNumber <br />
-                    <i class="glyphicon glyphicon-globe"> </i> @item.WebSiteUrl <br />
-                    <i class="glyphicon glyphicon-map-marker"> </i> @item.City.CityName <br />
-                </p>
-            </div>
+    <div class="col-md-12">
+        <div class="col-md-2">
+            filter area
         </div>
-    }
+        <div class="col-md-10">
+            @foreach (var item in Model)
+            {
+                <div class="row" style="border:1px solid #cccccc;margin-bottom:5px;">
+                    <div class="col-md-2">
+                        @if (item.ImageUrl != null)
+                            {
+                                <img class="img-responsive img-rounded" src="@item.ImageUrl" style="width:100%;" />
+                            }
+                            else
+                            {
+                                <img class="img-responsive img-rounded" src="~/images/avatar_default.png" style="width:100%;" />
+                            }
+
+                    </div>
+                    <div class="col-md-4">
+                        <h3 style="text-transform:capitalize"><a href="#"> @item.Name </a></h3><br />
+                        <p>
+                            @item.Bio
+                        </p>
+                        <p>
+                            Services :
+                            @foreach (var service in item.ServiceTypes)
+                                {
+                                    <a href="#"> @service.Name ,</a>
+                                }
+                        </p>
+                    </div>
+                    <div class="col-md-4 pull-right">
+                        <p>
+                            <br />
+                            <i class="glyphicon glyphicon-envelope"> </i> @item.Email <br />
+                            <i class="glyphicon glyphicon-earphone"> </i> @item.PhoneNumber , @item.AlternatePhoneNumber <br />
+                            <i class="glyphicon glyphicon-globe"> </i> @item.WebSiteUrl <br />
+                            <i class="glyphicon glyphicon-map-marker"> </i> @item.City.CityName <br />
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="pagedList text-center">
+        @Html.PagedListPager(Model, page => Url.Action("SearchLawyer", new { LawyerName = @Request.QueryString["LawyerName"], CityID = @Request.QueryString["CityID"], page }))
+        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Lawyers found
+    </div>
 </div>

@@ -3,6 +3,8 @@ using LawyersAdda.Models;
 using LawyersAdda.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using PagedList;
+using PagedList.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
@@ -285,7 +287,7 @@ namespace LawyersAdda.Controllers
             }            
             return View("SearchLawyer", lstLawyers);
         }
-        public ActionResult SearchLawyer(string LawyerName, string CityID)
+        public ActionResult SearchLawyer(string LawyerName, string CityID, int page=1,int pageSize=2)
         {
             ApplicationDbContext context = new ApplicationDbContext();
             List<ServiceType> lstServices;
@@ -300,13 +302,17 @@ namespace LawyersAdda.Controllers
                     lstServices.Add(s);
                 }
             }
-            if (CityID==string.Empty)
+            if (CityID==null || CityID.Length == 0)
             {
-                return View(lstLawyers);
+                PagedList<Lawyer> model = new PagedList<Lawyer>(lstLawyers, page, pageSize);
+                return View(model);
+                //return View(lstLawyers);
             }
             else
             {
-                return View(lstLawyers.Where(t=>t.CityId==CityID));
+                PagedList<Lawyer> model = new PagedList<Lawyer>(lstLawyers.Where(t => t.CityId == CityID), page, pageSize);
+                return View(model);
+                    //return View(lstLawyers.Where(t=>t.CityId==CityID));
             }
         }
     }
