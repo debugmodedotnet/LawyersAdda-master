@@ -51,7 +51,7 @@ namespace LawyersAdda.Entities
 
         public string CityId { get; set; }
 
-        //public virtual City City { get; set; }
+        public virtual City City { get; set; }
         //public string City { get; set; }
 
         public virtual ApplicationUser User { get; set; }

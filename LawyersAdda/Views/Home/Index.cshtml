@@ -1,46 +1,38 @@
-﻿
-@*<script src="~/Scripts/jquery-2.1.4.js"></script>*@
-
-
-
+﻿@*<script src="~/Scripts/jquery-2.1.4.js"></script>*@
 @{
     ViewBag.Title = "Home Page";
 }
+<header class="business-header">
+    <div class="container">
 
- <header class="business-header">
-        <div class="container">
-         
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="tagline text-center">One Stop Place for law advice and consulting</h1>
-                        <div class="col-md-4">
-
-                            @Html.DropDownList("CityList", new SelectList(ViewBag.Cities, "Id", "CityName"), "Select city", new {@id="CityList", @class = "form-control" })
-
-                        </div>
-                        <div class="col-md-4">
-                            @Html.DropDownList("LawServiceList", new SelectList(ViewBag.LawServices, "Id", "Name"), "Select Service", new { @id = "ServiceList", @class = "form-control" })
-                        </div>
-                        <div class="col-md-4">
-
-                            <button id="searchbtn" class="btn btn-danger" type="button">SEARCH</button>
-
-                        </div>
-
-
-
-                        @*<div class="col-md-8" id="popularSearch">
-                <span class="tag">Popular: </span><span>Delhi</span>
-            </div>*@
-
-                        <video autoplay loop poster="polina.jpg" id="bgvid">
-                            <source src="http://d2w4gictyunaqp.cloudfront.net/vid/home-hero.webm" type="video/webm">
-                            <source src="http://d2w4gictyunaqp.cloudfront.net/vid/home-hero.mp4" type="video/mp4">
-                        </video>
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="tagline text-center">One Stop Place for law advice and consulting</h1>
+                <form action="/Lawyers/SearchLawyers">
+                    <div class="col-md-4">
+                        @Html.DropDownList("CityList", new SelectList(ViewBag.Cities, "Id", "CityName"), "Select city", new { @id = "CityList", @class = "form-control" })
                     </div>
-                </div>
-          
+                    <div class="col-md-4">
+                        @Html.DropDownList("LawServiceList", new SelectList(ViewBag.LawServices, "Id", "Name"), "Select Service", new { @id = "ServiceList", @class = "form-control" })
+                    </div>
+                    <div class="col-md-4">
+
+                        <button id="searchbtn" class="btn btn-danger" type="submit">SEARCH</button>
+
+                    </div>
+                </form>
+                @*<div class="col-md-8" id="popularSearch">
+                        <span class="tag">Popular: </span><span>Delhi</span>
+                    </div>*@
+
+                <video autoplay loop poster="polina.jpg" id="bgvid">
+                    <source src="http://d2w4gictyunaqp.cloudfront.net/vid/home-hero.webm" type="video/webm">
+                    <source src="http://d2w4gictyunaqp.cloudfront.net/vid/home-hero.mp4" type="video/mp4">
+                </video>
+            </div>
         </div>
+
+    </div>
 
 </header>
 
@@ -48,7 +40,4 @@
 <div class="row">
     <h1> lasnlknsadlknsalk</h1>
 </div>
-
-
-
-
+<script src="/Scripts/jquery-2.1.4.js"></script>

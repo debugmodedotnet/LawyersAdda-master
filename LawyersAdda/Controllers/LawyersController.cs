@@ -138,7 +138,6 @@ namespace LawyersAdda.Controllers
             ApplicationDbContext context = new ApplicationDbContext();
             var cities = from r in context.Cities select r;
             return Json(cities, JsonRequestBehavior.AllowGet);
-
         }
 
         // Fetching Courts of a city as JSON
@@ -261,6 +260,52 @@ namespace LawyersAdda.Controllers
             private set
             {
                 _signInManager = value;
+            }
+        }
+        public ActionResult GetLawyers()
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+            return Json(context.Lawyers.Select(t=>t.Name).ToList() ,JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult SearchLawyers(string CityList, string LawServiceList)
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+            List<ServiceType> lstServices;
+            List<Lawyer> lstLawyers;
+            lstServices = context.ServiceTypes.Where(t=>t.Id==LawServiceList).ToList();
+            lstLawyers = context.Lawyers.Where(t=>t.CityId==CityList).ToList();
+            foreach (Lawyer l in lstLawyers)
+            {
+                context.Entry(l).Collection(t => t.ServiceTypes).Load();
+                foreach (ServiceType s in l.ServiceTypes)
+                {
+                    lstServices.Add(s);
+                }
+            }            
+            return View("SearchLawyer", lstLawyers);
+        }
+        public ActionResult SearchLawyer(string LawyerName, string CityID)
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+            List<ServiceType> lstServices;
+            List<Lawyer> lstLawyers;
+            lstServices = context.ServiceTypes.ToList();
+            lstLawyers = context.Lawyers.Where(t => t.Name.Contains(LawyerName)).ToList();
+            foreach (Lawyer l in lstLawyers)
+            {
+                context.Entry(l).Collection(t => t.ServiceTypes).Load();
+                foreach(ServiceType s in l.ServiceTypes)
+                {
+                    lstServices.Add(s);
+                }
+            }
+            if (CityID==string.Empty)
+            {
+                return View(lstLawyers);
+            }
+            else
+            {
+                return View(lstLawyers.Where(t=>t.CityId==CityID));
             }
         }
     }

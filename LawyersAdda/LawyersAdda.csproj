@@ -238,6 +238,10 @@
     <Compile Include="Migrations\201512211303482_LawyerImages.Designer.cs">
       <DependentUpon>201512211303482_LawyerImages.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512261454296_Initial1.cs" />
+    <Compile Include="Migrations\201512261454296_Initial1.Designer.cs">
+      <DependentUpon>201512261454296_Initial1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -292,6 +296,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bloodhound.js" />
     <Content Include="Scripts\bloodhound.min.js" />
+    <Content Include="Scripts\bootstrap-typeahead - old.js" />
+    <Content Include="Scripts\bootstrap-typeahead.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -359,6 +365,7 @@
     <Content Include="Views\Lawyers\AddServiceToLawyer.cshtml" />
     <Content Include="Views\Lawyers\AddImagesToLawyer.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Lawyers\SearchLawyer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -379,6 +386,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512211303482_LawyerImages.resx">
       <DependentUpon>201512211303482_LawyerImages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512261454296_Initial1.resx">
+      <DependentUpon>201512261454296_Initial1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

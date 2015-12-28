@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-  
+
     <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
 
 </head>
@@ -26,7 +26,20 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                  
+                    <li>
+                        <form class="navbar-form" action="/Lawyers/SearchLawyer" role="search">
+                            <div class="input-group">
+                                <input type="text" id="Lawyer" data-provide="typeahead" class="form-control" name="LawyerName" placeholder="Search Lawyer">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default">in</button>
+                                    <button data-toggle="dropdown" class="btn btn-default dropdown-toggle searchMain" style="width: 150 px;"><span id="drop-down-span">ALL</span> <b class="caret"></b></button>
+                                    <ul class="dropdown-menu" id="city-dropdown"></ul>
+                                    <input type="hidden" id="CityID" name="CityID" value="" />
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                    @RenderSection("menu", required: false)
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -42,10 +55,78 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-   
     @Scripts.Render("~/bundles/customjs")
+    <script>
+        $(function () {
+            // Setup drop down menu
+            $('.dropdown-toggle').dropdown();
+
+            // Fix input element click problem
+            $('.dropdown input, .dropdown label').click(function (e) {
+                e.stopPropagation();
+            });
+            $('.dropdown select, .dropdown label').click(function (e) {
+                e.stopPropagation();
+            });
+        });
+        $(document).ready(function () {
+            $('#city-dropdown').empty();
+            $.ajax({
+                type: 'POST',
+                url: '/Lawyers/GetCities',
+                dataType: 'json',
+                data: { id: $("#city-dropdown").val() },
+                success: function (data) {
+                    var items = '';
+                    $.each(data, function (i, item) {
+                        var cities = "<li><a href='#' onclick='onCityClick(this);' id=" + item.Id + ">" + item.CityName + "</a></li>";
+                        $('#city-dropdown').append(cities);
+                    });
+
+                },
+                error: function (ex) {
+                    var r = jQuery.parseJSON(response.responseText);
+                    alert("Message:" + r.Message);
+                    alert("StackTrace: " + r.StackTrace);
+                    alert("ExceptionType: " + r.ExceptionType);
+                }
+            });
+        });
+        function onCityClick(City){
+            $("#drop-down-span").text($(City).text());
+            $("#CityID").val($(City).attr("id"));
+        }
+
+
+        $("#Lawyer").typeahead({
+            source: function (query, process) {
+                var lawers = [];
+                map = {};
+                // This is going to make an HTTP post request to the controller
+                return $.post('/Lawyers/GetLawyers', { query: query }, function (data) {
+
+                    // Loop through and push to the array
+                    $.each(data, function (i, Lawyer) {
+                        map[Lawyer.Name] = Lawyer;
+                        lawers.push(Lawyer.Name);
+                        alert(Lawyer.Name);
+                    });
+
+                    // Process the details
+                    process(lawers);
+                });
+            },
+            updater: function (item) {
+                //var selectedShortCode = map[item].ShortCode;
+
+                // Set the text to our selected id
+                //$("#details").text("Selected : " + selectedShortCode);
+                return item;
+            }
+        });
+    </script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-   
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
