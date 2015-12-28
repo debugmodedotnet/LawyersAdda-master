@@ -218,10 +218,12 @@
     <Compile Include="Controllers\ImgReturn.cs" />
     <Compile Include="Controllers\LawyersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Entities\City.cs" />
     <Compile Include="Entities\Court.cs" />
     <Compile Include="Entities\Lawyer.cs" />
     <Compile Include="Entities\LawyerImage.cs" />
+    <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\ServiceType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -366,6 +368,7 @@
     <Content Include="Views\Lawyers\AddImagesToLawyer.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Lawyers\SearchLawyer.cshtml" />
+    <Content Include="Views\Questions\AskQuestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

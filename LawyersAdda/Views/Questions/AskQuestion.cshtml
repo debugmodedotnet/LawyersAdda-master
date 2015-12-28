@@ -1,0 +1,47 @@
+﻿@model LawyersAdda.Entities.Question
+
+@{
+    ViewBag.Title = "AskQuestion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ask Question</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Question</h4>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.HTMLText, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.HTMLText, new { htmlAttributes = new { @class = "form-control", @rows = 10 } })
+                @Html.ValidationMessageFor(model => model.HTMLText)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ServiceID,"Service", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ServiceID", new SelectList(ViewBag.LawServices, "Id", "Name"), "Select Service", new { @id = "ServiceList", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit Question" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
