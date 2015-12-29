@@ -1,0 +1,31 @@
+﻿@model LawyersAdda.Entities.Question
+
+@{
+    ViewBag.Title = "QuestionInDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>QuestionInDetails</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AskQuestion")
+</p>
+<div class="container">
+        <div>
+            <div>
+                <h3><strong>Question : </strong> @ViewBag.Questions.Title </h3>
+            </div>
+            <div>
+                <strong>Date : </strong> @ViewBag.Questions.ModifiedDate 
+            </div>
+            <div>
+                <strong>
+                    Question(in Detail):
+                </strong><br/>
+                    @Html.Raw(@ViewBag.Questions.HTMLText)
+            </div>
+            <div>
+                <a href="/Answers/GiveAnswer/@ViewBag.Questions.QuestionID"> <button class="btn btn-default"> Give Answer </button></a>
+            </div>
+        </div>
+</div>

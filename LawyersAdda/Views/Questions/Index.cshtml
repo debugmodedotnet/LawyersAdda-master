@@ -1,0 +1,70 @@
+﻿@model IEnumerable<LawyersAdda.Entities.Question>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AskQuestion")
+</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                @Html.DropDownList("DateWiseSorting", new List<SelectListItem>() { new SelectListItem { Text = "Latest", Value = "1" }, new SelectListItem { Text = "Oldest", Value = "2" } }, new { @class = "form-control" })
+            </div>
+            <div class="col-md-10">
+                <label class="radio-inline"><input type="radio" class="SelectQuestion" value="1" name="SelectQuestion" checked="checked">ALL</label>
+                <label class="radio-inline"><input type="radio" class="SelectQuestion" value="2" name="SelectQuestion">Answered</label>
+                <label class="radio-inline"><input type="radio" class="SelectQuestion" value="3" name="SelectQuestion">Pending</label>
+            </div>
+     </div>
+@foreach (var item in Model)
+{
+    <div class="row" style="margin-bottom:5px;">
+        @if (item.isAnswered)
+        {
+            <div class="col-md-2" style="font-size: 50px; color: #007128">
+                <i class="glyphicon glyphicon-ok-circle" style="top:15px;"></i>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-2" style="font-size: 50px; color: #b90000">
+                <i class="glyphicon glyphicon-remove-circle" style="top:15px;"></i>
+            </div>
+        }
+        <div class="col-md-8">
+            <h3> @item.Title </h3>
+            <p> @item.ModifiedDate <br/>
+            @Html.Raw(@item.HTMLText)
+            @item.Services.Name<br/>
+            </p>
+        </div>
+        <div class="col-md-2" style="margin-top:25px;">
+            <button class="btn btn-default"> View </button>
+        </div>
+    </div>
+}
+    </div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#DateWiseSorting").val(@ViewBag.Order);
+            $("input[name=SelectQuestion]:checked").val(@ViewBag.SelectQuestion);
+        });
+        $("#DateWiseSorting").change(function () {
+            LoadQuestion();
+        });
+        $("input[name=SelectQuestion]:radio").change(function () {
+            LoadQuestion();
+        });
+        function LoadQuestion() {
+            var Order = $("#DateWiseSorting").val();
+            var SelectQuestion = $("input[name=SelectQuestion]:checked").val();
+            window.location.href="/Questions/Index?Order=" + Order + "&SelectQuestion=" + SelectQuestion;
+        }
+    </script>
+}

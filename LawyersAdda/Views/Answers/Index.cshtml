@@ -1,0 +1,27 @@
+﻿    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "AskQuestion")
+    </p>
+    <div class="container">
+        @foreach (var item in ViewBag.Questions)
+        {
+            <div class="row" style="margin-bottom:5px;">
+                <div class="col-md-8">
+                    <h3> @item.Title </h3>
+                    <p> @item.ModifiedDate <br/>
+                    <strong>Aksed By</strong> : @item.User.UserName<br/>
+                    <strong>Service Type : </strong>@item.Services.Name
+                </div>
+                <div class="col-md-4" style="margin-top:25px;">
+                    <a href="/Answers/QuestionInDetails/@item.QuestionID"> <button class="btn btn-default"> View Question </button></a>
+                    <a href="/Answers/GiveAnswer/@item.QuestionID"> <button class="btn btn-default"> Give Answer </button></a>
+                </div>
+            </div>
+        }
+    </div>

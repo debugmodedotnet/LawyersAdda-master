@@ -11,6 +11,12 @@ namespace LawyersAdda.Entities
 {
     public class Question
     {
+        public Question()
+        {
+            
+        }
+
+        [Required]
         public string QuestionID { get; set; }
         [Required]
         public DateTime CreatedDate { get; set; }
@@ -23,8 +29,10 @@ namespace LawyersAdda.Entities
         [Required]
         [AllowHtml]
         [UIHint("tinymce_full_compressed")]
-        [Display(Name = "Page Content")]
+        [Display(Name = "HTML Text")]
         public string HTMLText { get; set; }
+
+        [ForeignKey("Services")]
         public string ServiceID { get; set; }
 
         [MaxLength(128)]
@@ -32,5 +40,6 @@ namespace LawyersAdda.Entities
         public string UserID { get; set; }
         public bool isAnswered { get; set; }
         public virtual ApplicationUser User { get; set; }
+        public virtual ServiceType Services { get; set; }
     }
 }

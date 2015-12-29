@@ -1,0 +1,47 @@
+﻿@model LawyersAdda.Entities.Answer
+
+@{
+    ViewBag.Title = "GiveAnswer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Give Answer</h2>
+<hr />
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+        <h4><strong>Question : </strong> @ViewBag.Questions.Title </h4><br/>
+        <strong>Date : </strong> @ViewBag.Questions.ModifiedDate
+    </div>
+</div>
+<hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+                @Html.LabelFor(model => model.HTMLText, "Your Answer", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.HTMLText)
+                    @Html.ValidationMessageFor(model => model.HTMLText)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.HiddenFor(@model => model.QuestionID, new { @value = @ViewBag.Questions.QuestionID })
+                    @Html.ValidationMessageFor(model => model.QuestionID)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Submit Your Answer" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
