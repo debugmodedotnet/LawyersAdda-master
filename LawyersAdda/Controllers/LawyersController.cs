@@ -205,6 +205,7 @@ namespace LawyersAdda.Controllers
         }
 
         // POST: Lawyers/Edit/5
+        //testing
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -287,7 +288,7 @@ namespace LawyersAdda.Controllers
             }            
             return View("SearchLawyer", lstLawyers);
         }
-        public ActionResult SearchLawyer(string LawyerName, string CityID, int page=1,int pageSize=2)
+        public ActionResult SearchLawyer(string LawyerName, string CityID, int page=1,int pageSize=5)
         {
             ApplicationDbContext context = new ApplicationDbContext();
             List<ServiceType> lstServices;
