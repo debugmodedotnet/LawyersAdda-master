@@ -270,7 +270,7 @@ namespace LawyersAdda.Controllers
             ApplicationDbContext context = new ApplicationDbContext();
             return Json(context.Lawyers.Select(t=>t.Name).ToList() ,JsonRequestBehavior.AllowGet);
         }
-        public ActionResult SearchLawyers(string CityList, string LawServiceList)
+        public ActionResult SearchLawyers(string CityList, string LawServiceList, int page = 1, int pageSize = 2)
         {
             ApplicationDbContext context = new ApplicationDbContext();
             List<ServiceType> lstServices;
@@ -285,10 +285,11 @@ namespace LawyersAdda.Controllers
                     lstServices.Add(s);
                 } 
 
-            }            
-            return View("SearchLawyer", lstLawyers);
+            }
+            PagedList<Lawyer> model = new PagedList<Lawyer>(lstLawyers, page, pageSize);
+            return View("SearchLawyer", model);
         }
-        public ActionResult SearchLawyer(string LawyerName, string CityID, int page=1,int pageSize=5)
+        public ActionResult SearchLawyer(string LawyerName, string CityID, int page=1,int pageSize=2)
         {
             ApplicationDbContext context = new ApplicationDbContext();
             List<ServiceType> lstServices;
