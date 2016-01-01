@@ -1,0 +1,85 @@
+﻿@model  IEnumerable<LawyersAdda.Entities.Answer>
+
+@{
+    ViewBag.Title = "Lawyer Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="jumbotron">
+                <div>
+                    <img src="@ViewBag.user.Lawyer.ImageUrl" class="img-circle img-responsive" />
+                </div><br />
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-md-9">
+                            Total Given Answer
+                        </div>
+                        <div class="col-md-3">
+                             @Model.Count() 
+                        </div>
+                    </div>
+                </div>
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-md-9">
+                            Accepted Answers
+                        </div>
+                        <div class="col-md-3">
+                            @Model.Where(t => t.IsAccepted == true).Count()
+                        </div>
+                    </div>
+                </div>
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-md-9">
+                            Rejected Answers
+                        </div>
+                        <div class="col-md-3">
+                            @Model.Where(t => t.IsAccepted == false).Count()
+                        </div>
+                    </div>
+                </div>
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-md-9">
+                            pending Answers
+                        </div>
+                        <div class="col-md-3">
+                            @Model.Where(t => t.IsAccepted == null).Count()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 bg-info">
+            <br />
+            <h1> @ViewBag.user.FullName</h1>
+            <p class="text-justify">
+                @ViewBag.user.Lawyer.Bio
+            </p>
+            <strong>Email : </strong>@ViewBag.User.Lawyer.Email<br />
+            <strong>Phone : </strong>@ViewBag.User.Lawyer.PhoneNumber<br />
+            <strong>Gender : </strong>@ViewBag.User.Lawyer.Sex<br />
+            <strong>Phone : </strong>@ViewBag.User.Lawyer.PhoneNumber<br />
+            <strong>Services : </strong>
+            @foreach (var service in @ViewBag.User.Lawyer.ServiceTypes)
+            {
+                <span>@service.Name , </span>
+            }
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        </div>
+    </div>
+    <div>
+        <h4>Recent Answers</h4><br/>
+        @foreach (var item in Model)
+        {
+            <div class="well">
+               <a href="#"> @item.Questions.Title </a><br />
+                @item.AnswerModifiedDate
+            </div>
+        }
+    </div>
+</div>
+

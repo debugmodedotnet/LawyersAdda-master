@@ -1,0 +1,88 @@
+﻿@model IEnumerable<LawyersAdda.Entities.Question>
+
+@{
+    ViewBag.Title = "User Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Profile</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="jumbotron">
+                <div>
+                    <h3> @ViewBag.user.FullName</h3>
+                    <strong>Email : </strong>@ViewBag.User.Email<br />
+                    <strong>Phone : </strong>@ViewBag.User.PhoneNumber<br />
+                </div><br />
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-md-9">
+                            Total Asked Answer
+                        </div>
+                        <div class="col-md-3">
+                            @Model.Count()
+                        </div>
+                    </div>
+                </div>
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-md-9">
+                            Accepted Questions
+                        </div>
+                        <div class="col-md-3">
+                            @Model.Where(t => t.isAnswered == true).Count()
+                        </div>
+                    </div>
+                </div>
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-md-9">
+                            Pending Questions
+                        </div>
+                        <div class="col-md-3">
+                            @Model.Where(t => t.isAnswered == false).Count()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 bg-info">
+            @foreach (var item in Model)
+            {
+                <div class="row" style="margin-bottom:5px;">
+                    @if (item.isAnswered)
+                    {
+                        <div class="col-md-2" style="font-size: 50px; color: #007128">
+                            <i class="glyphicon glyphicon-ok-circle" style="top:15px;"></i>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-2" style="font-size: 50px; color: #b90000">
+                            <i class="glyphicon glyphicon-remove-circle" style="top:15px;"></i>
+                        </div>
+                    }
+                    <div class="col-md-7">
+                        <h3> @item.Title </h3>
+                        <p>
+                            @item.ModifiedDate <br />
+                            @Html.Raw(@item.HTMLText)
+                            @item.Services.Name<br />
+                        </p>
+                    </div>
+                    <div class="col-md-3" style="margin-top:25px;">
+                        @if (item.isAnswered)
+                        {
+                            <a href="/Questions/DownloadPDF/@item.QuestionID" target="_blank"><button class="btn btn-danger"> Download PDF </button></a>
+                        }
+                        else
+                        {
+                            <a href="/Questions/ViewQuestion/@item.QuestionID"><button style="width:127px;" class="btn btn-danger"> View </button></a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

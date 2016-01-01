@@ -1,0 +1,92 @@
+﻿@model LawyersAdda.Entities.Answer
+
+@{
+    ViewBag.Title = "View Question";
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index - My ASP.NET Application</title>
+    <link href="/Content/bootstrap_new.css" rel="stylesheet" />
+    <link href="/Content/main.css" rel="stylesheet" />
+
+    <script src="/Scripts/modernizr-2.6.2.js"></script>
+
+
+    <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+
+</head>
+<body>
+
+    <h2 style="text-align:center">Question</h2>
+    <hr />
+    <div>
+        <div class="row">
+            <div class="col-md-2" style="text-align:right">
+                
+            </div>
+            <div class="col-md-10">
+                <strong>Title : </strong>
+                @Model.Questions.Title
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2" style="text-align:right">
+                
+            </div>
+            <div class="col-md-10">
+                <strong>Question (in Detail) : </strong><br/>
+                @Html.Raw(@Model.Questions.HTMLText)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2" style="text-align:right">
+                
+            </div>
+            <div class="col-md-10">
+                <strong>Date : </strong>
+                @Model.Questions.ModifiedDate
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2" style="text-align:right">
+                
+            </div>
+            <div class="col-md-10">
+                <strong>Service Type : </strong>
+                @Model.Questions.Services.Name
+            </div>
+        </div>
+        @if (Model.AnswerID != null)
+        {
+            <hr />
+            <h2 style="text-align:center">Answer</h2>
+            <hr />
+            <div class="row">
+                <div class="col-md-2" style="text-align:right">
+                    
+                </div>
+                <div class="col-md-10">
+                    @Html.Raw(@Model.HTMLText)
+                </div>
+            </div>
+        }
+    </div>
+    <link href="/Content/bootstrap-switch.css" rel="stylesheet" />
+
+    <script src="/Scripts/jquery-2.1.4.js"></script>
+
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/respond.js"></script>
+    <script src="/Scripts/bootstrap-typeahead.js"></script>
+
+    <script src="/Scripts/custom/home.js"></script>
+    <script src="/Scripts/upload.js"></script>
+
+
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
+</body>
+</html>

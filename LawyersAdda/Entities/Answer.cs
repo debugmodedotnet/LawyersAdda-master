@@ -35,6 +35,9 @@ namespace LawyersAdda.Entities
         [Required]
         [ForeignKey("Lawyers")]
         public string LawyerID { get; set; }
+
+        public bool? IsAccepted { get; set; }
+
         public virtual Lawyer Lawyers { get; set; }
         public virtual Question Questions { get; set; }
     }

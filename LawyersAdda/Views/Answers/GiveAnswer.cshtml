@@ -11,7 +11,8 @@
     <div class="col-md-2"></div>
     <div class="col-md-10">
         <h4><strong>Question : </strong> @ViewBag.Questions.Title </h4><br/>
-        <strong>Date : </strong> @ViewBag.Questions.ModifiedDate
+        <strong>Date : </strong> @ViewBag.Questions.ModifiedDate<br/>
+        <strong>Question(in Detail) :</strong><br/>@Html.Raw(@ViewBag.Questions.HTMLText)
     </div>
 </div>
 <hr />
@@ -30,8 +31,7 @@
             </div>
             <div class="form-group">
                 <div class="col-md-10">
-                    @Html.HiddenFor(@model => model.QuestionID, new { @value = @ViewBag.Questions.QuestionID })
-                    @Html.ValidationMessageFor(model => model.QuestionID)
+                    <input type="hidden" name="QuestionID" id="QuestionID" value="@ViewBag.Questions.QuestionID">
                 </div>
             </div>
             <div class="form-group">

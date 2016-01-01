@@ -1,0 +1,90 @@
+﻿@model LawyersAdda.Entities.Question
+
+@{
+    ViewBag.Title = "ViewQuestion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>View Question</h2>
+<h2 style="text-align:center">Question</h2>
+<hr />
+<div>
+    <div class="row">
+        <div class="col-md-2" style="text-align:right">
+            <strong>Title : </strong>
+        </div>
+        <div class="col-md-10">
+            @Model.Title
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2" style="text-align:right">
+            <strong>Question (in Detail) : </strong>
+        </div>
+        <div class="col-md-10">
+            @Html.Raw(@Model.HTMLText)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2" style="text-align:right">
+            <strong>Date : </strong>
+        </div>
+        <div class="col-md-10">
+            @Model.ModifiedDate
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2" style="text-align:right">
+            <strong>Service Type : </strong>
+        </div>
+        <div class="col-md-10">
+            @Model.Services.Name
+        </div>
+    </div>
+@if (ViewBag.Answer.AnswerID != null)
+          {
+    <hr />
+    <h2 style="text-align:center">Answer</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-2" style="text-align:right">
+            <strong>Answer : </strong><br />
+            @if (ViewBag.Answer.IsAccepted == null)
+            {
+                <button type="button" class="btn btn-success" id="btnAccept">
+                    <span class="glyphicon glyphicon-thumbs-up"></span> Accept
+                </button><br /><br />
+    <button type="button" class="btn btn-danger" id="btnReject">
+        <span class="glyphicon glyphicon-thumbs-down"></span> Reject
+    </button>
+            }
+        </div>
+        <div class="col-md-10">
+            @Html.Raw(@ViewBag.Answer.HTMLText)
+            <br/>
+            @if (ViewBag.Answer.IsAccepted)
+            {
+                <button class="btn btn-danger" id="downloadPDF">Download PDF</button>
+            }
+        </div>
+    </div>
+}
+</div>
+@section Scripts
+{
+    <script>
+        $("#btnAccept").click(function(){MarkQuestion(1)});
+        $("#btnReject").click(function () { MarkQuestion(0) });
+        $("#downloadPDF").click(function ()
+        {
+            window.location = "/Questions/DownloadPDF/" + @ViewBag.Answer.QuestionID;
+        })
+    function MarkQuestion(Status)
+    {
+        var QuestionID="@ViewBag.Answer.QuestionID";
+        var AnswerID = "@ViewBag.Answer.AnswerID";
+        var URL = "/Questions/MarkQuestion?QuestionID=" + QuestionID + "&AnswerID=" + AnswerID + "&Status=" + Status;
+        window.location = URL;
+    }
+    </script>
+}

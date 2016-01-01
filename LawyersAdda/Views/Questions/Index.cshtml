@@ -16,9 +16,7 @@
                 @Html.DropDownList("DateWiseSorting", new List<SelectListItem>() { new SelectListItem { Text = "Latest", Value = "1" }, new SelectListItem { Text = "Oldest", Value = "2" } }, new { @class = "form-control" })
             </div>
             <div class="col-md-10">
-                <label class="radio-inline"><input type="radio" class="SelectQuestion" value="1" name="SelectQuestion"  checked="checked">ALL</label>
-                <label class="radio-inline"><input type="radio" class="SelectQuestion" value="2" name="SelectQuestion">Answered</label>
-                <label class="radio-inline"><input type="radio" class="SelectQuestion" value="3" name="SelectQuestion">Pending</label>
+                <input type="checkbox" name="SelectQuestion" class="SelectQuestion" data-off-text="Pending" data-on-text="ALL" />
             </div>
      </div>
 @foreach (var item in Model)
@@ -44,26 +42,42 @@
             </p>
         </div>
         <div class="col-md-2" style="margin-top:25px;">
-            <button class="btn btn-default"> View </button>
+            <a href="/Questions/ViewQuestion/@item.QuestionID"><button class="btn btn-danger"> View </button></a>
         </div>
     </div>
 }
     </div>
+<link href="~/Content/bootstrap-switch.css" rel="stylesheet" />
+
 @section scripts{
+    <script src="~/Scripts/bootstrap-switch.js"></script>
     <script>
+        var SelectQuestion=@ViewBag.SelectQuestion;
+        var Order;
         $(document).ready(function () {
             $("#DateWiseSorting").val(@ViewBag.Order);
-            $("input[name=SelectQuestion]:checked").val(@ViewBag.SelectQuestion);
+            if(@ViewBag.SelectQuestion==1)
+            {
+                $("input[name='SelectQuestion']").attr('checked','checked');
+            }
+            $("input[name='SelectQuestion']").bootstrapSwitch();
+            $("input[name='SelectQuestion']").on('switchChange.bootstrapSwitch', function(event, state) {
+                if(state==true)
+                {
+                    SelectQuestion=1;
+                }
+                else
+                {
+                    SelectQuestion=3;
+                }
+                LoadQuestion();
+            });
         });
         $("#DateWiseSorting").change(function () {
             LoadQuestion();
         });
-        $("input[name=SelectQuestion]:radio").change(function () {
-            LoadQuestion();
-        });
         function LoadQuestion() {
-            var Order = $("#DateWiseSorting").val();
-            var SelectQuestion = $("input[name=SelectQuestion]:checked").val();
+            Order = $("#DateWiseSorting").val();
             window.location.href="/Questions/Index?Order=" + Order + "&SelectQuestion=" + SelectQuestion;
         }
     </script>

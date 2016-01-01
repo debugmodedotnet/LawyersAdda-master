@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>QuestionInDetails</h2>
+<h2>Question In Details</h2>
 
 <p>
     @Html.ActionLink("Create New", "AskQuestion")
@@ -13,7 +13,7 @@
 <div class="container">
         <div>
             <div>
-                <h3><strong>Question : </strong> @ViewBag.Questions.Title </h3>
+                <h3>Question : @ViewBag.Questions.Title </h3>
             </div>
             <div>
                 <strong>Date : </strong> @ViewBag.Questions.ModifiedDate 
@@ -24,8 +24,27 @@
                 </strong><br/>
                     @Html.Raw(@ViewBag.Questions.HTMLText)
             </div>
-            <div>
-                <a href="/Answers/GiveAnswer/@ViewBag.Questions.QuestionID"> <button class="btn btn-default"> Give Answer </button></a>
-            </div>
-        </div>
+            <hr/>
+            @if(ViewBag.Answers.Count>0)
+            {
+                foreach (var item in ViewBag.Answers)
+                {
+                <div>
+                    <p>
+                        <strong>Date :</strong> @item.AnswerModifiedDate<br/>
+                        <strong>Answer:</strong><br />@Html.Raw(@item.HTMLText)
+                    </p>
+                </div>
+                }
+                <div>
+                        <a href="/Answers/EditAnswer/@ViewBag.Questions.QuestionID"> <button class="btn btn-default"> Edit Answer </button></a>
+                </div>
+            }
+            else
+            {
+                <div>
+                        <a href="/Answers/GiveAnswer/@ViewBag.Questions.QuestionID"> <button class="btn btn-default"> Give Answer </button></a>
+                    </div>
+            }
+</div>
 </div>
