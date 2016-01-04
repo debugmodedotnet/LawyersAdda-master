@@ -10,30 +10,31 @@
             <div class="col-lg-12">
                 <h1 class="tagline text-center">One Stop Place for law advice and consulting</h1>
                 @*<form action="/Lawyers/SearchLawyers">
-                    <div class="col-md-4">
-                        @Html.DropDownList("CityList", new SelectList(ViewBag.Cities, "Id", "CityName"), "Select city", new { @id = "CityList", @class = "form-control" })
-                    </div>
-                    <div class="col-md-4">
-                        @Html.DropDownList("LawServiceList", new SelectList(ViewBag.LawServices, "Id", "Name"), "Select Service", new { @id = "ServiceList", @class = "form-control" })
-                    </div>
-                    <div class="col-md-4">
+                        <div class="col-md-4">
+                            @Html.DropDownList("CityList", new SelectList(ViewBag.Cities, "Id", "CityName"), "Select city", new { @id = "CityList", @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("LawServiceList", new SelectList(ViewBag.LawServices, "Id", "Name"), "Select Service", new { @id = "ServiceList", @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
 
-                        <button id="searchbtn" class="btn btn-danger" type="submit">SEARCH</button>
+                            <button id="searchbtn" class="btn btn-danger" type="submit">SEARCH</button>
 
-                    </div>
-                </form>*@
+                        </div>
+                    </form>*@
                 @*<input type="text" id="Lawyer" data-provide="typehead" class="form-control" name="LawyerName" placeholder="Search Lawyer">*@
                 <div class="row">
                     <div class="col-md-6 col-md-offset-2">
                         <input id="project" class="form-control input-lg" placeholder="Select Service or Type Lawyer Name">
+                        <input id="projectVal" type="hidden"/>
                     </div>
                     <div class="col-md-4">
-                        <button class="btn btn-warning btn-lg">Search</button>
+                        <button class="btn btn-warning btn-lg" id="searchLawyer">Search</button>
                     </div>
                 </div>
-               
-                    
-              
+
+
+
                 @*<div class="col-md-8" id="popularSearch">
                         <span class="tag">Popular: </span><span>Delhi</span>
                     </div>*@
@@ -56,40 +57,48 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        //demo data 
+        var selectItem = function (event, ui) {
+            $("#projectVal").val(ui.item.value);
+            $("#project").val(ui.item.label);
+            alert("City id : " + localStorage.getItem("MenuCityId") + " ServiceID : " + $("#projectVal").val());
+            var url = '@Url.Action("SearchLawyers", "Lawyers")';
+            window.location.href = url + "?LawServiceList=" + $("#projectVal").val() + "&CityList=" + localStorage.getItem("MenuCityId");
 
-        var availableTutorials = [
-              "ActionScript",
-              "Boostrap",
-              "C",
-              "C++",
-               "Clojure",
-        "COBOL",
-        "ColdFusion",
-        "Erlang",
-        "Fortran",
-        "Groovy",
-        "Haskell",
-        "Java",
-        "JavaScript",
-        "Lisp",
-        "Perl",
-        "PHP",
-        "Python",
-        "Ruby",
-        "Scala",
-        "Scheme"
-        ];
+            @*$.ajax({
+                url: '@Url.Action("SearchLawyers", "Lawyers")',
+                type: 'POST',
+                data: {
+                    "LawServiceList": $("#projectVal").val(),
+                    "CityList": localStorage.getItem("MenuCityId")
+                },
+                success: function (data) {
+                    alert(data);
+                    //var url = '@Url.Action("AddServiceToLawyer", "Lawyers")';
+                    //window.location.href = url;
+                }
+            });*@
+            //return false;
+        }
+
+        $("#project").autocomplete({
+            source: function(request,response) {
+                $.ajax({
+                    url: "/Home/GetServices",
+                    type: "POST",
+                    dataType: "json",
+                    data: { term: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Name, value: item.Id };
+                        }))
+                    }})},
+            minLength: 0,
+            select: selectItem,
+            autoFocus: true
+        }).bind('focus', function () { $(this).autocomplete("search", " "); });;
 
 
-        $( "#project" ).autocomplete({
-            source: "/Home/GetServices",
-            minLength:0,
-            autoFocus:true
-        }).bind('focus', function () { $(this).autocomplete("search"); });;
 
 
-       
-    
     });
 </script>

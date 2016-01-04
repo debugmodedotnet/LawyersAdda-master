@@ -27,15 +27,17 @@ namespace LawyersAdda.Controllers
             return Json(cities, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetServices()
+        public ActionResult GetServices(string term)
         {
-            var ListofServices = (from r in db.ServiceTypes select r.Name);       
-            return Json(ListofServices, JsonRequestBehavior.AllowGet);
+            if (term == " ")
+                return Json(from r in db.ServiceTypes select r, JsonRequestBehavior.AllowGet);
+            else
+                return Json((from r in db.ServiceTypes where r.Name.ToLower().Contains(term.ToLower()) select r), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Search(string City, string Service)
         {
-            //var lawyers = db.Lawyers as DbSet<Lawyer>;
+            var lawyers = db.Lawyers as DbSet<Lawyer>;
             ViewBag.ListOfLawyers = (from r in db.Lawyers.Include(i => i.Courts) where r.CityId == City select r);
             return View();
         }
