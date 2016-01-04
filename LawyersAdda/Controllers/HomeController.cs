@@ -27,6 +27,11 @@ namespace LawyersAdda.Controllers
             return Json(cities, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetServices()
+        {
+            var ListofServices = (from r in db.ServiceTypes select r.Name);       
+            return Json(ListofServices, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult Search(string City, string Service)
         {
@@ -34,5 +39,12 @@ namespace LawyersAdda.Controllers
             ViewBag.ListOfLawyers = (from r in db.Lawyers.Include(i => i.Courts) where r.CityId == City select r);
             return View();
         }
+
+        //public ActionResult SaveSelectedCityInSession(string sessionValue)
+        //{
+        //    //string strCurrentView = currentViewEnum == AllViewsNames.RazorIndex ? "Index" : "TestPage";
+
+
+        //}
     }
 }

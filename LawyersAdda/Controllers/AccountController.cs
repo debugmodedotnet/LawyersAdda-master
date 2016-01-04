@@ -397,6 +397,9 @@ namespace LawyersAdda.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        //Reading citis to display in Navigation bar 
+
+       
         //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
@@ -453,6 +456,8 @@ namespace LawyersAdda.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+        
 
         internal class ChallengeResult : HttpUnauthorizedResult
         {

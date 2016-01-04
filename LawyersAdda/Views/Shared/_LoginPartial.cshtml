@@ -6,8 +6,48 @@
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
-        
-        <li>@Html.ActionLink("Join as a Lawyer ", "RegisterAsLawyer", "Lawyers")</li>
+
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-map-marker"></span>Delhi</a>
+            <ul class="dropdown-menu dropdown-cart" role="menu">
+                @foreach (var item in ViewBag.Cities)
+                {
+                    <li>
+                        <span class="item">
+                            @*<a>@item.CityName</a>*@ 
+                            @*<span class="item-left">*@                             
+                                <span class="item-info">
+                                   
+                                  @*@Html.ActionLink(@item.CityName,"Index","Home")*@
+                                </span>
+                            @*</span>*@
+                            
+                        </span>
+                    </li>
+                }
+              @*original template of data in dropdown to be deleted later*@ 
+                @*<li>
+                    <span class="item">
+                        <span class="item-left">
+                            <img src="http://lorempixel.com/50/50/" alt="" />
+                            <span class="item-info">
+                                <span>Delhi</span>
+                                <span>700</span>
+                            </span>
+                        </span>
+                        <span class="item-right">
+                            <button class="btn btn-xs btn-danger pull-right">750</button>
+                        </span>
+                    </span>
+                </li>*@
+                
+                <li class="divider"></li>
+                <li><a class="text-center" href="">View All Cities</a></li>
+            </ul>
+        </li>
+
+    
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello @User.Identity.GetUserName()<span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -16,14 +56,70 @@
                 <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
             </ul>
         </li>
+
+        <li><button class="btn btn-warning navbar-btn" type="button" onclick="location.href='@Url.Action("RegisterAsLawyer", "Lawyers")'">Join as a Lawyer</button></li>
+        @*<li>@Html.ActionLink("Join as a Lawyer ", "RegisterAsLawyer", "Lawyers",null, new { @class = "btn btn-warning navbar-btn" })</li>*@
+        
     </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
+        
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-map-marker"></span>Delhi<span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-cart" role="menu">
+                   
+                    @foreach (var item in ViewBag.Cities)
+                    {
+
+                        <li>
+                            <span class="item" id=@item.Id>                           
+                                @item.CityName
+                             </span>
+                        </li>
+                    }
+                    <li class="divider"></li>
+                    <li><a class="text-center" href="">View All Cities</a></li>
+                </ul>
+            </li>
+   
+       
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-        <li>@Html.ActionLink("Join as a Lawyer ", "RegisterAsLawyer", "Lawyers")</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>  
+        <li><button class="btn btn-warning navbar-btn" type="button" onclick="location.href='@Url.Action("RegisterAsLawyer", "Lawyers")'">Join as a Lawyer</button></li>
+        @*<li>@Html.ActionLink("Join as a Lawyer ", "RegisterAsLawyer", "Lawyers",null, new { @class = "btn btn-warning navbar-btn" })</li>*@  
     </ul>
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+      
+        alert("login");
+
+
+        var selectedValue = localStorage.getItem("MenuCityName");
+
+        alert(selectedValue);
+        $('.dropdown ul > li > span:contains("' + selectedValue + '")').parent('li').addClass("active");
+        $('.dropdown ul > li > span:contains("' + selectedValue + '")').trigger('click');
+
+
+
+
+       
+        $(".dropdown-menu li span").click(function () {
+            var selText = $(this).html();
+            var cityid = $(this).attr("id");
+            alert(cityid);
+            localStorage.setItem("MenuCityName", selText);
+            localStorage.setItem("MenuCityId", cityid);
+          //  savecityidinsession(cityid)
+            $(this).parents('.dropdown').find('.dropdown-toggle').html('<span class="glyphicon glyphicon-map-marker"></span>' + selText);
+        });
+
+    });
+</script>

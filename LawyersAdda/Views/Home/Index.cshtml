@@ -1,4 +1,5 @@
-﻿@*<script src="~/Scripts/jquery-2.1.4.js"></script>*@
+﻿
+
 @{
     ViewBag.Title = "Home Page";
 }
@@ -8,7 +9,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="tagline text-center">One Stop Place for law advice and consulting</h1>
-                <form action="/Lawyers/SearchLawyers">
+                @*<form action="/Lawyers/SearchLawyers">
                     <div class="col-md-4">
                         @Html.DropDownList("CityList", new SelectList(ViewBag.Cities, "Id", "CityName"), "Select city", new { @id = "CityList", @class = "form-control" })
                     </div>
@@ -20,12 +21,24 @@
                         <button id="searchbtn" class="btn btn-danger" type="submit">SEARCH</button>
 
                     </div>
-                </form>
+                </form>*@
+                @*<input type="text" id="Lawyer" data-provide="typehead" class="form-control" name="LawyerName" placeholder="Search Lawyer">*@
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-2">
+                        <input id="project" class="form-control input-lg" placeholder="Select Service or Type Lawyer Name">
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-warning btn-lg">Search</button>
+                    </div>
+                </div>
+               
+                    
+              
                 @*<div class="col-md-8" id="popularSearch">
                         <span class="tag">Popular: </span><span>Delhi</span>
                     </div>*@
 
-                <video autoplay loop poster="polina.jpg" id="bgvid">
+                <video autoplay id="bgvid">
                     <source src="http://d2w4gictyunaqp.cloudfront.net/vid/home-hero.webm" type="video/webm">
                     <source src="http://d2w4gictyunaqp.cloudfront.net/vid/home-hero.mp4" type="video/mp4">
                 </video>
@@ -40,4 +53,43 @@
 <div class="row">
     <h1> lasnlknsadlknsalk</h1>
 </div>
-<script src="/Scripts/jquery-2.1.4.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //demo data 
+
+        var availableTutorials = [
+              "ActionScript",
+              "Boostrap",
+              "C",
+              "C++",
+               "Clojure",
+        "COBOL",
+        "ColdFusion",
+        "Erlang",
+        "Fortran",
+        "Groovy",
+        "Haskell",
+        "Java",
+        "JavaScript",
+        "Lisp",
+        "Perl",
+        "PHP",
+        "Python",
+        "Ruby",
+        "Scala",
+        "Scheme"
+        ];
+
+
+        $( "#project" ).autocomplete({
+            source: "/Home/GetServices",
+            minLength:0,
+            autoFocus:true
+        }).bind('focus', function () { $(this).autocomplete("search"); });;
+
+
+       
+    
+    });
+</script>
