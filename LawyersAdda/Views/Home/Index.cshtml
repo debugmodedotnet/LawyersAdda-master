@@ -61,11 +61,11 @@
             $("#projectVal").val(ui.item.value);
             $("#project").val(ui.item.label);
             alert("City id : " + localStorage.getItem("MenuCityId") + " ServiceID : " + $("#projectVal").val());
-            var url = '@Url.Action("SearchLawyers", "Lawyers")';
-            window.location.href = url + "?LawServiceList=" + $("#projectVal").val() + "&CityList=" + localStorage.getItem("MenuCityId");
+            @*var url = '@Url.Action("SearchLawyers", "Lawyers")';
+            window.location.href = url + "?LawServiceList=" + $("#projectVal").val() + "&CityList=" + localStorage.getItem("MenuCityId");*@
 
-            @*$.ajax({
-                url: '@Url.Action("SearchLawyers", "Lawyers")',
+            $.ajax({
+                url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
                 type: 'POST',
                 data: {
                     "LawServiceList": $("#projectVal").val(),
@@ -73,15 +73,15 @@
                 },
                 success: function (data) {
                     alert(data);
-                    //var url = '@Url.Action("AddServiceToLawyer", "Lawyers")';
-                    //window.location.href = url;
+                    var url = '@Url.Action("SearchLawyers", "Lawyers")';
+                    window.location.href = url;
                 }
-            });*@
+            });
             //return false;
         }
 
         $("#project").autocomplete({
-            source: function(request,response) {
+            source: function (request, response) {
                 $.ajax({
                     url: "/Home/GetServices",
                     type: "POST",
@@ -91,7 +91,9 @@
                         response($.map(data, function (item) {
                             return { label: item.Name, value: item.Id };
                         }))
-                    }})},
+                    }
+                })
+            },
             minLength: 0,
             select: selectItem,
             autoFocus: true

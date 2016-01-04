@@ -55,7 +55,7 @@
     </div>
 
     <div class="pagedList text-center">
-        @Html.PagedListPager(Model, page => Url.Action("SearchLawyer", new { LawyerName = @Request.QueryString["LawyerName"], CityID = @Request.QueryString["CityID"], page }))
+        @Html.PagedListPager(Model, page => Url.Action("SearchLawyers", new { page }))
         Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Lawyers found
     </div>
 </div>

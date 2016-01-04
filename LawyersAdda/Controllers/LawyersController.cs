@@ -270,8 +270,20 @@ namespace LawyersAdda.Controllers
             ApplicationDbContext context = new ApplicationDbContext();
             return Json(context.Lawyers.Select(t=>t.Name).ToList() ,JsonRequestBehavior.AllowGet);
         }
-        public ActionResult SearchLawyers(string CityList, string LawServiceList, int page = 1, int pageSize = 2)
+
+        public JsonResult SetSearchLawyersParam(string CityList, string LawServiceList)
         {
+            TempData["CityList"] = CityList;
+            TempData["LawServiceList"] = LawServiceList;
+            TempData.Keep();
+            return Json(true);
+        }
+
+        public ActionResult SearchLawyers(int page = 1, int pageSize = 2)
+        {
+            TempData.Keep();
+            string CityList = TempData["CityList"].ToString();
+            string LawServiceList = TempData["LawServiceList"].ToString();
             ApplicationDbContext context = new ApplicationDbContext();
             List<ServiceType> lstServices;
             List<Lawyer> lstLawyers;
