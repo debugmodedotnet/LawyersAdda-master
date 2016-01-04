@@ -60,7 +60,7 @@
         var selectItem = function (event, ui) {
             $("#projectVal").val(ui.item.value);
             $("#project").val(ui.item.label);
-            alert("City id : " + localStorage.getItem("MenuCityId") + " ServiceID : " + $("#projectVal").val());
+            //alert("City id : " + localStorage.getItem("MenuCityId") + " ServiceID : " + $("#projectVal").val());
             @*var url = '@Url.Action("SearchLawyers", "Lawyers")';
             window.location.href = url + "?LawServiceList=" + $("#projectVal").val() + "&CityList=" + localStorage.getItem("MenuCityId");*@
 
@@ -72,12 +72,11 @@
                     "CityList": localStorage.getItem("MenuCityId")
                 },
                 success: function (data) {
-                    alert(data);
                     var url = '@Url.Action("SearchLawyers", "Lawyers")';
                     window.location.href = url;
                 }
             });
-            //return false;
+            return false;
         }
 
         $("#project").autocomplete({
