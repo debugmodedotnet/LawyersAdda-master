@@ -3,26 +3,21 @@
 @{
     ViewBag.Title = "Home Page";
 }
+<style>
+    .ui-autocomplete-category {
+        font-weight: bold;
+        padding: .2em .4em;
+        margin: .8em 0 .2em;
+        background-color: #eeeeee;
+        line-height: 1.5;
+    }
+</style>
 <header class="business-header">
     <div class="container">
 
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="tagline text-center">One Stop Place for law advice and consulting</h1>
-                @*<form action="/Lawyers/SearchLawyers">
-                        <div class="col-md-4">
-                            @Html.DropDownList("CityList", new SelectList(ViewBag.Cities, "Id", "CityName"), "Select city", new { @id = "CityList", @class = "form-control" })
-                        </div>
-                        <div class="col-md-4">
-                            @Html.DropDownList("LawServiceList", new SelectList(ViewBag.LawServices, "Id", "Name"), "Select Service", new { @id = "ServiceList", @class = "form-control" })
-                        </div>
-                        <div class="col-md-4">
-
-                            <button id="searchbtn" class="btn btn-danger" type="submit">SEARCH</button>
-
-                        </div>
-                    </form>*@
-                @*<input type="text" id="Lawyer" data-provide="typehead" class="form-control" name="LawyerName" placeholder="Search Lawyer">*@
                 <div class="row">
                     <div class="col-md-6 col-md-offset-2">
                         <input id="project" class="form-control input-lg" placeholder="Select Service or Type Lawyer Name">
@@ -60,10 +55,7 @@
         var selectItem = function (event, ui) {
             $("#projectVal").val(ui.item.value);
             $("#project").val(ui.item.label);
-            //alert("City id : " + localStorage.getItem("MenuCityId") + " ServiceID : " + $("#projectVal").val());
-            @*var url = '@Url.Action("SearchLawyers", "Lawyers")';
-            window.location.href = url + "?LawServiceList=" + $("#projectVal").val() + "&CityList=" + localStorage.getItem("MenuCityId");*@
-
+            alert("s");
             $.ajax({
                 url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
                 type: 'POST',
@@ -79,7 +71,30 @@
             return false;
         }
 
-        $("#project").autocomplete({
+        $.widget("custom.catcomplete", $.ui.autocomplete, {
+            _create: function () {
+                this._super();
+                this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+            },
+            _renderMenu: function (ul, items) {
+                var that = this,
+                  currentCategory = "";
+                $.each(items, function (index, item) {
+                    var li;
+                    if (item.category != currentCategory) {
+                        console.log(item);
+                        ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+                        currentCategory = item.category;
+                    }
+                    li = that._renderItemData(ul, item);
+                    if (item.category) {
+                        li.attr("aria-label", item.category + " : " + item.Name);
+                    }
+                });
+            }
+        });
+
+        $("#project").catcomplete({
             source: function (request, response) {
                 $.ajax({
                     url: "/Home/GetServices",
@@ -88,15 +103,16 @@
                     data: { term: request.term },
                     success: function (data) {
                         response($.map(data, function (item) {
-                            return { label: item.Name, value: item.Id };
-                        }))
+                            return { label: item.Name, value: item.Id, category: item.category };
+                        }).slice(0,5))
                     }
                 })
             },
             minLength: 0,
+            max: 5,
             select: selectItem,
             autoFocus: true
-        }).bind('focus', function () { $(this).autocomplete("search", " "); });;
+        }).bind('focus', function () { $(this).catcomplete("search", " "); });;
 
 
 

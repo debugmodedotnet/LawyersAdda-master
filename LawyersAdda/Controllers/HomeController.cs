@@ -29,10 +29,19 @@ namespace LawyersAdda.Controllers
 
         public ActionResult GetServices(string term)
         {
-            if (term == " ")
-                return Json(from r in db.ServiceTypes select r, JsonRequestBehavior.AllowGet);
-            else
-                return Json((from r in db.ServiceTypes where r.Name.ToLower().Contains(term.ToLower()) select r), JsonRequestBehavior.AllowGet);
+            var category = "Services";
+            var services = (from r in db.ServiceTypes where r.Name.ToLower().Contains(term.ToLower()) select new { r.Name, r.Id, category }).ToList();
+            category = "Lawyers";
+            var lawyers = (from r in db.Lawyers where r.Name.ToLower().Contains(term.ToLower()) select new { r.Name, r.Id, category }).ToList();
+
+            var both = services.Concat(lawyers).ToList();
+
+            return Json(both, JsonRequestBehavior.AllowGet);
+
+            //if (term == " ")
+            //    return Json(from r in db.ServiceTypes select r, JsonRequestBehavior.AllowGet);
+            //else
+            //    return Json((from r in db.ServiceTypes where r.Name.ToLower().Contains(term.ToLower()) select r), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Search(string City, string Service)
