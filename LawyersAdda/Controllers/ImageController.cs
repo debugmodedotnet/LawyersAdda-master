@@ -10,12 +10,13 @@ using System.Threading.Tasks;
 using LawyersAdda.Models;
 using LawyersAdda.Entities;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity;
 
 namespace LawyersAdda.Controllers
 {
     public class ImageController : Controller
     {
-        
+
         // GET: Image
         public ActionResult Index()
         {
@@ -93,6 +94,87 @@ namespace LawyersAdda.Controllers
             db.LawyerImages.Add(image);
             try
             {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+
+            ImgReturn a = new ImgReturn();
+            a.imgUrl = url;
+            a.response = result;
+            a.msg = msg;
+            return url;
+        }
+
+        public async Task<string> AddUserImage()
+        {
+            HttpStatusCode result = new HttpStatusCode();
+            var url = ""; var msg = ""; var finalString = "";
+            string UserId = Session["UserID"].ToString();
+            if (UserId != null && UserId.Length != 0)
+            {
+                var httpRequest = HttpContext.Request;
+
+                try
+                {
+                    var docfiles = new List<string>();
+                    foreach (string file in httpRequest.Files)
+                    {
+                        var postedFile = httpRequest.Files[file];
+
+                        //Azure Upload
+                        var contentType = postedFile.ContentType;
+                        var streamContents = postedFile.InputStream;
+                        var blobName = postedFile.FileName;
+                        string UserConnectionString = string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}", "debugmodelab", "t2yJAWoR8tcL0fcz6TbP/5m3fSmgWS0qIAY2aj8G9k4vbhdzlKsKpmrHJ3AgWP5GsyTkPM8g9lGSyPG2MhNVzQ==");
+                        CloudStorageAccount storageAccount = CloudStorageAccount.Parse(UserConnectionString);
+                        CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+                        CloudBlobContainer blobContainer = blobClient.GetContainerReference("masterjee");
+                        blobContainer.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
+
+
+                        //Random Name
+                        var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                        var stringChars = new char[8];
+                        var random = new Random();
+
+                        for (int i = 0; i < stringChars.Length; i++)
+                            stringChars[i] = chars[random.Next(chars.Length)];
+
+                        finalString = new String(stringChars);
+                        //Random Name
+
+                        var blob1 = blobContainer.GetBlockBlobReference(finalString);
+                        blob1.Properties.ContentType = contentType;
+                        blob1.UploadFromStream(streamContents);
+
+                        url = "https://debugmodelab.blob.core.windows.net/" + blobContainer.Name + "/" + finalString;
+                        //Azure Upload
+
+                    }
+                    result = HttpStatusCode.Created;
+                    if (url != "")
+                        msg = "Uploaded Successfully";
+
+
+                }
+                catch (Exception errMsg)
+                {
+                    result = HttpStatusCode.BadRequest;
+                    msg = "Error Uploading file" + errMsg;
+
+                }
+            }
+
+            ApplicationDbContext db = new ApplicationDbContext();
+            ApplicationUser usr = new ApplicationUser();
+            usr = db.Users.Where(t => t.Id == UserId).Single();
+            usr.ProfilePicURL = url;
+            try
+            {
+                db.Entry(usr).State = EntityState.Modified;
                 db.SaveChanges();
             }
             catch (DbUpdateException)

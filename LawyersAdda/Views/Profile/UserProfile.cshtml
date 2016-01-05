@@ -1,88 +1,131 @@
 ﻿@model IEnumerable<LawyersAdda.Entities.Question>
-
 @{
     ViewBag.Title = "User Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Profile</h2>
+<br/>
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
-            <div class="jumbotron">
-                <div>
-                    <h3> @ViewBag.user.FullName</h3>
-                    <strong>Email : </strong>@ViewBag.User.Email<br />
-                    <strong>Phone : </strong>@ViewBag.User.PhoneNumber<br />
-                </div><br />
-                <div class="well well-sm">
-                    <div class="row">
-                        <div class="col-md-9">
-                            Total Asked Answer
-                        </div>
-                        <div class="col-md-3">
-                            @Model.Count()
-                        </div>
-                    </div>
-                </div>
-                <div class="well well-sm">
-                    <div class="row">
-                        <div class="col-md-9">
-                            Accepted Questions
-                        </div>
-                        <div class="col-md-3">
-                            @Model.Where(t => t.isAnswered == true).Count()
-                        </div>
-                    </div>
-                </div>
-                <div class="well well-sm">
-                    <div class="row">
-                        <div class="col-md-9">
-                            Pending Questions
-                        </div>
-                        <div class="col-md-3">
-                            @Model.Where(t => t.isAnswered == false).Count()
+        <div class="col col-md-4">
+            <h3>Hello @ViewBag.user.FullName !</h3>
+        </div>
+        <div class="col col-md-8">
+            <div class="row">
+                <a href="#usrEdit" data-target="#usrEdit" data-toggle="modal" class="btn btn-warning pull-right">Edit Profile</a>
+                <div class="modal" id="usrEdit">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">x</button>
+                                <h3>Edit Profile</h3>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action='/Profile/EditUser'>
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="Id" id="Id" value="@ViewBag.user.Id">
+                                    <label for="FullName">Name</label>
+                                    <input type="text" value="@ViewBag.user.FullName" id="FullName" name="FullName" class="form-control" required="required" /><br/>
+                                    <label for="PhoneNumber">Phone Number</label>
+                                    <input type="text" value="@ViewBag.user.PhoneNumber" id="PhoneNumber" name="PhoneNumber" class="form-control" required="required" /><br />
+                                    <input type="submit" value="Save" class="btn btn-warning form-control"/>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-8 bg-info">
-            @foreach (var item in Model)
-            {
-                <div class="row" style="margin-bottom:5px;">
-                    @if (item.isAnswered)
-                    {
-                        <div class="col-md-2" style="font-size: 50px; color: #007128">
-                            <i class="glyphicon glyphicon-ok-circle" style="top:15px;"></i>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="jumbotron" style="background-color:#ffffff">
+                        <div>
+                            @if (@ViewBag.user.ProfilePicURL == null || @ViewBag.user.ProfilePicURL == "")
+                            {
+                                <img style="width: 100%; height:auto" src="http://na1.www.gartner.com/imagesrv/apps/gcms/events/img/no_avatar.png;wa4b938a20593cb4ec" class="img-circle img-responsive" />
+                            }
+                            else
+                            {
+                                <img style="width: 100%; height:auto" src="@ViewBag.user.ProfilePicURL" class="img-rounded img-responsive" />
+                            }
+                            <a href="/profile/AddUserProfilePic" class="pull-right"><i class="glyphicon glyphicon-edit"></i> Change Profile Picture</a>
+                        </div><br />
+                        <div>
+                            <i class="glyphicon glyphicon-envelope"></i> @ViewBag.User.Email<br />
+                            <i class="glyphicon glyphicon-earphone"></i> @ViewBag.User.PhoneNumber<br />
+                        </div><br />
+                        <div class="well well-sm">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    Total Asked Answer
+                                </div>
+                                <div class="col-md-3">
+                                    @Model.Count()
+                                </div>
+                            </div>
                         </div>
-                    }
-                    else
-                    {
-                        <div class="col-md-2" style="font-size: 50px; color: #b90000">
-                            <i class="glyphicon glyphicon-remove-circle" style="top:15px;"></i>
+                        <div class="well well-sm">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    Accepted Questions
+                                </div>
+                                <div class="col-md-3">
+                                    @Model.Where(t => t.isAnswered == true).Count()
+                                </div>
+                            </div>
                         </div>
-                    }
-                    <div class="col-md-7">
-                        <h3> @item.Title </h3>
-                        <p>
-                            @item.ModifiedDate <br />
-                            @Html.Raw(@item.HTMLText)
-                            @item.Services.Name<br />
-                        </p>
-                    </div>
-                    <div class="col-md-3" style="margin-top:25px;">
-                        @if (item.isAnswered)
-                        {
-                            <a href="/Questions/DownloadPDF/@item.QuestionID" target="_blank"><button class="btn btn-danger"> Download PDF </button></a>
-                        }
-                        else
-                        {
-                            <a href="/Questions/ViewQuestion/@item.QuestionID"><button style="width:127px;" class="btn btn-danger"> View </button></a>
-                        }
+                        <div class="well well-sm">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    Pending Questions
+                                </div>
+                                <div class="col-md-3">
+                                    @Model.Where(t => t.isAnswered == false).Count()
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            }
+                <div class="col-md-8">
+                    @foreach (var item in Model)
+                    {
+                        <div class="row" style="margin-bottom:5px;">
+                            @if (item.isAnswered)
+                            {
+                                <div class="col-md-2" style="font-size: 50px; color: #007128">
+                                    <i class="glyphicon glyphicon-ok-circle" style="top:15px;"></i>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-2" style="font-size: 50px; color: #b90000">
+                                    <i class="glyphicon glyphicon-remove-circle" style="top:15px;"></i>
+                                </div>
+                            }
+                            <div class="col-md-7">
+                                <h3> @item.Title </h3>
+                                <p>
+                                    @item.ModifiedDate <br />
+                                    @Html.Raw(@item.HTMLText)
+                                    @item.Services.Name<br />
+                                </p>
+                            </div>
+                            <div class="col-md-3" style="margin-top:25px;">
+                                @if (item.isAnswered)
+                                {
+                                    <a href="/Questions/DownloadPDF/@item.QuestionID" target="_blank" class="btn btn-warning">Download PDF </a>
+                                }
+                                else
+                                { 
+                                    <a href="/Questions/ViewQuestion/@item.QuestionID" style="width:127px" class="btn btn-warning"> View </a>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
-    </div>
-</div>

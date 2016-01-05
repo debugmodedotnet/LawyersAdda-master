@@ -594,6 +594,7 @@
     <Content Include="Scripts\tinymce\utils\mctabs.js" />
     <Content Include="Scripts\tinymce\utils\validate.js" />
     <Content Include="Scripts\upload.js" />
+    <Content Include="Scripts\UploadUserProfilePic.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="images\avatar_default.png" />
     <Content Include="Web.config">
@@ -650,6 +651,9 @@
     <Content Include="Views\Questions\DownloadPDF.cshtml" />
     <Content Include="Views\Profile\LawyerProfile.cshtml" />
     <Content Include="Views\Profile\UserProfile.cshtml" />
+    <Content Include="Views\Profile\AddUserProfilePic.cshtml" />
+    <Content Include="Views\Profile\EditLawyerProfile.cshtml" />
+    <Content Include="Views\Profile\EditUserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

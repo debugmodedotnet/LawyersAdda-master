@@ -62,9 +62,12 @@
         <div class="col-md-10">
             @Html.Raw(@ViewBag.Answer.HTMLText)
             <br/>
-            @if (ViewBag.Answer.IsAccepted)
-            {
+            @if (ViewBag.Answer.IsAccepted!=null)
+            { 
+                if (ViewBag.Answer.IsAccepted)
+                {
                 <button class="btn btn-danger" id="downloadPDF">Download PDF</button>
+                }
             }
         </div>
     </div>

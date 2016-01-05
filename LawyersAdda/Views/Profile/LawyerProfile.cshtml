@@ -4,12 +4,21 @@
     ViewBag.Title = "Lawyer Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h2>Profile</h2>
+<a href="/profile/edit">Edit Profile</a>
 <div class="container">
     <div class="row">
         <div class="col-md-4">
             <div class="jumbotron">
                 <div>
-                    <img src="@ViewBag.user.Lawyer.ImageUrl" class="img-circle img-responsive" />
+                    @if (@ViewBag.user.Lawyer.ImageUrl == null || @ViewBag.user.Lawyer.ImageUrl == "")
+                    {
+                        <img src="http://na1.www.gartner.com/imagesrv/apps/gcms/events/img/no_avatar.png;wa4b938a20593cb4ec" class="img-circle img-responsive" />
+                    }
+                    else
+                    { 
+                        <img src="@ViewBag.user.Lawyer.ImageUrl" class="img-circle img-responsive" />
+                    }
                 </div><br />
                 <div class="well well-sm">
                     <div class="row">
@@ -63,6 +72,7 @@
             <strong>Phone : </strong>@ViewBag.User.Lawyer.PhoneNumber<br />
             <strong>Gender : </strong>@ViewBag.User.Lawyer.Sex<br />
             <strong>Phone : </strong>@ViewBag.User.Lawyer.PhoneNumber<br />
+            <strong>City : </strong>@ViewBag.User.Lawyer.City.CityName<br />
             <strong>Services : </strong>
             @foreach (var service in @ViewBag.User.Lawyer.ServiceTypes)
             {

@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "AddUserProfilePic";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AddUserProfilePic</h2>
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading"><strong>Upload Files</strong> <small>add images to you profile</small></div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Drop Zone -->
+                    <h4>Or drag and drop files below</h4>
+                    <div class="upload-drop-zone" id="drop-zone">
+                        Just drag and drop files here
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- Standar Form -->
+                    <h4>Select files from your computer</h4>
+                    <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <input class="form-control" type="file" name="files[]" id="js-upload-files" multiple>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-warning" id="js-upload-submit">Upload files</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress progress-bar-striped" id="progress" style="display:none;">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                    <span class="sr-only">Loading in Progress</span>
+                </div>
+            </div>
+            <!-- Upload Finished -->
+            <div class="js-upload-finished">
+                <h3>Processed files</h3>
+                <div class="list-group" id="uploadedImage" style="display:none;">
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5 col-md-offset-4">
+                    <a href="/profile"><button class="btn btn-lg btn-warning">Save and View your profile</button></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/Scripts/UploadUserProfilePic.js"></script>
+}

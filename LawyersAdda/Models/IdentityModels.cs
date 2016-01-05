@@ -21,9 +21,10 @@ namespace LawyersAdda.Models
         [Required]
         public bool isLawyer { get; set; }
         public string FullName { get; set; }
+        public string ProfilePicURL { get; set; }
         //public string PhoneNumber { get; set; }
         public virtual Lawyer Lawyer { get; set; }
-        
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
