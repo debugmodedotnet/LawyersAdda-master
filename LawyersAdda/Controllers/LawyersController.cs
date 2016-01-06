@@ -50,7 +50,7 @@ namespace LawyersAdda.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, FullName = model.FullName, Email = model.Email, PhoneNumber = model.PhoneNumber };
+                var user = new ApplicationUser { UserName = model.UserName, FullName = model.FullName, Email = model.Email, PhoneNumber = model.PhoneNumber };
                 //normal user registeration. Hence islawyer is set to false
                 user.isLawyer = true;
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -71,6 +71,10 @@ namespace LawyersAdda.Controllers
                     lawyerToAdd.WebSiteUrl = model.BlogUrl;
                     lawyerToAdd.Id = user.Id;
                     lawyerToAdd.CityId = model.City;
+                    lawyerToAdd.Dob = model.Dob;
+                    lawyerToAdd.NumberOfExpereince = model.Experience;
+                    lawyerToAdd.HourlyRate = model.HourlyRate;
+
                     // lawyerToAdd.User = user;
                     try
                     {
