@@ -27,10 +27,16 @@ namespace LawyersAdda.Controllers
             return Json(cities, JsonRequestBehavior.AllowGet);
         }
 
+
+        //DJ sir work on this, change the new object
         public ActionResult GetServices(string term)
         {
             var category = "Services";
             var services = (from r in db.ServiceTypes where r.Name.ToLower().Contains(term.ToLower()) select new { r.Name, r.Id, category }).ToList();
+
+            if (term == " ")
+                return Json((from r in db.ServiceTypes select new { r.Name, r.Id, category }).ToList(), JsonRequestBehavior.AllowGet);
+
             category = "Lawyers";
             var lawyers = (from r in db.Lawyers where r.Name.ToLower().Contains(term.ToLower()) select new { r.Name, r.Id, category }).ToList();
 

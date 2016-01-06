@@ -654,6 +654,7 @@
     <Content Include="Views\Profile\AddUserProfilePic.cshtml" />
     <Content Include="Views\Profile\EditLawyerProfile.cshtml" />
     <Content Include="Views\Profile\EditUserProfile.cshtml" />
+    <Content Include="Views\Profile\MemberProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

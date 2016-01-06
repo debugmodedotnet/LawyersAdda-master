@@ -22,6 +22,7 @@
                     <div class="col-md-6 col-md-offset-2">
                         <input id="project" class="form-control input-lg" placeholder="Select Service or Type Lawyer Name">
                         <input id="projectVal" type="hidden"/>
+                        <input id="categ" type="hidden" />
                     </div>
                     <div class="col-md-4">
                         <button class="btn btn-warning btn-lg" id="searchLawyer">Search</button>
@@ -48,6 +49,7 @@
 
 <div class="row">
     <h1> lasnlknsadlknsalk</h1>
+    
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -55,19 +57,25 @@
         var selectItem = function (event, ui) {
             $("#projectVal").val(ui.item.value);
             $("#project").val(ui.item.label);
-            alert("s");
-            $.ajax({
-                url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
-                type: 'POST',
-                data: {
-                    "LawServiceList": $("#projectVal").val(),
-                    "CityList": localStorage.getItem("MenuCityId")
-                },
-                success: function (data) {
-                    var url = '@Url.Action("SearchLawyers", "Lawyers")';
-                    window.location.href = url;
-                }
-            });
+            $("#categ").val(ui.item.category);
+            
+            if ($("#categ").val() == "Lawyers") {
+                window.location.href = "/Profile/MemberProfile/" + ui.item.value;
+            }
+            else {
+                $.ajax({
+                    url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
+                    type: 'POST',
+                    data: {
+                        "LawServiceList": $("#projectVal").val(),
+                        "CityList": localStorage.getItem("MenuCityId")
+                    },
+                    success: function (data) {
+                        var url = '@Url.Action("SearchLawyers", "Lawyers")';
+                        window.location.href = url;
+                    }
+                });
+            }
             return false;
         }
 

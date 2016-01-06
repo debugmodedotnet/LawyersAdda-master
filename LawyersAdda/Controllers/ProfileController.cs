@@ -134,5 +134,13 @@ namespace LawyersAdda.Controllers
             Session["UserID"] = User.Identity.GetUserId();
             return View();
         }
+
+        public ActionResult MemberProfile(string id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var name = (from r in db.Users where r.Id == id select r.FullName).FirstOrDefault();
+            ViewBag.Name = name;
+            return View();
+        }
     }
 }
