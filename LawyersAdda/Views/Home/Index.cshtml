@@ -48,82 +48,86 @@
 
 
 <div class="row">
-    <h1> lasnlknsadlknsalk</h1>
-    
+
+
+
+
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-        var selectItem = function (event, ui) {
-            $("#projectVal").val(ui.item.value);
-            $("#project").val(ui.item.label);
-            $("#categ").val(ui.item.category);
-            
-            if ($("#categ").val() == "Lawyers") {
-                window.location.href = "/Profile/MemberProfile/" + ui.item.value;
-            }
-            else {
-                $.ajax({
-                    url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
-                    type: 'POST',
-                    data: {
-                        "LawServiceList": $("#projectVal").val(),
-                        "CityList": localStorage.getItem("MenuCityId")
+                var selectItem = function (event, ui) {
+                    alert(ui.item.value);
+                    alert(ui.item.label);
+                    $("#projectVal").val(ui.item.value);
+                    $("#project").val(ui.item.label);
+                    $("#categ").val(ui.item.category);
+
+                    if ($("#categ").val() == "Lawyers") {
+                        window.location.href = "/Profile/MemberProfile/" + ui.item.value;
+                    }
+                    else {
+                        $.ajax({
+                            url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
+                            type: 'POST',
+                            data: {
+                                "LawServiceList": $("#projectVal").val(),
+                                "CityList": localStorage.getItem("MenuCityId")
+                            },
+                            success: function (data) {
+                                var url = '@Url.Action("SearchLawyers", "Lawyers")';
+                                window.location.href = url;
+                            }
+                        });
+                    }
+                    return false;
+                }
+
+                $.widget("custom.catcomplete", $.ui.autocomplete, {
+                    _create: function () {
+                        this._super();
+                        this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
                     },
-                    success: function (data) {
-                        var url = '@Url.Action("SearchLawyers", "Lawyers")';
-                        window.location.href = url;
+                    _renderMenu: function (ul, items) {
+                        var that = this,
+                          currentCategory = "";
+                        $.each(items, function (index, item) {
+                            var li;
+                            if (item.category != currentCategory) {
+                                console.log(item);
+                                ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+                                currentCategory = item.category;
+                            }
+                            li = that._renderItemData(ul, item);
+                            if (item.category) {
+                                li.attr("aria-label", item.category + " : " + item.Name);
+                            }
+                        });
                     }
                 });
-            }
-            return false;
-        }
 
-        $.widget("custom.catcomplete", $.ui.autocomplete, {
-            _create: function () {
-                this._super();
-                this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
-            },
-            _renderMenu: function (ul, items) {
-                var that = this,
-                  currentCategory = "";
-                $.each(items, function (index, item) {
-                    var li;
-                    if (item.category != currentCategory) {
-                        console.log(item);
-                        ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
-                        currentCategory = item.category;
-                    }
-                    li = that._renderItemData(ul, item);
-                    if (item.category) {
-                        li.attr("aria-label", item.category + " : " + item.Name);
-                    }
-                });
-            }
-        });
-
-        $("#project").catcomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/Home/GetServices",
-                    type: "POST",
-                    dataType: "json",
-                    data: { term: request.term },
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return { label: item.Name, value: item.Id, category: item.category };
-                        }).slice(0,5))
-                    }
-                })
-            },
-            minLength: 0,
-            max: 5,
-            select: selectItem,
-            autoFocus: true
-        }).bind('focus', function () { $(this).catcomplete("search", " "); });;
+                $("#project").catcomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: "/Home/GetServices",
+                            type: "POST",
+                            dataType: "json",
+                            data: { term: request.term },
+                            success: function (data) {
+                                response($.map(data, function (item) {
+                                    return { label: item.Name, value: item.Id, category: item.category };
+                                }).slice(0, 5))
+                            }
+                        })
+                    },
+                    minLength: 0,
+                    max: 5,
+                    select: selectItem,
+                    autoFocus: true
+                }).bind('focus', function () { $(this).catcomplete("search", " "); });;
 
 
 
 
-    });
-</script>
+            });
+        </script>

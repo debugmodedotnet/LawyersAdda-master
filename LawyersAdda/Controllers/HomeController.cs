@@ -32,17 +32,30 @@ namespace LawyersAdda.Controllers
         public ActionResult GetServices(string term)
         {
             var category = "Services";
-            var services = (from r in db.ServiceTypes where r.Name.ToLower().Contains(term.ToLower()) select new { r.Name, r.Id, category }).ToList();
-
-            if (term == " ")
+            if (String.IsNullOrWhiteSpace(term))
+            {
                 return Json((from r in db.ServiceTypes select new { r.Name, r.Id, category }).ToList(), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var services = (from r in db.ServiceTypes where r.Name.ToLower().Contains(term.ToLower()) select new { r.Name, r.Id, category }).ToList();
+                category = "Lawyers";
+                var lawyers = (from r in db.Lawyers where r.Name.ToLower().Contains(term.ToLower()) select new { r.Name, r.User.UserName, category }).ToList();
+                // var finalResult = services.Concat(lawyers).ToList();
 
-            category = "Lawyers";
-            var lawyers = (from r in db.Lawyers where r.Name.ToLower().Contains(term.ToLower()) select new { r.Name, r.Id, category }).ToList();
+                List<Object> finalResult = (from x in services select (Object)x).ToList();
+                finalResult.AddRange((from x in lawyers select (Object)x).ToList());
+                return Json(finalResult, JsonRequestBehavior.AllowGet);
+            }
+           
+            
 
-            var both = services.Concat(lawyers).ToList();
+               
 
-            return Json(both, JsonRequestBehavior.AllowGet);
+          
+           
+
+            
 
             //if (term == " ")
             //    return Json(from r in db.ServiceTypes select r, JsonRequestBehavior.AllowGet);
