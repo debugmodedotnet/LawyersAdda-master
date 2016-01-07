@@ -5,55 +5,97 @@
     ViewBag.Title = "Lawyers";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <h2>Lawyers</h2>
 <div class="container">
     <div class="col-md-12">
-        <div class="col-md-2">
-            filter area
-
+        <div class="row">
+            <div class="col-md-10">
+                <div id="filter-panel" class="collapse">
+                    <div class="pull-left">
+                        <form class="form-inline" role="form">
+                            <div class="form-group">
+                                <label class="filter-col" style="margin-right:0;" for="pref-perpage">Experience</label>
+                                <select id="pref-perpage" class="form-control">
+                                    <option value="1"> < 2 Years</option>
+                                    <option value="2"> > 2 and < 5 Years</option>
+                                    <option value="3"> > 5 Years</option>
+                                </select>
+                            </div> <!-- form group [rows] -->
+                            <div class="form-group">
+                                <label id="amount" class="filter-col" style="margin-right:0;" for="amount">Consulting fees:</label>
+                                <div class="form-control" id="slider-range"></div>
+                            </div><!-- form group [search] -->
+                        </form>
+                    </div>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-warning">
+                            <span class="glyphicon glyphicon-filter"></span> Apply Filter
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#filter-panel">
+                    <span class="glyphicon glyphicon-cog"></span> Advanced Search
+                </button>
+            </div>
         </div>
-        <div class="col-md-10">
+        <br />
+        <div class="row">
             @foreach (var item in Model)
             {
-                <div class="row" style="border:1px solid #cccccc;margin-bottom:5px;">
-                    <div class="col-md-2">
-                        @if (item.ImageUrl != null)
-                            {
-                                <img class="img-responsive img-rounded" src="@item.ImageUrl" style="width:100%;" />
-                            }
-                            else
-                            {
-                                <img class="img-responsive img-rounded" src="~/images/avatar_default.png" style="width:100%;" />
-                            }
+                <div class="col-md-6">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <a href="#"> @item.Name </a>
+                            <div class="pull-right">
+                                <i class="glyphicon glyphicon-map-marker"> </i> @item.City.CityName <br />
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-3">
+                                <div class="pull-left">
+                                    @if (item.ImageUrl != null)
+                                    {
+                                        <img class="img-responsive img-rounded" src="@item.ImageUrl" style="width:100%;" />
+                                    }
+                                    else
+                                    {
+                                        <img class="img-responsive img-rounded" src="~/images/avatar_default.png" style="width:100%;" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-md-3">
 
-                    </div>
-                    <div class="col-md-4">
-                        <h3 style="text-transform:capitalize"><a href="#"> @item.Name </a></h3><br />
-                        <p>
-                            @item.Bio
-                        </p>
-                        <p>
-                            Services :
-                            @foreach (var service in item.ServiceTypes)
-                                {
-                                    <a href="#"> @service.Name ,</a>
-                                }
-                        </p>
-                    </div>
-                    <div class="col-md-4 pull-right">
-                        <p>
-                            <br />
-                            <i class="glyphicon glyphicon-envelope"> </i> @item.Email <br />
-                            <i class="glyphicon glyphicon-earphone"> </i> @item.PhoneNumber , @item.AlternatePhoneNumber <br />
-                            <i class="glyphicon glyphicon-globe"> </i> @item.WebSiteUrl <br />
-                            <i class="glyphicon glyphicon-map-marker"> </i> @item.City.CityName <br />
-                        </p>
+                                <div class="row">
+                                    @item.Bio
+                                    Services :
+                                    @foreach (var service in item.ServiceTypes)
+                                    {
+                                        <a href="#"> @service.Name ,</a>
+                                    }
+                                </div>
+                                <div class="row">
+                                    <i class="glyphicon glyphicon-globe"> </i> @item.WebSiteUrl <br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer panel-warning">
+                            <div class="pull-left">
+                                <i class="glyphicon glyphicon-envelope"> </i> @item.Email <br />
+                            </div>
+                            <div class="pull-right">
+                                <i class="glyphicon glyphicon-earphone"> </i> @item.PhoneNumber<br />
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
                     </div>
                 </div>
             }
-
         </div>
+
     </div>
 
     <div class="pagedList text-center">
@@ -61,3 +103,17 @@
         Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Lawyers found
     </div>
 </div>
+
+<script>
+  $(function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).text( "Consulting Fees: $" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
+  });
+</script>

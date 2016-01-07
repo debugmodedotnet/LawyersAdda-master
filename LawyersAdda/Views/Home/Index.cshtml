@@ -57,14 +57,12 @@
             $(document).ready(function () {
 
                 var selectItem = function (event, ui) {
-                    alert(ui.item.value);
-                    alert(ui.item.label);
                     $("#projectVal").val(ui.item.value);
                     $("#project").val(ui.item.label);
                     $("#categ").val(ui.item.category);
 
                     if ($("#categ").val() == "Lawyers") {
-                        window.location.href = "/Profile/MemberProfile/" + ui.item.value;
+                        window.location.href = "/Profile/MemberProfile/" + ui.item.username;
                     }
                     else {
                         $.ajax({
@@ -94,7 +92,6 @@
                         $.each(items, function (index, item) {
                             var li;
                             if (item.category != currentCategory) {
-                                console.log(item);
                                 ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
                                 currentCategory = item.category;
                             }
@@ -115,7 +112,7 @@
                             data: { term: request.term },
                             success: function (data) {
                                 response($.map(data, function (item) {
-                                    return { label: item.Name, value: item.Id, category: item.category };
+                                    return { label: item.Name, value: item.Id, username: item.UserName, category: item.category };
                                 }).slice(0, 5))
                             }
                         })
@@ -125,9 +122,5 @@
                     select: selectItem,
                     autoFocus: true
                 }).bind('focus', function () { $(this).catcomplete("search", " "); });;
-
-
-
-
             });
         </script>
