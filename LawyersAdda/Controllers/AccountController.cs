@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LawyersAdda.Models;
+using LawyersAdda.Entities;
+using System.Collections.Generic;
 
 namespace LawyersAdda.Controllers
 {
@@ -139,6 +141,10 @@ namespace LawyersAdda.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ApplicationDbContext Context = new ApplicationDbContext();
+            List<City> lstCities = new List<City>();
+            lstCities = Context.Cities.ToList();
+            ViewBag.Cities = lstCities;
             return View();
         }
 
@@ -147,11 +153,13 @@ namespace LawyersAdda.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model,String CityId)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, FullName=model.FullName, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, FullName=model.FullName, Email = model.Email, CityId=CityId };
+                user.ModifiedDate = DateTime.Now;
+                user.RegistrationDate = DateTime.Now;
                 //normal user registeration. Hence islawyer is set to false
                 user.isLawyer = false;
                 var result = await UserManager.CreateAsync(user, model.Password);

@@ -60,8 +60,46 @@
                             </div>
                             <div class="col-md-7">
                                 <h2 style="text-transform:capitalize">
-                                    @ViewBag.user.FullName
-                                </h2>				
+                                    @ViewBag.user.FullName <a href="#usrEdit" data-target="#usrEdit" data-toggle="modal" class="btn btn-warning pull-right">Edit Profile</a>
+                                </h2>
+                                    <div class="modal" id="usrEdit">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">x</button>
+                                                    <h3>Edit Profile</h3>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post" action='/Profile/EditUser'>
+                                                        @Html.AntiForgeryToken()
+                                                        <input type="hidden" name="Id" id="Id" value="@ViewBag.user.Id">
+                                                        <label for="FullName">Name</label>
+                                                        <input type="text" value="@ViewBag.user.FullName" id="FullName" name="FullName" class="form-control" required="required" /><br />
+                                                        <label for="PhoneNumber">Phone Number</label>
+                                                        <input type="text" value="@ViewBag.user.PhoneNumber" id="PhoneNumber" name="PhoneNumber" class="form-control" required="required" /><br />
+                                                        <label for="CityId">City</label><br/>
+                                                        <select name="CityId" class="form-control">
+                                                            @foreach (var i in @ViewBag.Cities)
+                                                            {
+                                                                if (i.Id == @ViewBag.user.CityId)
+                                                                {
+                                                                    <option value="@i.Id" selected="selected">@i.CityName</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@i.Id">@i.CityName</option>
+                                                                }
+                                                            }
+                                                        </select><br/>
+                                                        <input type="submit" value="Save" class="btn btn-warning form-control" />
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>				
                                 <ul style="list-style: none outside; padding: 0; margin: 0 0 1.5em; overflow: hidden; zoom: 1; clear: both;">
                                     <li style="margin-bottom:10px;"><a href="mailto:@ViewBag.User.Email"><i class="glyphicon glyphicon-envelope"></i> @ViewBag.User.Email</a></li>
                                     <li style="margin-bottom:10px;"><i class="glyphicon glyphicon-earphone"></i> @ViewBag.User.PhoneNumber</li>
@@ -71,87 +109,94 @@
                             </div>
                         </div>
                     </article>
-                    <div class="row">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h3>Your Questions</h3>
-                                Total Asked Questions : @Model.Count()
-                                Accepted Questions : @Model.Where(t => t.isAnswered == true).Count()
-                                Pending Questions : @Model.Where(t => t.isAnswered == false).Count()
-                            </div>
-                            <div class="col-md-2">
-                                <br />
-                                @Html.DropDownList("DateWiseSorting", new List<SelectListItem>() { new SelectListItem { Text = "Latest", Value = "1" }, new SelectListItem { Text = "Oldest", Value = "2" } }, new { @class = "form-control" })
-                            </div>
-                            <div class="col-md-2">
-                                <br />
-                                <input type="checkbox" name="SelectQuestion" class="SelectQuestion" checked="checked" data-off-text="Pending" data-on-text="ALL" />
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="col-md-12" id="QuestionsPanel">
-                            @foreach (var item in Model)
-                            {
-                                <h3><a href="/Questions/ViewQuestion/@item.QuestionID"> @item.Title </a></h3>
-                                <p>
-                                    @Html.Raw((@Html.Raw(@item.HTMLText)).ToHtmlString().Substring(0, 200)) ...
-
-                                    @*@Html.Raw(@item.PlainText).ToString().Substring(0, 200) ...*@
-                                </p>
-                                <div class="row">
-                                    <div class="col-sm-3"> @item.Services.Name </div>
-                                    <div class="col-sm-3">@item.ModifiedDate</div>
-                                    <div class="col-sm-3"><a href="/Questions/ViewQuestion/@item.QuestionID"><i class="glyphicon glyphicon-eye-open"></i> View</a></div>
-                                    <div class="col-sm-3"><a href="/Questions/DownloadPDF/@item.QuestionID"><i class="glyphicon glyphicon-arrow-down"></i> Download PDF</a></div>
-                                </div>
-                                <hr />
-                            }
-                        </div>
-                    </div>
                 </main>
 
                 <!-- Sidebar -->
-                <div class="sidebar col-md-3 col-md-offset-1" style="border-left: 1px solid #ebebeb;">
+                <div class="sidebar col-md-3 col-md-offset-1" style="border-left: 1px solid #ebebeb;height:100%;padding-top:80px;padding-bottom:-80px;">
                     <aside>
                         <a href="/Questions/AskQuestion" class="btn btn-warning btn-lg form-control" style="min-height:40px;">Ask To a Lawyer</a><br /><br />
                         <a href="#" class="btn btn-info btn-lg form-control" style="min-height:40px;">Get Documentation</a><br/>
-                        <div><h3 style="font-size:18px;">Top Lawyers in Your City</h3></div>
-                        <ul style="padding-left: 0; list-style: none; border-top: 1px solid #ebebeb; margin: 5px -5px;">
-                            @foreach (var item in @ViewBag.LawyersInCities)
-                            { 
-                                <li style=" border-bottom: 1px solid #ebebeb; list-style: none outside; padding: 0; margin: 0;">
-                                <div class="row" style="margin-top:10px;">
-                                    <div class="col-xs-3">
-                                        @if (item.ImageUrl != null)
-                                        {
-                                            <img class="img-circle img-responsive" src="@item.ImageUrl" />
-                                        }
-                                        else
-                                        {
-                                            <img class="img-circle img-responsive" src="~/images/avatar_default.png" />
-                                        }
-                                    </div>
-                                    <div class="col-xs-9" style="padding-bottom:10px;">
-                                        <a href="#">
-                                            <span style="font-size:16px;"><strong>@item.Name</strong></span>
-                                            <ul style="padding-left: 0; list-style: none;">
-                                                <li style="padding-left: 0; list-style: none;">
-                                                    @foreach(var service in item.ServiceTypes)
-                                                    {
-                                                       <span>@service.Name ,</span> 
-                                                    }
-                                                </li>
-                                            </ul>
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                            }
-                        </ul>
                     </aside>
                 </div>
                 <!-- /Sidebar -->
             </div>
+            <div class="row">
+                <main class="row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <h3>Your Questions</h3>
+                            </div>
+                            <div class="col-xs-2">
+                                <br />
+                                @Html.DropDownList("DateWiseSorting", new List<SelectListItem>() { new SelectListItem { Text = "Latest", Value = "1" }, new SelectListItem { Text = "Oldest", Value = "2" } }, new { @class = "form-control" })
+                            </div>
+                            <div class="col-xs-2">
+                                <br />
+                                <input type="checkbox" name="SelectQuestion" class="SelectQuestion" checked="checked" data-off-text="Pending" data-on-text="ALL" />
+                            </div>
+                        </div>
+                        Total Asked Questions : @Model.Count()
+                        Accepted Questions : @Model.Where(t => t.isAnswered == true).Count()
+                        Pending Questions : @Model.Where(t => t.isAnswered == false).Count()
+                            <div class="row">
+                                <div class="col-md-12" id="QuestionsPanel">
+                                    @foreach (var item in Model)
+                                    {
+                                        <h3><a href="/Questions/ViewQuestion/@item.QuestionID"> @item.Title </a></h3>
+                                        <p>
+                                            @Html.Raw((@Html.Raw(@item.HTMLText)).ToHtmlString().Substring(0, 200)) ...
+                                        </p>
+                                        <div class="row">
+                                            <div class="col-sm-3"> @item.Services.Name </div>
+                                            <div class="col-sm-3">@item.ModifiedDate</div>
+                                            <div class="col-sm-3"><a href="/Questions/ViewQuestion/@item.QuestionID"><i class="glyphicon glyphicon-eye-open"></i> View</a></div>
+                                            <div class="col-sm-3"><a href="/Questions/DownloadPDF/@item.QuestionID"><i class="glyphicon glyphicon-arrow-down"></i> Download PDF</a></div>
+                                        </div>
+                                        <hr />
+                                    }
+                                </div>
+                            </div>
+                    </div>
+                    <div class="sidebar col-md-3 col-md-offset-1" style="border-left: 1px solid #ebebeb;">
+                        <div><h3 style="font-size:18px;">Top Lawyers in Your City</h3></div>
+                        <ul style="padding-left: 0; list-style: none; border-top: 1px solid #ebebeb; margin: 5px -5px;">
+                            @foreach (var item in @ViewBag.LawyersInCities)
+                            {
+                                <li style=" border-bottom: 1px solid #ebebeb; list-style: none outside; padding: 0; margin: 0;">
+                                    <div class="row" style="margin-top:10px;">
+                                        <div class="col-xs-3">
+                                            @if (item.ImageUrl != null)
+                                            {
+                                                <img class="img-circle img-responsive" src="@item.ImageUrl" />
+                                            }
+                                            else
+                                            {
+                                                <img class="img-circle img-responsive" src="~/images/avatar_default.png" />
+                                            }
+                                        </div>
+                                        <div class="col-xs-9" style="padding-bottom:10px;">
+                                            <a href="#">
+                                                <span style="font-size:16px;"><strong>@item.Name</strong></span>
+                                                <ul style="padding-left: 0; list-style: none;">
+                                                    <li style="padding-left: 0; list-style: none;">
+                                                        @foreach (var service in item.ServiceTypes)
+                                                        {
+                                                            <span>@service.Name ,</span>
+                                                        }
+                                                    </li>
+                                                </ul>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <hr />
+                </main>
+            </div>
+
         </div>
     </section>
 <div class="container">

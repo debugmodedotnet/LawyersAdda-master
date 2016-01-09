@@ -37,6 +37,17 @@
         </div>
     </div>
     <div class="form-group">
+        <label for="CityId" class="col-md-2 control-label">City</label>
+        <div class="col-md-10">
+            <select name="CityId" id="CityId" class="form-control">
+                @foreach (var i in @ViewBag.Cities)
+                {
+                    <option value="@i.Id">@i.CityName</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Register" />
         </div>

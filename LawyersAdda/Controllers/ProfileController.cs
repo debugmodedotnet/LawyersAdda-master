@@ -74,8 +74,10 @@ namespace LawyersAdda.Controllers
                     ServiceType service = lstServiceType.Where(t => t.Id == q.ServiceID).Single();
                     q.Services = service;
                 }
-                
                 lstQuestions = lstQuestions.OrderByDescending(t => t.ModifiedDate).ToList();
+                List<City> lstCities = new List<City>();
+                lstCities = Context.Cities.ToList();
+                ViewBag.Cities = lstCities;
                 Session["UserID"] = User.Identity.GetUserId();
                 return View("UserProfile", lstQuestions);
             }
@@ -181,8 +183,10 @@ namespace LawyersAdda.Controllers
             ApplicationDbContext Context = new ApplicationDbContext();
             ApplicationUser usr = new ApplicationUser();
             usr = Context.Users.Where(t => t.Id == user.Id).Single();
+            usr.CityId = user.CityId;
             //usr.Email = user.Email;
             usr.FullName = user.FullName;
+            usr.ModifiedDate = DateTime.Now;
             usr.PhoneNumber = user.PhoneNumber;
             if (ModelState.IsValid)
             {
