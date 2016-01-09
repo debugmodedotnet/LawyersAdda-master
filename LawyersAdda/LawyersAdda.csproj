@@ -597,6 +597,7 @@
     <Content Include="Scripts\UploadUserProfilePic.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="images\avatar_default.png" />
+    <Content Include="Views\Home\HtmlPage1.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

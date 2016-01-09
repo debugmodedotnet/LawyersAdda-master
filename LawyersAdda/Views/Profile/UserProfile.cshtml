@@ -4,128 +4,359 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <br/>
-<div class="container">
-    <div class="row">
-        <div class="col col-md-4">
-            <h3>Hello @ViewBag.user.FullName !</h3>
-        </div>
-        <div class="col col-md-8">
+    <style>
+        .img-hover-text {
+            position: relative;
+            
+            padding-bottom: 0px;
+            padding-top: 4px;
+            background: #000000;
+            top: 70px;
+            right: 0px;
+            margin-top: -70px;
+            font-size: 30px;
+            color: #ffffff;
+            display: block;
+            opacity: 0.5;
+        }
+        .img-hover-text:hover{
+            color:#ffffff;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $(".img-hover-text").hide();
+        });
+        function ShowEdit() {
+            $(".img-hover-text").fadeIn(300);
+        };
+        function HideEdit() {
+            if (!($(".img-hover-text").is(":hover"))) {
+                $(".img-hover-text").fadeOut(300);
+            }
+        };
+        function HideFromLoink(){
+            $(".img-hover-text").fadeOut(300);
+        }
+    </script>
+    <section>
+        <div class="container">
             <div class="row">
-                <a href="#usrEdit" data-target="#usrEdit" data-toggle="modal" class="btn btn-warning pull-right">Edit Profile</a>
-                <div class="modal" id="usrEdit">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">x</button>
-                                <h3>Edit Profile</h3>
+                <main class="col-md-8">
+                    <article>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <a href="#usrEditProfilePic" data-target="#usrEditProfilePic" data-toggle="modal" data-backdrop="static" data-keyboard="false" onmouseout="HideFromLoink();" class="img-hover-text pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+                                <figure style="margin: 0 0 20px 0;">
+                                    @if (@ViewBag.user.ProfilePicURL == null || @ViewBag.user.ProfilePicURL == "")
+                                    {
+                                        <img style="width: 100%; height: auto;" onmouseout="HideEdit();" onmouseover="ShowEdit();" src="http://na1.www.gartner.com/imagesrv/apps/gcms/events/img/no_avatar.png;wa4b938a20593cb4ec" class="img-thumbnail img-responsive profile-pic" />
+                                    }
+                                    else
+                                    {
+                                        <img style="width: 100%; height: auto;" onmouseout="HideEdit();" onmouseover="ShowEdit();" src="@ViewBag.user.ProfilePicURL" class="img-thumbnail img-responsive profile-pic" />
+                                    }
+                                </figure>
                             </div>
-                            <div class="modal-body">
-                                <form method="post" action='/Profile/EditUser'>
-                                    @Html.AntiForgeryToken()
-                                    <input type="hidden" name="Id" id="Id" value="@ViewBag.user.Id">
-                                    <label for="FullName">Name</label>
-                                    <input type="text" value="@ViewBag.user.FullName" id="FullName" name="FullName" class="form-control" required="required" /><br/>
-                                    <label for="PhoneNumber">Phone Number</label>
-                                    <input type="text" value="@ViewBag.user.PhoneNumber" id="PhoneNumber" name="PhoneNumber" class="form-control" required="required" /><br />
-                                    <input type="submit" value="Save" class="btn btn-warning form-control"/>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="jumbotron" style="background-color:#ffffff">
-                        <div>
-                            @if (@ViewBag.user.ProfilePicURL == null || @ViewBag.user.ProfilePicURL == "")
-                            {
-                                <img style="width: 100%; height:auto" src="http://na1.www.gartner.com/imagesrv/apps/gcms/events/img/no_avatar.png;wa4b938a20593cb4ec" class="img-circle img-responsive" />
-                            }
-                            else
-                            {
-                                <img style="width: 100%; height:auto" src="@ViewBag.user.ProfilePicURL" class="img-rounded img-responsive" />
-                            }
-                            <a href="/profile/AddUserProfilePic" class="pull-right"><i class="glyphicon glyphicon-edit"></i> Change Profile Picture</a>
-                        </div><br />
-                        <div>
-                            <i class="glyphicon glyphicon-envelope"></i> @ViewBag.User.Email<br />
-                            <i class="glyphicon glyphicon-earphone"></i> @ViewBag.User.PhoneNumber<br />
-                        </div><br />
-                        <div class="well well-sm">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    Total Asked Answer
-                                </div>
-                                <div class="col-md-3">
-                                    @Model.Count()
-                                </div>
-                            </div>
-                        </div>
-                        <div class="well well-sm">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    Accepted Questions
-                                </div>
-                                <div class="col-md-3">
-                                    @Model.Where(t => t.isAnswered == true).Count()
-                                </div>
-                            </div>
-                        </div>
-                        <div class="well well-sm">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    Pending Questions
-                                </div>
-                                <div class="col-md-3">
-                                    @Model.Where(t => t.isAnswered == false).Count()
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    @foreach (var item in Model)
-                    {
-                        <div class="row" style="margin-bottom:5px;">
-                            @if (item.isAnswered)
-                            {
-                                <div class="col-md-2" style="font-size: 50px; color: #007128">
-                                    <i class="glyphicon glyphicon-ok-circle" style="top:15px;"></i>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="col-md-2" style="font-size: 50px; color: #b90000">
-                                    <i class="glyphicon glyphicon-remove-circle" style="top:15px;"></i>
-                                </div>
-                            }
                             <div class="col-md-7">
-                                <h3> @item.Title </h3>
-                                <p>
-                                    @item.ModifiedDate <br />
-                                    @Html.Raw(@item.HTMLText)
-                                    @item.Services.Name<br />
-                                </p>
-                            </div>
-                            <div class="col-md-3" style="margin-top:25px;">
-                                @if (item.isAnswered)
-                                {
-                                    <a href="/Questions/DownloadPDF/@item.QuestionID" target="_blank" class="btn btn-warning">Download PDF </a>
-                                }
-                                else
-                                { 
-                                    <a href="/Questions/ViewQuestion/@item.QuestionID" style="width:127px" class="btn btn-warning"> View </a>
-                                }
+                                <h2 style="text-transform:capitalize">
+                                    @ViewBag.user.FullName
+                                </h2>				
+                                <ul style="list-style: none outside; padding: 0; margin: 0 0 1.5em; overflow: hidden; zoom: 1; clear: both;">
+                                    <li style="margin-bottom:10px;"><a href="mailto:@ViewBag.User.Email"><i class="glyphicon glyphicon-envelope"></i> @ViewBag.User.Email</a></li>
+                                    <li style="margin-bottom:10px;"><i class="glyphicon glyphicon-earphone"></i> @ViewBag.User.PhoneNumber</li>
+                                    <li style="margin-bottom:10px;"><i class="glyphicon glyphicon-map-marker"></i> @ViewBag.User.City.CityName</li>
+                                    <li style="margin-bottom:10px;"><i class="glyphicon glyphicon-calendar"></i> @ViewBag.User.RegistrationDate</li>
+                                </ul>
                             </div>
                         </div>
+                    </article>
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h3>Your Questions</h3>
+                                Total Asked Questions : @Model.Count()
+                                Accepted Questions : @Model.Where(t => t.isAnswered == true).Count()
+                                Pending Questions : @Model.Where(t => t.isAnswered == false).Count()
+                            </div>
+                            <div class="col-md-2">
+                                <br />
+                                @Html.DropDownList("DateWiseSorting", new List<SelectListItem>() { new SelectListItem { Text = "Latest", Value = "1" }, new SelectListItem { Text = "Oldest", Value = "2" } }, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-2">
+                                <br />
+                                <input type="checkbox" name="SelectQuestion" class="SelectQuestion" checked="checked" data-off-text="Pending" data-on-text="ALL" />
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="col-md-12" id="QuestionsPanel">
+                            @foreach (var item in Model)
+                            {
+                                <h3><a href="/Questions/ViewQuestion/@item.QuestionID"> @item.Title </a></h3>
+                                <p>
+                                    @Html.Raw((@Html.Raw(@item.HTMLText)).ToHtmlString().Substring(0, 200)) ...
+
+                                    @*@Html.Raw(@item.PlainText).ToString().Substring(0, 200) ...*@
+                                </p>
+                                <div class="row">
+                                    <div class="col-sm-3"> @item.Services.Name </div>
+                                    <div class="col-sm-3">@item.ModifiedDate</div>
+                                    <div class="col-sm-3"><a href="/Questions/ViewQuestion/@item.QuestionID"><i class="glyphicon glyphicon-eye-open"></i> View</a></div>
+                                    <div class="col-sm-3"><a href="/Questions/DownloadPDF/@item.QuestionID"><i class="glyphicon glyphicon-arrow-down"></i> Download PDF</a></div>
+                                </div>
+                                <hr />
+                            }
+                        </div>
+                    </div>
+                </main>
+
+                <!-- Sidebar -->
+                <div class="sidebar col-md-3 col-md-offset-1" style="border-left: 1px solid #ebebeb;">
+                    <aside>
+                        <a href="/Questions/AskQuestion" class="btn btn-warning btn-lg form-control" style="min-height:40px;">Ask To a Lawyer</a><br /><br />
+                        <a href="#" class="btn btn-info btn-lg form-control" style="min-height:40px;">Get Documentation</a><br/>
+                        <div><h3 style="font-size:18px;">Top Lawyers in Your City</h3></div>
+                        <ul style="padding-left: 0; list-style: none; border-top: 1px solid #ebebeb; margin: 5px -5px;">
+                            @foreach (var item in @ViewBag.LawyersInCities)
+                            { 
+                                <li style=" border-bottom: 1px solid #ebebeb; list-style: none outside; padding: 0; margin: 0;">
+                                <div class="row" style="margin-top:10px;">
+                                    <div class="col-xs-3">
+                                        @if (item.ImageUrl != null)
+                                        {
+                                            <img class="img-circle img-responsive" src="@item.ImageUrl" />
+                                        }
+                                        else
+                                        {
+                                            <img class="img-circle img-responsive" src="~/images/avatar_default.png" />
+                                        }
+                                    </div>
+                                    <div class="col-xs-9" style="padding-bottom:10px;">
+                                        <a href="#">
+                                            <span style="font-size:16px;"><strong>@item.Name</strong></span>
+                                            <ul style="padding-left: 0; list-style: none;">
+                                                <li style="padding-left: 0; list-style: none;">
+                                                    @foreach(var service in item.ServiceTypes)
+                                                    {
+                                                       <span>@service.Name ,</span> 
+                                                    }
+                                                </li>
+                                            </ul>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            }
+                        </ul>
+                    </aside>
+                </div>
+                <!-- /Sidebar -->
+            </div>
+        </div>
+    </section>
+<div class="container">
+    @*<div class="row">
+        <div class="col-md-8" style="border: 1px solid; border-radius: 5px; padding-top: 5px; padding-bottom: 5px; background-color: #e6e6e6; margin-bottom:10px;">
+            <div class="row">
+                <div class="col-md-3">
+                    @if (@ViewBag.user.ProfilePicURL == null || @ViewBag.user.ProfilePicURL == "")
+                    {
+                        <img style="width: 180px; height: 180px; margin: 0 auto;" onmouseout="HideEdit();" onmouseover="ShowEdit();" src="http://na1.www.gartner.com/imagesrv/apps/gcms/events/img/no_avatar.png;wa4b938a20593cb4ec" class="img-rounded img-responsive profile-pic" />
                     }
+                    else
+                    {
+                        <img style="width: 180px; height: 180px; margin: 0 auto;" onmouseout="HideEdit();" onmouseover="ShowEdit();" src="@ViewBag.user.ProfilePicURL" class="img-rounded img-responsive profile-pic" />
+                    }
+                    <a href="#usrEditProfilePic" data-target="#usrEditProfilePic" data-toggle="modal" data-backdrop="static" data-keyboard="false" onmouseout="HideFromLoink();" class="img-hover-text"><i class="glyphicon glyphicon-edit"></i> Change Photo</a>
+                    <div class="modal" id="usrEditProfilePic">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">x</button>
+                                    <h3>Upload Profile Picture</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading"><strong>Upload Files</strong> <small>add images to you profile</small></div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <!-- Drop Zone -->
+                                                    <h4>Or drag and drop files below</h4>
+                                                    <div class="upload-drop-zone" id="drop-zone1">
+                                                        Just drag and drop files here
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <!-- Standar Form -->
+                                                    <h4>Select files from your computer</h4>
+                                                    <form action="" method="post" enctype="multipart/form-data" id="js-upload-form1">
+                                                        <div class="form-inline">
+                                                            <div class="form-group">
+                                                                <input class="form-control" type="file" name="files[]" id="js-upload-files1" multiple>
+                                                            </div>
+                                                            <button type="button" class="btn btn-sm btn-warning" id="js-upload-submit1">Upload files</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                            <!-- Progress Bar -->
+                                            <div class="progress progress-bar-striped" id="progress" style="display:none;">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                                    <span class="sr-only">Loading in Progress</span>
+                                                </div>
+                                            </div>
+                                            <!-- Upload Finished -->
+                                            <div class="js-upload-finished">
+                                                <h3>Processed files</h3>
+                                                <div class="list-group" id="uploadedImage1" style="display:none;">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-5 col-md-offset-4">
+                                                    <a href="/profile"><button class="btn btn-lg btn-warning">Save and View your profile</button></a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <h3>Hello @ViewBag.user.FullName !
+                    <a href="#usrEdit" data-target="#usrEdit" data-toggle="modal" class="btn btn-warning pull-right">Edit Profile</a>
+                        <div class="modal" id="usrEdit">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">x</button>
+                                        <h3>Edit Profile</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post" action='/Profile/EditUser'>
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="Id" id="Id" value="@ViewBag.user.Id">
+                                            <label for="FullName">Name</label>
+                                            <input type="text" value="@ViewBag.user.FullName" id="FullName" name="FullName" class="form-control" required="required" /><br />
+                                            <label for="PhoneNumber">Phone Number</label>
+                                            <input type="text" value="@ViewBag.user.PhoneNumber" id="PhoneNumber" name="PhoneNumber" class="form-control" required="required" /><br />
+                                            <input type="submit" value="Save" class="btn btn-warning form-control" />
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </h3>
+                    <a href="mailto:@ViewBag.User.Email"><i class="glyphicon glyphicon-envelope"></i> @ViewBag.User.Email</a><br />
+                    <i class="glyphicon glyphicon-earphone"></i> @ViewBag.User.PhoneNumber<hr />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p style="text-align:center;font-size:16px;">Total Asked Answer<br/>
+                            @Model.Count()
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p style="text-align: center; font-size: 16px; border-left: 1px solid #d7d7d7; border-right: 1px solid #d7d7d7;">
+                                Accepted Questions<br />
+                                @Model.Where(t => t.isAnswered == true).Count()
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p style="text-align:center;font-size:16px;">
+                                Pending Questions<br />
+                                @Model.Where(t => t.isAnswered == false).Count()
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div class="col-md-4" style="margin-bottom:10px;">
+            <div class="container">
+                <a href="/Questions/AskQuestion" class="btn btn-warning btn-lg form-control" style="height:70px;line-height:50px;">Ask To a Lawyer</a><br /><br /><br />
+                <a href="#" class="btn btn-warning btn-lg form-control" style="height: 70px; line-height: 50px; ">Get Documentation</a>
+            </div>
+        </div>
+    </div>*@
+</div>
+    
+<link href="~/Content/bootstrap-switch.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="~/Scripts/bootstrap-switch.js"></script>
+    <script src="~/Scripts/UploadUserProfilePic.js"></script>
+    <script>
+        $("input[name='SelectQuestion']").bootstrapSwitch();
+        var SelectQuestion=1;
+        var Order;
+        $(document).ready(function () {
+            //Converting Checkbox to to the switch
+            $("input[name='SelectQuestion']").bootstrapSwitch();
+
+            //By defualt checking the checkbox
+            $("input[name='SelectQuestion']").attr('checked', 'checked');
+
+            //When Switch Will be change we have to get the value from  Action
+            $("input[name='SelectQuestion']").on('switchChange.bootstrapSwitch', function(event, state) {
+                if(state==true)
+                {
+                    SelectQuestion=1;
+                }
+                else
+                {
+                    SelectQuestion=3;
+                }
+                LoadQuestion();
+            });
+        });
+        //When Drop Down will be change
+        $("#DateWiseSorting").change(function () {
+            LoadQuestion();
+        });
+        function LoadQuestion() {
+            $("#QuestionsPanel").empty();
+            Order = $("#DateWiseSorting").val();
+            $.ajax({
+                type: 'POST',
+                url: '/Profile/GetQuestions',
+                dataType: 'json',
+                data: { Order: Order, SelectQuestion: SelectQuestion },
+                success: function (data) {
+                    var items = '';
+                    $.each(data, function (i, item) {
+                        if ((item.HTMLText + "").length > 200){
+                            item.HTMLText = (item.HTMLText + "").substring(0, 200);
+                        }
+                        var result = "<h3><a href='/Questions/ViewQuestion/" + item.QuestionID + "'>" + item.Title + "</a></h3><p>";
+                        result += item.HTMLText;
+                        result += "...</p><div class='row'><div class='col-sm-3'>" + item.Services.Name + "</div><div class='col-sm-3'>";
+                        var NormalDate = new Date(parseInt(item.ModifiedDate.replace("/Date(", "").replace(")/", ""), 10));
+                        result += NormalDate.getMonth()+"/"+NormalDate.getDate()+"/"+NormalDate.getFullYear()+" "+NormalDate.getHours()+":"+NormalDate.getMinutes()+":"+NormalDate.getSeconds()+" ";
+                        result += "</div><div class='col-sm-3'><a href='/Questions/ViewQuestion/" + item.QuestionID + "'><i class='glyphicon glyphicon-eye-open'></i> View</a></div><div class='col-sm-3'><a href='/Questions/DownloadPDF/" + item.QuestionID + "><i class='glyphicon glyphicon-arrow-down'></i> Download PDF</a></div></div><hr/>";
+                        $("#QuestionsPanel").append(result);
+                    });
+                },
+                error: function (ex) {
+                    var r = jQuery.parseJSON(response.responseText);
+                    alert("Message: " + r.Message);
+                    alert("StackTrace: " + r.StackTrace);
+                    alert("ExceptionType: " + r.ExceptionType);
+                }
+            });
+        }
+    </script>
+}
+

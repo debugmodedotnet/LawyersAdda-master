@@ -4,11 +4,11 @@
     // UPLOAD CLASS DEFINITION
     // ======================
 
-    var dropZone = document.getElementById('drop-zone');
-    var uploadForm = document.getElementById('js-upload-form');
-    var uploadFormFiles = document.getElementById('js-upload-files');
-    var uploadedImage = document.getElementById("uploadedImage");
-
+    var dropZone = document.getElementById('drop-zone1');
+    var uploadForm = document.getElementById('js-upload-form1');
+    var uploadFormFiles = document.getElementById('js-upload-files1');
+    var uploadedImage = document.getElementById("uploadedImage1");
+    var uploadbtn = document.getElementById("js-upload-submit1");
     var filesToUpload;
 
     var startUpload = function (files) {
@@ -49,6 +49,12 @@
     })
 
     uploadForm.addEventListener('submit', function (e) {
+        var uploadFiles = filesToUpload;
+        e.preventDefault();
+        startUpload(uploadFiles);
+    })
+
+    uploadbtn.addEventListener('click', function (e) {
         var uploadFiles = filesToUpload;
         e.preventDefault();
         startUpload(uploadFiles);

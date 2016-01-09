@@ -20,12 +20,17 @@ namespace LawyersAdda.Controllers
             ApplicationUser user = new ApplicationUser();
             string UID = User.Identity.GetUserId();
             user = Context.Users.Where(t => t.Id == UID).Single();
+            if (!(string.IsNullOrEmpty(user.CityId)))
+            {
+                City city = new City();
+                city = Context.Cities.Where(t => t.Id == user.CityId).Single();
+                user.City = city;
+            }
             ViewBag.User = user;
             Lawyer l = new Lawyer();
             l = user.Lawyer;
             if (user.isLawyer)
             {
-
                 List<ServiceType> lstServices = new List<ServiceType>();
                 Context.Entry(l).Collection(t => t.ServiceTypes).Load();
                 foreach (ServiceType s in l.ServiceTypes)
@@ -49,6 +54,19 @@ namespace LawyersAdda.Controllers
             {
                 List<Question> lstQuestions = new List<Question>();
                 List<ServiceType> lstServiceType = new List<ServiceType>();
+                List<Lawyer> lstLawyers=new List<Lawyer>();
+                lstServiceType = Context.ServiceTypes.ToList();
+                lstLawyers = Context.Lawyers.Where(t => t.CityId == user.CityId).Take(10).ToList();
+                foreach (Lawyer lawyer in lstLawyers)
+                {
+                    Context.Entry(lawyer).Collection(t => t.ServiceTypes).Load();
+                    foreach (ServiceType s in lawyer.ServiceTypes)
+                    {
+                        lstServiceType.Add(s);
+                    }
+                }
+                ViewBag.LawyersInCities = lstLawyers;
+
                 lstQuestions = Context.Questions.Where(t => t.UserID == UID).ToList();
                 lstServiceType = Context.ServiceTypes.ToList();
                 foreach (var q in lstQuestions)
@@ -56,11 +74,56 @@ namespace LawyersAdda.Controllers
                     ServiceType service = lstServiceType.Where(t => t.Id == q.ServiceID).Single();
                     q.Services = service;
                 }
-                lstQuestions = lstQuestions.OrderByDescending(t => t.ModifiedDate).Take(10).ToList(); ;
+                
+                lstQuestions = lstQuestions.OrderByDescending(t => t.ModifiedDate).ToList();
+                Session["UserID"] = User.Identity.GetUserId();
                 return View("UserProfile", lstQuestions);
             }
         }
-
+        [HttpPost]
+        public ActionResult GetQuestions(int? Order, int? SelectQuestion)
+        {
+            ApplicationDbContext Context = new ApplicationDbContext();
+            List<Question> lstQuestions = new List<Question>();
+            List<ServiceType> lstServiceType = new List<ServiceType>();
+            lstQuestions = Context.Questions.ToList();
+            string UID = User.Identity.GetUserId();
+            lstQuestions = Context.Questions.Where(t => t.UserID == UID).ToList();
+            lstServiceType = Context.ServiceTypes.ToList();
+            foreach (var q in lstQuestions)
+            {
+                ServiceType service = lstServiceType.Where(t => t.Id == q.ServiceID).Single();
+                q.Services = service;
+            }
+            //ViewBag.SelectQuestion = 1;
+            switch (Order)
+            {
+                case 1:
+                    lstQuestions = lstQuestions.OrderByDescending(t => t.ModifiedDate).ToList();
+                    //ViewBag.Order = 1;
+                    break;
+                case 2:
+                    lstQuestions = lstQuestions.OrderBy(t => t.ModifiedDate).ToList();
+                    //ViewBag.Order = 2;
+                    break;
+                default:
+                    lstQuestions = lstQuestions.OrderByDescending(t => t.ModifiedDate).ToList();
+                    //ViewBag.Order = 1;
+                    break;
+            }
+            switch (SelectQuestion)
+            {
+                case 2:
+                    lstQuestions = lstQuestions.Where(t => t.isAnswered == true).ToList();
+                    //ViewBag.SelectQuestion = 2;
+                    break;
+                case 3:
+                    lstQuestions = lstQuestions.Where(t => t.isAnswered == false).ToList();
+                    //ViewBag.SelectQuestion = 3;
+                    break;
+            }
+            return Json(lstQuestions,JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Edit()
         {
             ApplicationDbContext Context = new ApplicationDbContext();
