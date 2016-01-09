@@ -29,7 +29,8 @@ namespace LawyersAdda
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/main.css"));
+                      "~/Content/main.css",
+                      "~/Content/bootstrap-multiselect.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
               "~/Content/themes/base/jquery.ui.core.css",
@@ -53,7 +54,8 @@ namespace LawyersAdda
             //custom
             bundles.Add(new ScriptBundle("~/bundles/customjs").Include(
                       "~/Scripts/custom/home.js",
-                      "~/Scripts/upload.js"));
+                      "~/Scripts/upload.js",
+                      "~/Scripts/bootstrap-multiselect.js"));
         }
     }
 }

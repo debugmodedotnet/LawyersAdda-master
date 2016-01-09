@@ -276,6 +276,7 @@
     <Compile Include="ViewModels\LawyerSearchViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-multiselect.css" />
     <Content Include="Content\bootstrap-switch.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -319,6 +320,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\bootstrap-switch.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -655,6 +657,7 @@
     <Content Include="Views\Profile\AddUserProfilePic.cshtml" />
     <Content Include="Views\Profile\EditLawyerProfile.cshtml" />
     <Content Include="Views\Profile\EditUserProfile.cshtml" />
+    <Content Include="Views\Profile\MemberProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

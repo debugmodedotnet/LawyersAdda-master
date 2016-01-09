@@ -53,6 +53,18 @@ namespace LawyersAdda.ViewModels
         [Display(Name = "City")]
         public string City { get; set; }
 
+        [Display(Name ="Experience")]
+        public int Experience { get; set; }
+
+        [Display(Name = "Hourly Fee")]
+        public double HourlyRate { get; set; }
+
+        [Display(Name = "Birthday")]
+        public DateTime Dob { get; set; }
+
+        [Display(Name = "User Name")]
+        public string UserName { get; set; }
+
     }
     }
 

@@ -27,17 +27,26 @@ namespace LawyersAdda.Controllers
             return Json(cities, JsonRequestBehavior.AllowGet);
         }
 
+
+        //DJ sir work on this, change the new object
         public ActionResult GetServices(string term)
         {
             var category = "Services";
-            var services = (from r in db.ServiceTypes where r.Name.ToLower().Contains(term.ToLower()) select new { r.Name, r.Id, category }).ToList();
-            category = "Lawyers";
-            var lawyers = (from r in db.Lawyers where r.Name.ToLower().Contains(term.ToLower()) select new { r.Name, r.Id, category }).ToList();
+            if (String.IsNullOrWhiteSpace(term))
+            {
+                return Json((from r in db.ServiceTypes select new { r.Name, r.Id, category }).ToList(), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var services = (from r in db.ServiceTypes where r.Name.ToLower().Contains(term.ToLower()) select new { r.Name, r.Id, category }).ToList();
+                category = "Lawyers";
+                var lawyers = (from r in db.Lawyers where r.Name.ToLower().Contains(term.ToLower()) select new { r.Name, r.User.UserName, category }).ToList();
+                // var finalResult = services.Concat(lawyers).ToList();
 
-            var both = services.Concat(lawyers).ToList();
-
-            return Json(both, JsonRequestBehavior.AllowGet);
-
+                List<Object> finalResult = (from x in services select (Object)x).ToList();
+                finalResult.AddRange((from x in lawyers select (Object)x).ToList());
+                return Json(finalResult, JsonRequestBehavior.AllowGet);
+            }
             //if (term == " ")
             //    return Json(from r in db.ServiceTypes select r, JsonRequestBehavior.AllowGet);
             //else

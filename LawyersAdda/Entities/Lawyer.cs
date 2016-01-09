@@ -49,7 +49,15 @@ namespace LawyersAdda.Entities
 
         public string WebSiteUrl { get; set; }
 
+        public double HourlyRate { get; set; }
+
+        public int NumberOfExpereince { get; set; }
+
+        public DateTime Dob { get; set; }
+
+       
         public string CityId { get; set; }
+
 
         public virtual City City { get; set; }
         //public string City { get; set; }
