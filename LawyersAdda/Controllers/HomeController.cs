@@ -47,16 +47,6 @@ namespace LawyersAdda.Controllers
                 finalResult.AddRange((from x in lawyers select (Object)x).ToList());
                 return Json(finalResult, JsonRequestBehavior.AllowGet);
             }
-           
-            
-
-               
-
-          
-           
-
-            
-
             //if (term == " ")
             //    return Json(from r in db.ServiceTypes select r, JsonRequestBehavior.AllowGet);
             //else

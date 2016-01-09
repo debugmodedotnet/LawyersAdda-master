@@ -6,114 +6,203 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<style>
+    #SearchResults .panel-heading a:link, a:visited {
+        color: black;
+        font-size: 1.5em;
+    }
 
-<h2>Lawyers</h2>
+    #SearchResults a:link, a:visited {
+        color: black;
+    }
+</style>
 <div class="container">
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-10">
-                <div id="filter-panel" class="collapse">
-                    <div class="pull-left">
-                        <form class="form-inline" role="form">
-                            <div class="form-group">
-                                <label class="filter-col" style="margin-right:0;" for="pref-perpage">Experience</label>
-                                <select id="pref-perpage" class="form-control">
-                                    <option value="1"> < 2 Years</option>
-                                    <option value="2"> > 2 and < 5 Years</option>
-                                    <option value="3"> > 5 Years</option>
-                                </select>
-                            </div> <!-- form group [rows] -->
-                            <div class="form-group">
-                                <label id="amount" class="filter-col" style="margin-right:0;" for="amount">Consulting fees:</label>
-                                <div class="form-control" id="slider-range"></div>
-                            </div><!-- form group [search] -->
-                        </form>
-                    </div>
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-warning">
-                            <span class="glyphicon glyphicon-filter"></span> Apply Filter
-                        </button>
-                    </div>
-                </div>
+    <div class="row" style="margin-top:50px;">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <label class="filter-col" style="margin-right:0;" for="pref-perpage">Experience</label>
+                <select id="experience" class="form-control">
+                    <option value="1"> < 2 Years</option>
+                    <option value="2"> > 2 and < 5 Years</option>
+                    <option value="3"> > 5 Years</option>
+                </select>
             </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#filter-panel">
-                    <span class="glyphicon glyphicon-cog"></span> Advanced Search
-                </button>
+            <div class="col-md-3">
+                <label class="filter-col" style="margin-right:0;" for="courts">Choose Court</label>
+                <br />
+                <select class="form-control" id="courtList" multiple="multiple">
+                    <option value="cheese">Cheese</option>
+                    <option value="tomatoes">Tomatoes</option>
+                    <option value="mozarella">Mozzarella</option>
+                    <option value="mushrooms">Mushrooms</option>
+                    <option value="pepperoni">Pepperoni</option>
+                    <option value="onions">Onions</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label id="amount" class="filter-col" style="margin-right:0;" for="amount">Consulting fees:</label>
+                <br />
+                <div class="form-control" style="margin-top:10px;" id="slider-range"></div>
             </div>
         </div>
-        <br />
-        <div class="row">
-            @foreach (var item in Model)
+        <div class="pull-right">
+            <br />
+            <button type="button" id="applyFilter" class="btn btn-default">
+                <span class="glyphicon glyphicon-filter"></span> Redefine Search Result
+            </button>
+        </div>
+    </div>
+    <br />
+    <h3>
+        @Model.TotalItemCount lawyers found in
+        <script>document.write(localStorage.getItem("MenuCityName"));</script>
+    </h3>
+    <br />
+    <div class="row" id="SearchResults">
+        @foreach (var item in Model)
             {
-                <div class="col-md-6">
-                    <div class="panel panel-warning">
-                        <div class="panel-heading">
-                            <a href="#"> @item.Name </a>
-                            <div class="pull-right">
-                                <i class="glyphicon glyphicon-map-marker"> </i> @item.City.CityName <br />
-                            </div>
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <a href="">@item.Name </a>
+                    <p class="pull-right">
+                        <i class="glyphicon glyphicon-map-marker"> </i> @item.City.CityName
+                    </p>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-2 pull-left">
+                        @if (item.ImageUrl != null)
+                        {
+                            <img class="img-rounded" src="@item.ImageUrl" height="150" width="150" />
+                        }
+                        else
+                        {
+                            <img class="img-rounded" src="~/images/avatar_default.png" height="100" width="100" />
+                        }
+                    </div>
+                    <div class="col-md-10">
+                        <div class="col-md-8">
+                            @item.Bio
                         </div>
-                        <div class="panel-body">
-                            <div class="col-md-3">
-                                <div class="pull-left">
-                                    @if (item.ImageUrl != null)
-                                    {
-                                        <img class="img-responsive img-rounded" src="@item.ImageUrl" style="width:100%;" />
-                                    }
-                                    else
-                                    {
-                                        <img class="img-responsive img-rounded" src="~/images/avatar_default.png" style="width:100%;" />
-                                    }
-                                </div>
-                            </div>
-                            <div class="col-md-3">
+                        <div class="col-md-4">
 
-                                <div class="row">
-                                    @item.Bio
-                                    Services :
-                                    @foreach (var service in item.ServiceTypes)
-                                    {
-                                        <a href="#"> @service.Name ,</a>
-                                    }
-                                </div>
-                                <div class="row">
-                                    <i class="glyphicon glyphicon-globe"> </i> @item.WebSiteUrl <br />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel-footer panel-warning">
-                            <div class="pull-left">
-                                <i class="glyphicon glyphicon-envelope"> </i> @item.Email <br />
-                            </div>
-                            <div class="pull-right">
-                                <i class="glyphicon glyphicon-earphone"> </i> @item.PhoneNumber<br />
-                            </div>
-                            <div class="clearfix"></div>
+                            <i class="glyphicon glyphicon-globe"> </i><a href="@item.WebSiteUrl"> @item.WebSiteUrl</a>
+                            <hr style="border: 1px dashed #eeeeee; margin:5px;" />
+                            <i class="glyphicon glyphicon-earphone"> </i> @item.PhoneNumber
+                            <hr style="border: 1px dashed #eeeeee; margin:5px;" />
+                            <i class="glyphicon glyphicon-envelope"> </i> @item.Email
+                            <hr style="border: 1px dashed #eeeeee; margin:5px;" />
+                            <i class="glyphicon glyphicon-credit-card"> </i>@item.HourlyRate <i>per/hour</i>
+                            <hr style="border: 1px dashed #eeeeee; margin:5px;" />
+                            <i class="glyphicon glyphicon-star"></i>
+                            <i class="glyphicon glyphicon-star"></i>
+                            <i class="glyphicon glyphicon-star"></i>
+                            <i class="glyphicon glyphicon-star"></i>
+                            <i class="glyphicon glyphicon-star-empty"></i>
                         </div>
                     </div>
                 </div>
-            }
-        </div>
-
+                <div class="panel-footer panel-warning">
+                    @if (item.ServiceTypes.Count > 0)
+                    {
+                        <i>Services :</i>
+                        foreach (var service in item.ServiceTypes)
+                        {
+                            if (service != item.ServiceTypes.Last())
+                            {
+                                <a href="#"> @service.Name, </a>
+                            }
+                            else
+                            {
+                                <a href="#"> @service.Name</a>
+                            }
+                        }
+                    }
+                    @if (item.Courts.Count > 0)
+                    {
+                        <i>Courts :</i>
+                        foreach (var court in item.Courts)
+                        {
+                            if (court != item.Courts.Last())
+                            {
+                                <a href="#"> @court.Name, </a>
+                            }
+                            else
+                            {
+                                <a href="#"> @court.Name</a>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        }
     </div>
 
     <div class="pagedList text-center">
-        @Html.PagedListPager(Model, page => Url.Action("SearchLawyers", new { page }))
-        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Lawyers found
+        @if (@Model.Count > 0)
+        {
+            @Html.PagedListPager(Model, page => Url.Action("SearchLawyers", new { page }))
+            <p>Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Lawyers found</p>
+        }
+        else {
+            <h3>I don't like when you play with URLs, we have total @Model.TotalItemCount lawyers as per your search criteria</h3>
+        }
     </div>
 </div>
 
 <script>
-  $(function() {
-    $( "#slider-range" ).slider({
-      range: true,
-      min: 0,
-      max: 500,
-      values: [ 75, 300 ],
-      slide: function( event, ui ) {
-        $( "#amount" ).text( "Consulting Fees: $" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-      }
+    $(document).ready(function () {
+        $('#courtList').multiselect();
+        getCourts();
     });
-  });
+
+    function getCourts() {
+        $('#courtList').empty();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetCourts")',
+            dataType: 'json',
+            data: { cityId: localStorage.getItem("MenuCityId") },
+            success: function (courts) {
+                $.each(courts, function (i, court) {
+                    alert(court.Name);
+                    $('#courtList').append($('<option></option>').val(court.Id).html(court.Name));
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve states.' + ex);
+            }
+        });
+    }
+
+    $(function () {
+        var lowerRange = 0, upperRange = 300;
+        $("#amount").text("Consulting Fees: $" + lowerRange + " - $" + upperRange);
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 500,
+            values: [lowerRange, upperRange],
+            slide: function (event, ui) {
+                $("#amount").text("Consulting Fees: $" + ui.values[0] + " - $" + ui.values[1]);
+                lowerRange = ui.values[0];
+                upperRange = ui.values[1];
+            }
+        });
+
+        $("#applyFilter").click(function () {
+            $.ajax({
+                url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
+                type: 'POST',
+                data: {
+                    "exp": $("#experience").val(),
+                    "lowerFees": lowerRange,
+                    "upperFees": upperRange
+                },
+                success: function (data) {
+                    var url = '@Url.Action("SearchLawyers", "Lawyers")';
+                    window.location.href = url;
+                }
+            });
+        });
+    });
 </script>

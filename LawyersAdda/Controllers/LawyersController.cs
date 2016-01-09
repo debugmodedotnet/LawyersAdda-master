@@ -275,15 +275,25 @@ namespace LawyersAdda.Controllers
             return Json(context.Lawyers.Select(t=>t.Name).ToList() ,JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult SetSearchLawyersParam(string CityList, string LawServiceList)
+        //search params
+        public JsonResult SetSearchLawyersParam(string CityList = null, string LawServiceList = null, string exp = null, string lowerFees = null, string upperFees = null)
         {
-            TempData["CityList"] = CityList;
-            TempData["LawServiceList"] = LawServiceList;
+            if(CityList != null)
+                TempData["CityList"] = CityList;
+            if(LawServiceList != null)
+                TempData["LawServiceList"] = LawServiceList;
+            if(exp != null)
+                TempData["Experience"] = exp;
+            if(lowerFees != null)
+                TempData["lowerFees"] = lowerFees;
+            if(upperFees != null)
+                TempData["upperFees"] = upperFees;
             TempData.Keep();
             return Json(true);
         }
 
-        public ActionResult SearchLawyers(int page = 1, int pageSize = 2)
+        //DJ sir to modify the query
+        public ActionResult SearchLawyers(int page = 1, int pageSize = 4)
         {
             TempData.Keep();
             string CityList = TempData["CityList"].ToString();
@@ -305,33 +315,34 @@ namespace LawyersAdda.Controllers
             PagedList<Lawyer> model = new PagedList<Lawyer>(lstLawyers, page, pageSize);
             return View("SearchLawyer", model);
         }
-        public ActionResult SearchLawyer(string LawyerName, string CityID, int page=1,int pageSize=2)
-        {
-            ApplicationDbContext context = new ApplicationDbContext();
-            List<ServiceType> lstServices;
-            List<Lawyer> lstLawyers;
-            lstServices = context.ServiceTypes.ToList();
-            lstLawyers = context.Lawyers.Where(t => t.Name.Contains(LawyerName)).ToList();
-            foreach (Lawyer l in lstLawyers)
-            {
-                context.Entry(l).Collection(t => t.ServiceTypes).Load();
-                foreach(ServiceType s in l.ServiceTypes)
-                {
-                    lstServices.Add(s);
-                }
-            }
-            if (CityID==null || CityID.Length == 0)
-            {
-                PagedList<Lawyer> model = new PagedList<Lawyer>(lstLawyers, page, pageSize);
-                return View(model);
-                //return View(lstLawyers);
-            }
-            else
-            {
-                PagedList<Lawyer> model = new PagedList<Lawyer>(lstLawyers.Where(t => t.CityId == CityID), page, pageSize);
-                return View(model);
-                    //return View(lstLawyers.Where(t=>t.CityId==CityID));
-            }
-        }
+
+        //public ActionResult SearchLawyer(string LawyerName, string CityID, int page=1,int pageSize=2)
+        //{
+        //    ApplicationDbContext context = new ApplicationDbContext();
+        //    List<ServiceType> lstServices;
+        //    List<Lawyer> lstLawyers;
+        //    lstServices = context.ServiceTypes.ToList();
+        //    lstLawyers = context.Lawyers.Where(t => t.Name.Contains(LawyerName)).ToList();
+        //    foreach (Lawyer l in lstLawyers)
+        //    {
+        //        context.Entry(l).Collection(t => t.ServiceTypes).Load();
+        //        foreach(ServiceType s in l.ServiceTypes)
+        //        {
+        //            lstServices.Add(s);
+        //        }
+        //    }
+        //    if (CityID==null || CityID.Length == 0)
+        //    {
+        //        PagedList<Lawyer> model = new PagedList<Lawyer>(lstLawyers, page, pageSize);
+        //        return View(model);
+        //        //return View(lstLawyers);
+        //    }
+        //    else
+        //    {
+        //        PagedList<Lawyer> model = new PagedList<Lawyer>(lstLawyers.Where(t => t.CityId == CityID), page, pageSize);
+        //        return View(model);
+        //            //return View(lstLawyers.Where(t=>t.CityId==CityID));
+        //    }
+        //}
     }
 }
