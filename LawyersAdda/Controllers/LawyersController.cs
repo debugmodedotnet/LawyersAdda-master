@@ -276,73 +276,50 @@ namespace LawyersAdda.Controllers
         }
 
         //search params
-        public JsonResult SetSearchLawyersParam(string CityList = null, string LawServiceList = null, string exp = null, string lowerFees = null, string upperFees = null)
+        public JsonResult SetSearchLawyersParam(string CityList = null, string LawServiceList = null, string exp = null, List<string> courtList = null, string lowerFees = null, string upperFees = null)
         {
             if(CityList != null)
-                TempData["CityList"] = CityList;
+                Session["CityList"] = CityList;
             if(LawServiceList != null)
-                TempData["LawServiceList"] = LawServiceList;
-            if(exp != null)
-                TempData["Experience"] = exp;
+                Session["LawServiceList"] = LawServiceList;
+            if (courtList != null)
+                Session["courtList"] = courtList;
+            if (exp != null)
+                Session["Experience"] = exp;
             if(lowerFees != null)
-                TempData["lowerFees"] = lowerFees;
+                Session["lowerFees"] = lowerFees;
             if(upperFees != null)
-                TempData["upperFees"] = upperFees;
-            TempData.Keep();
+                Session["upperFees"] = upperFees;
+            
             return Json(true);
         }
 
         //DJ sir to modify the query
         public ActionResult SearchLawyers(int page = 1, int pageSize = 4)
         {
-            TempData.Keep();
-            string CityList = TempData["CityList"].ToString();
-            string LawServiceList = TempData["LawServiceList"].ToString();
+            string CityList = Session["CityList"].ToString();
+            string LawServiceList = Session["LawServiceList"].ToString();
+            List<string> Courts = Session["courtList"] as List<String>;
+            double lowerFees = Convert.ToDouble(Session["lowerFees"]);
+            double upperFees = Convert.ToDouble(Session["upperFees"]);
             ApplicationDbContext context = new ApplicationDbContext();
             List<ServiceType> lstServices;
+            List<Court> lstCourts;
             List<Lawyer> lstLawyers;
-            lstServices = context.ServiceTypes.Where(t=>t.Id==LawServiceList).ToList();
-            lstLawyers = context.Lawyers.Where(t=>t.CityId==CityList).ToList();
+            lstServices = context.ServiceTypes.Where(t=>t.Id == LawServiceList).ToList();
+            lstCourts = context.Courts.ToList();
+            lstLawyers = context.Lawyers.Where(t=>t.CityId== CityList
+                            && (t.ServiceTypes.Any(u=>u.Id == LawServiceList.ToString())) 
+                            && (t.HourlyRate > lowerFees)
+                            && (upperFees == 0 || t.HourlyRate < upperFees)
+                            ).ToList();
             foreach (Lawyer l in lstLawyers)
             {
                 context.Entry(l).Collection(t => t.ServiceTypes).Load();
-                foreach (ServiceType s in l.ServiceTypes)
-                {
-                    lstServices.Add(s);
-                } 
-
+                context.Entry(l).Collection(t => t.Courts).Load();
             }
             PagedList<Lawyer> model = new PagedList<Lawyer>(lstLawyers, page, pageSize);
             return View("SearchLawyer", model);
         }
-
-        //public ActionResult SearchLawyer(string LawyerName, string CityID, int page=1,int pageSize=2)
-        //{
-        //    ApplicationDbContext context = new ApplicationDbContext();
-        //    List<ServiceType> lstServices;
-        //    List<Lawyer> lstLawyers;
-        //    lstServices = context.ServiceTypes.ToList();
-        //    lstLawyers = context.Lawyers.Where(t => t.Name.Contains(LawyerName)).ToList();
-        //    foreach (Lawyer l in lstLawyers)
-        //    {
-        //        context.Entry(l).Collection(t => t.ServiceTypes).Load();
-        //        foreach(ServiceType s in l.ServiceTypes)
-        //        {
-        //            lstServices.Add(s);
-        //        }
-        //    }
-        //    if (CityID==null || CityID.Length == 0)
-        //    {
-        //        PagedList<Lawyer> model = new PagedList<Lawyer>(lstLawyers, page, pageSize);
-        //        return View(model);
-        //        //return View(lstLawyers);
-        //    }
-        //    else
-        //    {
-        //        PagedList<Lawyer> model = new PagedList<Lawyer>(lstLawyers.Where(t => t.CityId == CityID), page, pageSize);
-        //        return View(model);
-        //            //return View(lstLawyers.Where(t=>t.CityId==CityID));
-        //    }
-        //}
     }
 }

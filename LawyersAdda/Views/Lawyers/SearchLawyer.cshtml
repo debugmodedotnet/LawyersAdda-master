@@ -15,6 +15,9 @@
     #SearchResults a:link, a:visited {
         color: black;
     }
+
+.ui-widget-header{background-image:none;background-color:#eea236;}
+
 </style>
 <div class="container">
     <div class="row" style="margin-top:50px;">
@@ -22,6 +25,7 @@
             <div class="col-md-3">
                 <label class="filter-col" style="margin-right:0;" for="pref-perpage">Experience</label>
                 <select id="experience" class="form-control">
+                    <option value="">Select experience</option>
                     <option value="1"> < 2 Years</option>
                     <option value="2"> > 2 and < 5 Years</option>
                     <option value="3"> > 5 Years</option>
@@ -31,12 +35,6 @@
                 <label class="filter-col" style="margin-right:0;" for="courts">Choose Court</label>
                 <br />
                 <select class="form-control" id="courtList" multiple="multiple">
-                    <option value="cheese">Cheese</option>
-                    <option value="tomatoes">Tomatoes</option>
-                    <option value="mozarella">Mozzarella</option>
-                    <option value="mushrooms">Mushrooms</option>
-                    <option value="pepperoni">Pepperoni</option>
-                    <option value="onions">Onions</option>
                 </select>
             </div>
             <div class="col-md-3">
@@ -55,7 +53,7 @@
     <br />
     <h3>
         @Model.TotalItemCount lawyers found in
-        <script>document.write(localStorage.getItem("MenuCityName"));</script>
+        <span id="cityName"></span>
     </h3>
     <br />
     <div class="row" id="SearchResults">
@@ -102,36 +100,41 @@
                     </div>
                 </div>
                 <div class="panel-footer panel-warning">
-                    @if (item.ServiceTypes.Count > 0)
-                    {
-                        <i>Services :</i>
-                        foreach (var service in item.ServiceTypes)
+                    <span class="pull-left">
+                        @if (item.ServiceTypes.Count > 0)
                         {
-                            if (service != item.ServiceTypes.Last())
+                            <i>Services :</i>
+                            foreach (var service in item.ServiceTypes)
                             {
-                                <a href="#"> @service.Name, </a>
-                            }
-                            else
-                            {
-                                <a href="#"> @service.Name</a>
+                                if (service != item.ServiceTypes.Last())
+                                {
+                                    <a href="#"> @service.Name, </a>
+                                }
+                                else
+                                {
+                                    <a href="#"> @service.Name</a>
+                                }
                             }
                         }
-                    }
-                    @if (item.Courts.Count > 0)
-                    {
-                        <i>Courts :</i>
-                        foreach (var court in item.Courts)
+                    </span>
+                    <span class="pull-right">
+                        @if (item.Courts.Count > 0)
                         {
-                            if (court != item.Courts.Last())
+                            <i>Courts :</i>
+                            foreach (var court in item.Courts)
                             {
-                                <a href="#"> @court.Name, </a>
-                            }
-                            else
-                            {
-                                <a href="#"> @court.Name</a>
+                                if (court != item.Courts.Last())
+                                {
+                                    <a href="#"> @court.Name, </a>
+                                }
+                                else
+                                {
+                                    <a href="#"> @court.Name</a>
+                                }
                             }
                         }
-                    }
+                    </span>
+                    <span class="clearfix"></span>
                 </div>
             </div>
         }
@@ -151,8 +154,36 @@
 
 <script>
     $(document).ready(function () {
-        $('#courtList').multiselect();
+
+        var cityName = document.getElementById("cityName");
+        cityName.innerHTML = localStorage.getItem("MenuCityName");
+
+        var selected = [];
+        $('#courtList').multiselect({
+            enableCaseInsensitiveFiltering: true,
+            enableFiltering: true,
+            onChange: function (element, checked) {
+                var courts = $('#courtList option:selected');
+                $(courts).each(function (index, court) {
+                    selected.push($(this).val());
+                });
+            }
+        });
         getCourts();
+
+
+    var lowerRange = 0, upperRange = 500;
+    $("#amount").text("Consulting Fees: $" + lowerRange + " - $" + upperRange);
+    $("#slider-range").slider({
+        range: true,
+        min: 0,
+        max: 500,
+        values: [lowerRange, upperRange],
+        slide: function (event, ui) {
+            $("#amount").text("Consulting Fees: $" + ui.values[0] + " - $" + ui.values[1]);
+            lowerRange = ui.values[0];
+            upperRange = ui.values[1];
+        }
     });
 
     function getCourts() {
@@ -164,9 +195,9 @@
             data: { cityId: localStorage.getItem("MenuCityId") },
             success: function (courts) {
                 $.each(courts, function (i, court) {
-                    alert(court.Name);
                     $('#courtList').append($('<option></option>').val(court.Id).html(court.Name));
                 });
+                $('#courtList').multiselect('rebuild');
             },
             error: function (ex) {
                 alert('Failed to retrieve states.' + ex);
@@ -174,27 +205,16 @@
         });
     }
 
-    $(function () {
-        var lowerRange = 0, upperRange = 300;
-        $("#amount").text("Consulting Fees: $" + lowerRange + " - $" + upperRange);
-        $("#slider-range").slider({
-            range: true,
-            min: 0,
-            max: 500,
-            values: [lowerRange, upperRange],
-            slide: function (event, ui) {
-                $("#amount").text("Consulting Fees: $" + ui.values[0] + " - $" + ui.values[1]);
-                lowerRange = ui.values[0];
-                upperRange = ui.values[1];
-            }
-        });
-
         $("#applyFilter").click(function () {
+            var courtList = selected.filter(function (itm, i, a) {
+                return i == selected.indexOf(itm);
+            });
             $.ajax({
                 url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
                 type: 'POST',
                 data: {
                     "exp": $("#experience").val(),
+                    "courtList": courtList,
                     "lowerFees": lowerRange,
                     "upperFees": upperRange
                 },
