@@ -65,8 +65,7 @@ namespace LawyersAdda.Controllers
                         lstServiceType.Add(s);
                     }
                 }
-                ViewBag.LawyersInCities = lstLawyers;
-
+                ViewBag.LawyersInCities = lstLawyers; 
                 lstQuestions = Context.Questions.Where(t => t.UserID == UID).ToList();
                 lstServiceType = Context.ServiceTypes.ToList();
                 foreach (var q in lstQuestions)
