@@ -17,6 +17,11 @@ namespace LawyersAdda
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
             "~/Scripts/jquery-ui-{version}.js"));
 
+            //designer given jquery
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryselection").Include(
+            "~/Scripts/jquery.nice-select.min.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -27,10 +32,16 @@ namespace LawyersAdda
                       "~/Scripts/respond.js"
                       ));
 
+            //bundles.Add(new StyleBundle("~/Content/css").Include(
+            //          "~/Content/bootstrap.css",
+            //          "~/Content/main.css",
+            //          "~/Content/bootstrap-multiselect.css"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/main.css",
-                      "~/Content/bootstrap-multiselect.css"));
+                     "~/Content/VendorStyle/bootstrap.css",
+                     "~/Content/VendorStyle/style.css",
+                     "~/Content/VendorStyle/font-awesome.min.css",
+                     "~/Content/VendorStyle/select.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
               "~/Content/themes/base/jquery.ui.core.css",

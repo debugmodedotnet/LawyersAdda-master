@@ -26,21 +26,7 @@
                         </span>
                     </li>
                 }
-              @*original template of data in dropdown to be deleted later*@ 
-                @*<li>
-                    <span class="item">
-                        <span class="item-left">
-                            <img src="http://lorempixel.com/50/50/" alt="" />
-                            <span class="item-info">
-                                <span>Delhi</span>
-                                <span>700</span>
-                            </span>
-                        </span>
-                        <span class="item-right">
-                            <button class="btn btn-xs btn-danger pull-right">750</button>
-                        </span>
-                    </span>
-                </li>*@
+           
                 
                 <li class="divider"></li>
                 <li><a class="text-center" href="">View All Cities</a></li>
@@ -58,7 +44,7 @@
         </li>
 
         <li><button class="btn btn-warning navbar-btn" type="button" onclick="location.href='@Url.Action("RegisterAsLawyer", "Lawyers")'">Join as a Lawyer</button></li>
-        @*<li>@Html.ActionLink("Join as a Lawyer ", "RegisterAsLawyer", "Lawyers",null, new { @class = "btn btn-warning navbar-btn" })</li>*@
+       
         
     </ul>
     }
@@ -93,6 +79,23 @@ else
         @*<li>@Html.ActionLink("Join as a Lawyer ", "RegisterAsLawyer", "Lawyers",null, new { @class = "btn btn-warning navbar-btn" })</li>*@  
     </ul>
 }
+
+
+
+
+
+@*<ul>
+    <li class="location_list">
+        <select>
+            <option>India </option>
+            <option>Austrlia</option>
+            <option>UK</option>
+        </select>
+    </li>
+    <li class="login_list"><span><img src="images/login.png"></span><a href="#">Login</a></li>
+    <li class="register_list"><span><img src="images/sign_up.png"></span><a href="#">Register</a></li>
+    <li class="join_list"><a href="#" class="join_lawyer_bt">join as  a lawyer</a></li>
+</ul>*@
 
 <script type="text/javascript">
     $(document).ready(function () {

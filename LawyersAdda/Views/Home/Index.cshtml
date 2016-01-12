@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Home Page";
 }
-<style>
+@*<style>
     .ui-autocomplete-category {
         font-weight: bold;
         padding: .2em .4em;
@@ -11,8 +11,8 @@
         background-color: #eeeeee;
         line-height: 1.5;
     }
-</style>
-<header class="business-header">
+</style>*@
+@*<header class="business-header">
     <div class="container">
 
         <div class="row">
@@ -35,7 +35,7 @@
                         <span class="tag">Popular: </span><span>Delhi</span>
                     </div>*@
 
-                <video autoplay id="bgvid">
+                @*<video autoplay id="bgvid">
                     <source src="http://d2w4gictyunaqp.cloudfront.net/vid/home-hero.webm" type="video/webm">
                     <source src="http://d2w4gictyunaqp.cloudfront.net/vid/home-hero.mp4" type="video/mp4">
                 </video>
@@ -44,16 +44,208 @@
 
     </div>
 
-</header>
-
-
-<div class="row">
+</header>*@
 
 
 
+@*<div class="row">
 
+
+
+
+</div>*@
+
+
+<div id="wrapper">
+    
+    <div class="banner_main">
+        <div class="search_banner">
+            <div class="container">
+                <div class="search_main_bn">
+                    <div class="search_main">
+                        <input type="text" placeholder="Search by services">
+                        <button class="search">SEARCH</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="searvices_main">
+        <div class="container">
+            <div class="heading_01">
+                <h2>SERVICES</h2>
+            </div>
+            <div class="services_inn">
+                <div class="col-md-4 col-sm-4">
+                    <h3>SEARCH LAWYER</h3>
+                    <img src="images/search_lawyer.png">
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
+                    <a href="#" class="know_more_service">KNOW MORE <span>></span></a>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <h3>GET LEGAL CONSULTING</h3>
+                    <img src="images/legal_consulting.png">
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
+                    <a href="#" class="know_more_service">KNOW MORE <span>></span></a>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <h3>LEGAL DOCUMENTATION</h3>
+                    <img src="images/legal_documentation.png">
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
+                    <a href="#" class="know_more_service">KNOW MORE <span>></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="top_lawyer_main">
+        <div class="container">
+            <div class="heading_02">
+                <h2>OUR TOP LAWYERS</h2>
+            </div>
+            <div class="top_lawyer_in">
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <img src="images/lawyer01.jpg">
+                    <h4>NAME OF LAWYER</h4>
+                    <span>United kingdom</span>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <img src="images/lawyer02.jpg">
+                    <h4>NAME OF LAWYER</h4>
+                    <span>United kingdom</span>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <img src="images/lawyer03.jpg">
+                    <h4>NAME OF LAWYER</h4>
+                    <span>United kingdom</span>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <img src="images/lawyer04.jpg">
+                    <h4>NAME OF LAWYER</h4>
+                    <span>United kingdom</span>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="blog_main">
+        <div class="container">
+            <div class="heading_01">
+                <h2>LATEST BLOG</h2>
+            </div>
+            <div class="blog_inn">
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <div class="blog_in_main">
+                        <div class="blog_img"><img src="images/blog_01.jpg"></div>
+                        <div class="year_main">
+                            <div class="left_year">
+                                <h5>Jun 2015</h5>
+                            </div>
+                            <div class="right_year">
+                                <span>4 Comment</span>
+                            </div>
+                            <div class="blog_in_head">
+                                <h4>Heading here</h4>
+                            </div>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
+                            <div class="posted_main">POSTED IN <span>TEST CATEGORY </span><span>,</span><span>TEST CATEGORY</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <div class="blog_in_main">
+                        <div class="blog_img"><img src="images/blog_02.jpg"></div>
+                        <div class="year_main">
+                            <div class="left_year">
+                                <h5>Jun 2015</h5>
+                            </div>
+                            <div class="right_year">
+                                <span>4 Comment</span>
+                            </div>
+                            <div class="blog_in_head">
+                                <h4>Heading here</h4>
+                            </div>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
+                            <div class="posted_main">POSTED IN <span>TEST CATEGORY </span><span>,</span><span>TEST CATEGORY</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <div class="blog_in_main">
+                        <div class="blog_img"><img src="images/blog_01.jpg"></div>
+                        <div class="year_main">
+                            <div class="left_year">
+                                <h5>Jun 2015</h5>
+                            </div>
+                            <div class="right_year">
+                                <span>4 Comment</span>
+                            </div>
+                            <div class="blog_in_head">
+                                <h4>Heading here</h4>
+                            </div>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
+                            <div class="posted_main">POSTED IN <span>TEST CATEGORY </span><span>,</span><span>TEST CATEGORY</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <div class="blog_in_main">
+                        <div class="blog_img"><img src="images/blog_02.jpg"></div>
+                        <div class="year_main">
+                            <div class="left_year">
+                                <h5>Jun 2015</h5>
+                            </div>
+                            <div class="right_year">
+                                <span>4 Comment</span>
+                            </div>
+                            <div class="blog_in_head">
+                                <h4>Heading here</h4>
+                            </div>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
+                            <div class="posted_main">POSTED IN <span>TEST CATEGORY </span><span>,</span><span>TEST CATEGORY</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pricing_main">
+        <div class="container">
+            <div class="heading_02">
+                <h2>PRICING</h2>
+            </div>
+            <div class="pricing_inn_main">
+                <div class="col-md-4 col-sm-4">
+                    <div class="pricing_inn">
+                        <h2>1 Question</h2>
+                        <div class="price">5<sup>$</sup></div>
+                        <p>Lorem Ipsum is simply dummy text o the printing and typesetting industry. Lorem Ipsum has</p>
+                        <div class="price_button"><a href="#">SIGN UP</a></div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="pricing_inn">
+                        <h2>5 Question</h2>
+                        <div class="price">20<sup>$</sup></div>
+                        <p>Lorem Ipsum is simply dummy text o the printing and typesetting industry. Lorem Ipsum has</p>
+                        <div class="price_button"><a href="#">SIGN UP</a></div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="pricing_inn">
+                        <h2>10 Question</h2>
+                        <div class="price">40<sup>$</sup></div>
+                        <p>Lorem Ipsum is simply dummy text o the printing and typesetting industry. Lorem Ipsum has</p>
+                        <div class="price_button"><a href="#">SIGN UP</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-        <script type="text/javascript">
+ <script type="text/javascript">
             $(document).ready(function () {
 
                 var selectItem = function (event, ui) {

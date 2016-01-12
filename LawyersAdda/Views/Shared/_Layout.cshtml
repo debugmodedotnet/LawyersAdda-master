@@ -1,14 +1,16 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>LawyerJee.com</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/themes/base/css")
     @*@Styles.Render("~/Content/themes/base/css")*@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryselection")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")   
     @Scripts.Render("~/bundles/customjs")
@@ -16,7 +18,7 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-findcond navbar-fixed-top">
+    @*<nav class="navbar navbar-findcond navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -32,17 +34,59 @@
             <div class="navbar-collapse collapse" id="navbar">  
              
 
-                    @Html.Partial("_LoginPartial")
+                   
 
             </div>
         </div>
-   </nav>
+   </nav>*@
+
+    <div class="header_main">
+        <div class="container">
+            <div class="header_in">
+                <div class="logo_main">
+                    @*@Html.ActionLink("Lawyerjee.com", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                    <a href="#" onclick="location.href='@Url.Action("Index","Home")'"><img src="images/logo.png"></a>
+                </div>
+                <div class="right_menu">
+                    @*<ul>
+                        <li class="location_list">
+                            <select>
+                                <option>India </option>
+                                <option>Austrlia</option>
+                                <option>UK</option>
+                            </select>
+                        </li>
+                        <li class="login_list"><span><img src="images/login.png"></span><a href="#">Login</a></li>
+                        <li class="register_list"><span><img src="images/sign_up.png"></span><a href="#">Register</a></li>
+                        <li class="join_list"><a href="#" class="join_lawyer_bt">join as  a lawyer</a></li>
+                    </ul>*@
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+    </div>
   
-    <div class="container body-content">
+    <div>
         @RenderBody()
-        <hr />
+
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <div class="container">
+                <div class="footer_in_main">
+                    <div class="col-md-6 col-sm-6">
+                        <p>© 2015 lawyer.com develop by xyz</p>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <ul class="social_main">
+                            <li><a class="fa fa-twitter" title="twitter" target="_blank" href="#">&nbsp;</a></li>
+                            <li><a class="fa fa-facebook" title="facebook" target="_blank" href="#">&nbsp;</a></li>
+                            <li><a class="fa fa-linkedin-square" title="linkedin" target="_blank" href="#">&nbsp;</a></li>
+                            <li><a class="fa fa-pinterest" title="pinterest" target="_blank" href="#">&nbsp;</a></li>
+                            <li><a class="fa fa-instagram" title="instagram" target="_blank" href="#">&nbsp;</a></li>
+                            <li><a class="fa fa-youtube" title="youtube" target="_blank" href="#">&nbsp;</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </footer>
     </div>
   
