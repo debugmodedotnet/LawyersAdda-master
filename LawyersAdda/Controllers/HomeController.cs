@@ -18,6 +18,8 @@ namespace LawyersAdda.Controllers
             ViewBag.Cities = cities;
             var lawservices = from r in db.ServiceTypes select r;
             ViewBag.LawServices = lawservices;
+            var topLawyers = (from r in db.Lawyers select r).Take(4);
+            ViewBag.topLawyers = topLawyers;
             return View();
         }
 

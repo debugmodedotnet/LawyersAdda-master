@@ -4,9 +4,7 @@
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
 
-body {
-    padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-}
+
 
 /* Header Image Background - Change the URL below to your image path (example: ../images/background.jpg) */
 
@@ -236,5 +234,14 @@ nav.navbar-findcond ul.dropdown-menu > li > a:hover { background: #f0ad4e; color
 nav.navbar-findcond span.badge { background: #f0ad4e; font-weight: normal; font-size: 11px; margin: 0 4px; }
 nav.navbar-findcond span.badge.new { background: rgba(255, 0, 0, 0.8); color: #fff; }*/
 
+
+/*for autocomplete category*/
+    .ui-autocomplete-category {
+        font-weight: bold;
+        padding: .2em .4em;
+        margin: .8em 0 .2em;
+        background-color: #eeeeee;
+        line-height: 1.5;
+    }
 
 

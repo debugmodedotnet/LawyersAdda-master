@@ -32,16 +32,18 @@ namespace LawyersAdda
                       "~/Scripts/respond.js"
                       ));
 
-            //bundles.Add(new StyleBundle("~/Content/css").Include(
-            //          "~/Content/bootstrap.css",
-            //          "~/Content/main.css",
-            //          "~/Content/bootstrap-multiselect.css"));
-
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                     "~/Content/VendorStyle/bootstrap.css",
-                     "~/Content/VendorStyle/style.css",
-                     "~/Content/VendorStyle/font-awesome.min.css",
-                     "~/Content/VendorStyle/select.css"));
+                      "~/Content/bootstrap.css",
+                      "~/Content/main.css",
+                      "~/Content/VendorStyle/style.css",
+                      "~/Content/VendorStyle/font-awesome.min.css",
+                      "~/Content/bootstrap-multiselect.css"));
+
+            //bundles.Add(new StyleBundle("~/Content/css").Include(
+            //         "~/Content/VendorStyle/bootstrap.css",
+            //         "~/Content/VendorStyle/style.css",
+            //         "~/Content/VendorStyle/font-awesome.min.css",
+            //         "~/Content/VendorStyle/select.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
               "~/Content/themes/base/jquery.ui.core.css",

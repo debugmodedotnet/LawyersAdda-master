@@ -27,7 +27,7 @@ img {
 .header_main {
     float: left;
     width: 100%;
-    padding: 10px 0;
+    padding-top: 10px;
 }
 .header_in {
     float: left;
@@ -81,29 +81,6 @@ img {
     font-family: 'Conv_Exo-Regular';
     position: relative;
     margin: 0 auto;
-}
-.search_main input {
-    width: 100%;
-    background: #fff url(../images/search_icon.png) no-repeat;
-    background-position: 10px center;
-    border: 3px solid #f0a01a;
-    border-radius: 20px;
-    padding: 8px 8px 8px 40px;
-}
-.search_main button {
-    background: #f0a01a;
-    color: #fff;
-    border: 0 none;
-    border-radius: 15px;
-    padding: 2px;
-    position: absolute;
-    right: 7px;
-    top: 6px;
-    width: 100px;
-    font-size: 18px;
-}
-.search_main button:hover {
-    background: #D48E1A;
 }
 .searvices_main {
     float: left;

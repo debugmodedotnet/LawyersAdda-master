@@ -10,7 +10,7 @@
     @*@Styles.Render("~/Content/themes/base/css")*@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryselection")
+    @*@Scripts.Render("~/bundles/jqueryselection")*@
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")   
     @Scripts.Render("~/bundles/customjs")
@@ -18,48 +18,14 @@
 
 </head>
 <body>
-    @*<nav class="navbar navbar-findcond navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Lawyerjee.com", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-               
-            </div>
-           
-       
-            <div class="navbar-collapse collapse" id="navbar">  
-             
-
-                   
-
-            </div>
-        </div>
-   </nav>*@
-
     <div class="header_main">
         <div class="container">
             <div class="header_in">
                 <div class="logo_main">
                     @*@Html.ActionLink("Lawyerjee.com", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-                    <a href="#" onclick="location.href='@Url.Action("Index","Home")'"><img src="images/logo.png"></a>
+                    <a href="#" onclick="location.href='@Url.Action("Index","Home")'"><img src="~/images/logo.png"></a>
                 </div>
                 <div class="right_menu">
-                    @*<ul>
-                        <li class="location_list">
-                            <select>
-                                <option>India </option>
-                                <option>Austrlia</option>
-                                <option>UK</option>
-                            </select>
-                        </li>
-                        <li class="login_list"><span><img src="images/login.png"></span><a href="#">Login</a></li>
-                        <li class="register_list"><span><img src="images/sign_up.png"></span><a href="#">Register</a></li>
-                        <li class="join_list"><a href="#" class="join_lawyer_bt">join as  a lawyer</a></li>
-                    </ul>*@
                     @Html.Partial("_LoginPartial")
                 </div>
             </div>

@@ -3,68 +3,22 @@
 @{
     ViewBag.Title = "Home Page";
 }
-@*<style>
-    .ui-autocomplete-category {
-        font-weight: bold;
-        padding: .2em .4em;
-        margin: .8em 0 .2em;
-        background-color: #eeeeee;
-        line-height: 1.5;
-    }
-</style>*@
-@*<header class="business-header">
-    <div class="container">
-
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="tagline text-center">One Stop Place for law advice and consulting</h1>
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-2">
-                        <input id="project" class="form-control input-lg" placeholder="Select Service or Type Lawyer Name">
-                        <input id="projectVal" type="hidden"/>
-                        <input id="categ" type="hidden" />
-                    </div>
-                    <div class="col-md-4">
-                        <button class="btn btn-warning btn-lg" id="searchLawyer">Search</button>
-                    </div>
-                </div>
-
-
-
-                @*<div class="col-md-8" id="popularSearch">
-                        <span class="tag">Popular: </span><span>Delhi</span>
-                    </div>*@
-
-                @*<video autoplay id="bgvid">
-                    <source src="http://d2w4gictyunaqp.cloudfront.net/vid/home-hero.webm" type="video/webm">
-                    <source src="http://d2w4gictyunaqp.cloudfront.net/vid/home-hero.mp4" type="video/mp4">
-                </video>
-            </div>
-        </div>
-
-    </div>
-
-</header>*@
-
-
-
-@*<div class="row">
-
-
-
-
-</div>*@
-
-
 <div id="wrapper">
-    
     <div class="banner_main">
         <div class="search_banner">
             <div class="container">
                 <div class="search_main_bn">
                     <div class="search_main">
-                        <input type="text" placeholder="Search by services">
-                        <button class="search">SEARCH</button>
+                        <div class="col-md-12">
+                            <div class="col-md-10">
+                                <input id="project" class="form-control input-lg" placeholder="Select Service or Type Lawyer Name">
+                                <input id="projectVal" type="hidden" />
+                                <input id="categ" type="hidden" />
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-warning btn-lg" id="searchLawyer">Search</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -78,19 +32,19 @@
             <div class="services_inn">
                 <div class="col-md-4 col-sm-4">
                     <h3>SEARCH LAWYER</h3>
-                    <img src="images/search_lawyer.png">
+                    <img src="~/images/search_lawyer.png">
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
                     <a href="#" class="know_more_service">KNOW MORE <span>></span></a>
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <h3>GET LEGAL CONSULTING</h3>
-                    <img src="images/legal_consulting.png">
+                    <img src="~/images/legal_consulting.png">
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
                     <a href="#" class="know_more_service">KNOW MORE <span>></span></a>
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <h3>LEGAL DOCUMENTATION</h3>
-                    <img src="images/legal_documentation.png">
+                    <img src="~/images/legal_documentation.png">
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
                     <a href="#" class="know_more_service">KNOW MORE <span>></span></a>
                 </div>
@@ -103,34 +57,25 @@
                 <h2>OUR TOP LAWYERS</h2>
             </div>
             <div class="top_lawyer_in">
-                <div class="col-md-3 col-sm-3 col-xs-3">
-                    <img src="images/lawyer01.jpg">
-                    <h4>NAME OF LAWYER</h4>
-                    <span>United kingdom</span>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-3">
-                    <img src="images/lawyer02.jpg">
-                    <h4>NAME OF LAWYER</h4>
-                    <span>United kingdom</span>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-3">
-                    <img src="images/lawyer03.jpg">
-                    <h4>NAME OF LAWYER</h4>
-                    <span>United kingdom</span>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-3">
-                    <img src="images/lawyer04.jpg">
-                    <h4>NAME OF LAWYER</h4>
-                    <span>United kingdom</span>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
-                </div>
+                @foreach (var lawyer in ViewBag.topLawyers)
+                {
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        @if (lawyer.ImageUrl != null)
+                        {
+                        <img class="img-rounded" src="@lawyer.ImageUrl" height="150" width="150" />
+                        }
+                        else
+                        {
+                        <img class="img-rounded" src="~/images/avatar_default.png" height="150" width="150" />
+                        }
+                        <h4>@lawyer.Name</h4>
+                        <p id="lawyerBio">@lawyer.Bio</p>
+                    </div>
+                }
             </div>
         </div>
     </div>
-    <div class="blog_main">
+    @*<div class="blog_main">
         <div class="container">
             <div class="heading_01">
                 <h2>LATEST BLOG</h2>
@@ -243,76 +188,83 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 </div>
- <script type="text/javascript">
-            $(document).ready(function () {
+<script type="text/javascript">
+    $(document).ready(function () {
 
-                var selectItem = function (event, ui) {
-                    $("#projectVal").val(ui.item.value);
-                    $("#project").val(ui.item.label);
-                    $("#categ").val(ui.item.category);
+        var divs = document.getElementById("lawyerBio");
+        console.log(divs);
+            if(divs.innerHTML.length > 100)
+                divs.innerHTML = divs.innerHTML.substring(0, 100) + " - read more...";
+        
 
-                    if ($("#categ").val() == "Lawyers") {
-                        window.location.href = "/Profile/MemberProfile/" + ui.item.username;
-                    }
-                    else {
-                        $.ajax({
-                            url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
-                            type: 'POST',
-                            data: {
-                                "LawServiceList": $("#projectVal").val(),
-                                "CityList": localStorage.getItem("MenuCityId")
-                            },
-                            success: function (data) {
-                                var url = '@Url.Action("SearchLawyers", "Lawyers")';
-                                window.location.href = url;
-                            }
-                        });
-                    }
-                    return false;
-                }
+        var selectItem = function (event, ui) {
+            $("#projectVal").val(ui.item.value);
+            $("#project").val(ui.item.label);
+            $("#categ").val(ui.item.category);
 
-                $.widget("custom.catcomplete", $.ui.autocomplete, {
-                    _create: function () {
-                        this._super();
-                        this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+            if ($("#categ").val() == "Lawyers") {
+                window.location.href = "/Profile/MemberProfile/" + ui.item.username;
+            }
+            else {
+                $.ajax({
+                    url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
+                    type: 'POST',
+                    data: {
+                        "LawServiceList": $("#projectVal").val(),
+                        "CityList": localStorage.getItem("MenuCityId")
                     },
-                    _renderMenu: function (ul, items) {
-                        var that = this,
-                          currentCategory = "";
-                        $.each(items, function (index, item) {
-                            var li;
-                            if (item.category != currentCategory) {
-                                ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
-                                currentCategory = item.category;
-                            }
-                            li = that._renderItemData(ul, item);
-                            if (item.category) {
-                                li.attr("aria-label", item.category + " : " + item.Name);
-                            }
-                        });
+                    success: function (data) {
+                        var url = '@Url.Action("SearchLawyers", "Lawyers")';
+                        window.location.href = url;
                     }
                 });
+            }
+            return false;
+        }
 
-                $("#project").catcomplete({
-                    source: function (request, response) {
-                        $.ajax({
-                            url: "/Home/GetServices",
-                            type: "POST",
-                            dataType: "json",
-                            data: { term: request.term },
-                            success: function (data) {
-                                response($.map(data, function (item) {
-                                    return { label: item.Name, value: item.Id, username: item.UserName, category: item.category };
-                                }).slice(0, 5))
-                            }
-                        })
-                    },
-                    minLength: 0,
-                    max: 5,
-                    select: selectItem,
-                    autoFocus: true
-                }).bind('focus', function () { $(this).catcomplete("search", " "); });;
-            });
-        </script>
+        $.widget("custom.catcomplete", $.ui.autocomplete, {
+            _create: function () {
+                this._super();
+                this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+            },
+            _renderMenu: function (ul, items) {
+                var that = this,
+                  currentCategory = "";
+                $.each(items, function (index, item) {
+                    var li;
+                    if (item.category != currentCategory) {
+                        ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+                        currentCategory = item.category;
+                    }
+                    li = that._renderItemData(ul, item);
+                    if (item.category) {
+                        li.attr("aria-label", item.category + " : " + item.Name);
+                    }
+                });
+            }
+        });
+
+        $("#project").catcomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Home/GetServices",
+                    type: "POST",
+                    dataType: "json",
+                    data: { term: request.term },
+                    success: function (data) {
+                        console.log(data);
+                        response($.map(data, function (item) {
+                            return { label: item.Name, value: item.Id, username: item.UserName, category: item.category };
+                        }).slice(0, 5))
+                    }
+                })
+            },
+            minLength: 0,
+            max: 5,
+            select: selectItem,
+            autoFocus: true
+        }).bind('focus', function () { $(this).catcomplete("search", " "); });;
+    });
+</script>
