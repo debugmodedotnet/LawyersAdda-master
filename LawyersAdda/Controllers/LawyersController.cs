@@ -45,12 +45,14 @@ namespace LawyersAdda.Controllers
         // POST: Lawyers/Create
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> RegisterAsLawyer(LawyerRegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, FullName = model.FullName, Email = model.Email, PhoneNumber = model.PhoneNumber };
+                var user = new ApplicationUser { UserName = model.UserName,
+                    FullName = model.FullName,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber };
                 //normal user registeration. Hence islawyer is set to false
                 user.isLawyer = true;
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -110,6 +112,55 @@ namespace LawyersAdda.Controllers
             }
             return View(model);
             //  AddErrors(result);
+        }
+
+        public async Task<string> NewUIRegisterLawyerStep1(string name, string email, string password, string username)
+        {
+            var user = new ApplicationUser { UserName = username, FullName = name, Email = email, PhoneNumber = "1234567890" };
+            //normal user registeration. Hence islawyer is set to false
+            user.isLawyer = true;
+            
+            try { var result = await UserManager.CreateAsync(user, password); 
+
+
+            if (result.Succeeded)
+            {
+                Lawyer lawyerToAdd = new Lawyer();
+                lawyerToAdd.Email = email;
+                lawyerToAdd.Name = name;
+                lawyerToAdd.CreatedBy = "Admin";
+                lawyerToAdd.ModifiedBy = "Admin";
+                lawyerToAdd.CreatedDate = DateTime.Now;
+                lawyerToAdd.ModifiedDate = DateTime.Now;
+                lawyerToAdd.Id = user.Id;
+                try
+                {
+                    ApplicationDbContext c = new ApplicationDbContext();
+                    c.Lawyers.Add(lawyerToAdd);
+                    c.SaveChanges();
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        var str = string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:", eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            var a = string.Format("- Property: \"{0}\", Error: \"{1}\"",
+                                   ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+
+                }
+            }
+            Session["LUserId"] = TempData["LUserId"] = user.Id;
+            TempData.Keep(); }
+            catch (DbEntityValidationException ee)
+            {
+                var ss = ee;
+            }
+            var s = "Shubham";
+            return s;
         }
 
         // GET: Lawyers/Create
