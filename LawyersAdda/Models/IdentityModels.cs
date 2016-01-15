@@ -54,5 +54,7 @@ namespace LawyersAdda.Models
         public virtual DbSet<Answer> Answers { get; set; }
 
         public System.Data.Entity.DbSet<LawyersAdda.Entities.City> Cities { get; set; }
+
+       
     }
 }

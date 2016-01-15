@@ -271,9 +271,11 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\RegisterAsLawyerstep1ViewModel.cs" />
     <Compile Include="ViewModels\LawyerProfileViewModel.cs" />
     <Compile Include="ViewModels\LawyerRegisterViewModel.cs" />
     <Compile Include="ViewModels\LawyerSearchViewModel.cs" />
+    <Compile Include="ViewModels\RegisterAsLawyerstep2ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-multiselect.css" />
@@ -708,6 +710,8 @@
     <Content Include="Views\Profile\EditLawyerProfile.cshtml" />
     <Content Include="Views\Profile\EditUserProfile.cshtml" />
     <Content Include="Views\Profile\MemberProfile.cshtml" />
+    <Content Include="Views\Lawyers\RegisterAsLawyerstep1.cshtml" />
+    <Content Include="Views\Lawyers\RegisterAsLawyerstep2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
