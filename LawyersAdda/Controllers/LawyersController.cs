@@ -42,6 +42,7 @@ namespace LawyersAdda.Controllers
             return View();
         }
 
+
         // POST: Lawyers/Create
         [HttpPost]
         [AllowAnonymous]
@@ -108,6 +109,120 @@ namespace LawyersAdda.Controllers
                 Session["LUserId"] = TempData["LUserId"] = user.Id;
                 TempData["Lcity"] = model.City;
                 TempData.Keep();
+                return RedirectToAction("AddCourtToLawyer");
+            }
+            return View(model);
+            //  AddErrors(result);
+        }
+
+        public ActionResult RegisterAsLawyerstep1()
+        {
+           // var cityList = new CitiesController().GetCities();
+           // ViewBag.city = cityList;
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> RegisterAsLawyerstep1(RegisterAsLawyerstep1ViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = model.UserName,
+                    FullName = model.FullName,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber,
+                    isLawyer = true,
+                    RegistrationDate = DateTime.Now,
+                    ModifiedDate = DateTime.Now
+
+                };
+                //normal user registeration. Hence islawyer is set to false
+                
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                }
+              
+                return RedirectToAction("RegisterAsLawyerstep2");
+            }
+            return View(model);
+            //  AddErrors(result);
+        }
+
+        public ActionResult RegisterAsLawyerstep2()
+        {
+            var cityList = new CitiesController().GetCities();
+            ViewBag.city = cityList;
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult RegisterAsLawyerstep2(RegisterAsLawyerstep2ViewModel model)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            if (ModelState.IsValid)
+            {
+                string userId = User.Identity.GetUserId();
+                var user = (from r in db.Users where r.Id == userId select r).FirstOrDefault();
+
+
+
+
+
+
+                Lawyer lawyerToAdd = new Lawyer();
+                lawyerToAdd.Email = user.Email;
+                lawyerToAdd.Name = user.FullName;
+                lawyerToAdd.PhoneNumber = user.PhoneNumber;
+                //lawyerToAdd.Bio = model.Bio;
+                lawyerToAdd.AlternatePhoneNumber = model.AlternatePhoneNumber;
+                lawyerToAdd.Sex = model.Gender;
+                lawyerToAdd.CreatedBy = "DJ";
+                lawyerToAdd.ModifiedBy = "DJ";
+                lawyerToAdd.CreatedDate = DateTime.Now;
+                lawyerToAdd.ModifiedDate = DateTime.Now;
+                lawyerToAdd.WebSiteUrl = model.BlogUrl;
+                lawyerToAdd.Id = user.Id;
+                lawyerToAdd.CityId = model.City;
+                lawyerToAdd.Dob = model.Dob;
+                lawyerToAdd.NumberOfExpereince = model.Experience;
+                lawyerToAdd.HourlyRate = model.HourlyRate;
+
+                lawyerToAdd.User = user;
+                try
+                {
+
+                    db.Lawyers.Add(lawyerToAdd);
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        var str = string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:", eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            var a = string.Format("- Property: \"{0}\", Error: \"{1}\"",
+                                   ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+
+                }
+
+
+
+
+                //TempData["LName"] = model.FullName;
+                //TempData["LEmail"] = model.Email;
+                //TempData["LPhoneNumber"] = model.PhoneNumber;
+                //TempData["LUser"] = user;
+                //  Session["LUserId"] = TempData["LUserId"] = user.Id;
+                //   TempData["Lcity"] = model.City;
+                //  TempData.Keep();
                 return RedirectToAction("AddCourtToLawyer");
             }
             return View(model);

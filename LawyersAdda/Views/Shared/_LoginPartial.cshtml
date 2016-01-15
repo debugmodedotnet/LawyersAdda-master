@@ -43,7 +43,7 @@
             </ul>
         </li>
 
-        <li><button class="btn btn-warning navbar-btn" type="button" onclick="location.href='@Url.Action("RegisterAsLawyer", "Lawyers")'">Join as a Lawyer</button></li>
+        <li><button class="btn btn-warning navbar-btn" type="button" onclick="location.href='@Url.Action("RegisterAsLawyerstep1", "Lawyers")'">Join as a Lawyer</button></li>
        
         
     </ul>
@@ -75,7 +75,7 @@ else
        
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>  
-        <li><button class="btn btn-warning navbar-btn" type="button" onclick="location.href='@Url.Action("RegisterAsLawyer", "Lawyers")'">Join as a Lawyer</button></li>
+        <li><button class="btn btn-warning navbar-btn" type="button" onclick="location.href='@Url.Action("RegisterAsLawyerstep1", "Lawyers")'">Join as a Lawyer</button></li>
         @*<li>@Html.ActionLink("Join as a Lawyer ", "RegisterAsLawyer", "Lawyers",null, new { @class = "btn btn-warning navbar-btn" })</li>*@  
     </ul>
 }
