@@ -168,12 +168,6 @@ namespace LawyersAdda.Controllers
             {
                 string userId = User.Identity.GetUserId();
                 var user = (from r in db.Users where r.Id == userId select r).FirstOrDefault();
-
-
-
-
-
-
                 Lawyer lawyerToAdd = new Lawyer();
                 lawyerToAdd.Email = user.Email;
                 lawyerToAdd.Name = user.FullName;
@@ -221,61 +215,12 @@ namespace LawyersAdda.Controllers
                 //TempData["LPhoneNumber"] = model.PhoneNumber;
                 //TempData["LUser"] = user;
                 //  Session["LUserId"] = TempData["LUserId"] = user.Id;
-                //   TempData["Lcity"] = model.City;
-                //  TempData.Keep();
+                TempData["Lcity"] = model.City;
+                TempData.Keep();
                 return RedirectToAction("AddCourtToLawyer");
             }
             return View(model);
             //  AddErrors(result);
-        }
-
-        public async Task<string> NewUIRegisterLawyerStep1(string name, string email, string password, string username)
-        {
-            var user = new ApplicationUser { UserName = username, FullName = name, Email = email, PhoneNumber = "1234567890" };
-            //normal user registeration. Hence islawyer is set to false
-            user.isLawyer = true;
-            
-            try { var result = await UserManager.CreateAsync(user, password); 
-
-
-            if (result.Succeeded)
-            {
-                Lawyer lawyerToAdd = new Lawyer();
-                lawyerToAdd.Email = email;
-                lawyerToAdd.Name = name;
-                lawyerToAdd.CreatedBy = "Admin";
-                lawyerToAdd.ModifiedBy = "Admin";
-                lawyerToAdd.CreatedDate = DateTime.Now;
-                lawyerToAdd.ModifiedDate = DateTime.Now;
-                lawyerToAdd.Id = user.Id;
-                try
-                {
-                    ApplicationDbContext c = new ApplicationDbContext();
-                    c.Lawyers.Add(lawyerToAdd);
-                    c.SaveChanges();
-                }
-                catch (DbEntityValidationException e)
-                {
-                    foreach (var eve in e.EntityValidationErrors)
-                    {
-                        var str = string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:", eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            var a = string.Format("- Property: \"{0}\", Error: \"{1}\"",
-                                   ve.PropertyName, ve.ErrorMessage);
-                        }
-                    }
-
-                }
-            }
-            Session["LUserId"] = TempData["LUserId"] = user.Id;
-            TempData.Keep(); }
-            catch (DbEntityValidationException ee)
-            {
-                var ss = ee;
-            }
-            var s = "Shubham";
-            return s;
         }
 
         // GET: Lawyers/Create
@@ -331,7 +276,7 @@ namespace LawyersAdda.Controllers
         //add court to lawyer
         public JsonResult SaveCourtsToLawyers(List<string> courts)
         {
-            var l = GetLawyerById(Session["LUserId"].ToString());
+            var l = GetLawyerById(User.Identity.GetUserId().ToString());
             try
             {
                 foreach (var court in courts)
@@ -351,7 +296,7 @@ namespace LawyersAdda.Controllers
         //add services to lawyer
         public JsonResult SaveServicesToLawyers(List<string> services)
         {
-            var l = GetLawyerById(Session["LUserId"].ToString());
+            var l = GetLawyerById(User.Identity.GetUserId().ToString());
             try
             {
                 foreach (var service in services)

@@ -2,23 +2,54 @@
 @{
     ViewBag.Title = "AddServiceToLawyer";
 }
+<div class="col-md-8 col-md-offset-2">
 
-<h2>AddServiceToLawyer</h2>
-<div class="row text-center" id="total"></div>
-<br />
-<div class="row">
-    @foreach (var service in ViewBag.ListofServices)
-    {
+
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel">
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle">1</button>
+                <p>Account</p>
+            </div>
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle">2</button>
+                <p>Your Details</p>
+            </div>
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle">3</button>
+                <p>Add Courts</p>
+            </div>
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle">4</button>
+                <p>Add Services</p>
+            </div>
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle"  disabled="disabled">5</button>
+                <p>Add Pic</p>
+            </div>
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle" disabled="disabled">6</button>
+                <p>Describe Yourself</p>
+            </div>
+        </div>
+    </div>
+    <h2>What all services do you offer</h2>
+    <hr />
+    <div class="row text-center" id="total"></div>
+    <br />
+    <div class="row">
+        @foreach (var service in ViewBag.ListofServices)
+        {
             <div id='@service.Id' class="btn-default btn" onclick="addService('@service.Id')">
                 @service.Name
             </div>
-    }
+        }
+    </div>
+    <br />
+    <div class="row text-center">
+        <input type="button" class="btn-success btn" onclick="addServiceToLawyer()" value="Save and go to next step" />
+    </div>
 </div>
-<br />
-<div class="row text-center">
-    <input type="button" class="btn-success btn" onclick="addServiceToLawyer()" value="Save and go to next step" />
-</div>
-
 
 <script>
     var lawyerServices = [];

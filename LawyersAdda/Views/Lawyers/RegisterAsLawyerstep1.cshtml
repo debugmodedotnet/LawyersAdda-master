@@ -7,84 +7,85 @@
 <h2>RegisterAsLawyer step1</h2>
 
 <br/>
+<div class="col-md-8 col-md-offset-2">
 
-<div class="stepwizard">
-    <div class="stepwizard-row setup-panel">
-        <div class="stepwizard-step">
-            <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
-            <p>Account</p>
-        </div>
-        <div class="stepwizard-step">
-            <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-            <p>Plan</p>
-        </div>
-        <div class="stepwizard-step">
-            <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-            <p>Service Provider</p>
-        </div>
-        <div class="stepwizard-step">
-            <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
-            <p>Actions</p>
-        </div>
-        <div class="stepwizard-step">
-            <a href="#step-5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
-            <p>Email Templates</p>
-        </div>
-        <div class="stepwizard-step">
-            <a href="#step-6" type="button" class="btn btn-default btn-circle" disabled="disabled">6</a>
-            <p>Preview & Submit</p>
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel">
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle">1</button>
+                <p>Account</p>
+            </div>
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle" disabled="disabled">2</button>
+                <p>Your Details</p>
+            </div>
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle" disabled="disabled">3</button>
+                <p>Add Courts</p>
+            </div>
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle" disabled="disabled">4</button>
+                <p>Add Services</p>
+            </div>
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle" disabled="disabled">5</button>
+                <p>Add Pic</p>
+            </div>
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle" disabled="disabled">6</button>
+                <p>Describe Yourself</p>
+            </div>
         </div>
     </div>
+
+
+
+    @using (Html.BeginForm("RegisterAsLawyerstep1", "Lawyers", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Setup your account</h4>
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.FullName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Register" />
+            </div>
+        </div>
+    }
 </div>
-
-
-
-@using (Html.BeginForm("RegisterAsLawyerstep1", "Lawyers", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.FullName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    
-   
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
-}
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
