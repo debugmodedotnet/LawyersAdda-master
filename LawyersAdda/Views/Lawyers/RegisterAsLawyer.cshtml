@@ -10,20 +10,10 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="col-sm-6 col-sm-offset-3 form-box">
-
-        <form role="form" action="" method="post" class="registration-form">
+    <div class="col-sm-8 col-sm-offset-2">
+        <form role="form" action="" method="post">
 
             <fieldset>
-                <div class="form-top">
-                    <div class="form-top-left">
-                        <h3>Step 1 / 3</h3>
-                        <p>Set up your account:</p>
-                    </div>
-                    <div class="form-top-right">
-                        <i class="fa fa-key"></i>
-                    </div>
-                </div>
                 <div class="form-bottom">
                     <div class="form-group">
                         <label class="sr-only" for="form-full-name">Full name</label>
@@ -42,78 +32,6 @@
                         <input type="text" placeholder="username..." class="form-first-name form-control" id="form-username">
                     </div>
                     <button type="button" class="btn btn-next">Next</button>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <div class="form-top">
-                    <div class="form-top-left">
-                        <h3>Step 2 / 3</h3>
-                        <p>Tell us who you are:</p>
-                    </div>
-                    <div class="form-top-right">
-                        <i class="fa fa-user"></i>
-                    </div>
-                </div>
-                <div class="form-bottom">
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.City)
-                        @Html.DropDownListFor(model => model.City, new SelectList(ViewBag.city, "Id", "CityName"), "Select your city", new { @class = "form-control" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.PhoneNumber)
-                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Bio)
-                        @Html.TextAreaFor(model => model.Bio, htmlAttributes: new { @class = "form-control", @placeholder = "About yourself..." })
-                    </div>
-                    <button type="button" class="btn btn-previous">Previous</button>
-                    <button type="button" class="btn btn-next">Next</button>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <div class="form-top">
-                    <div class="form-top-left">
-                        <h3>Step 3 / 3</h3>
-                        <p>Social media profiles:</p>
-                    </div>
-                    <div class="form-top-right">
-                        <i class="fa fa-twitter"></i>
-                    </div>
-                </div>
-                <div class="form-bottom">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.AlternatePhoneNumber)
-                        @Html.EditorFor(model => model.AlternatePhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.BlogUrl)
-                        @Html.EditorFor(model => model.BlogUrl, new { htmlAttributes = new { @class = "form-control" } })
-
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Experience)
-                        @Html.EditorFor(model => model.Experience, new { htmlAttributes = new { @class = "form-control" } })
-
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.HourlyRate)
-                        @Html.EditorFor(model => model.HourlyRate, new { htmlAttributes = new { @class = "form-control" } })
-
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Dob)
-                        @Html.EditorFor(model => model.Dob, new { htmlAttributes = new { @class = "form-control" } })
-
-                    </div>
-                    <button type="button" class="btn btn-previous">Previous</button>
-                    <button type="submit" class="btn">Sign me up!</button>
                 </div>
             </fieldset>
 
@@ -137,47 +55,5 @@
 }
 
 <script>
-    jQuery(document).ready(function () {
 
-        $('fieldset:first-child').fadeIn('slow');
-
-
-        // next step
-        $('.btn-next').on('click', function () {
-
-            var parent_fieldset = $(this).parents('fieldset');
-            var next_step = true;
-
-            parent_fieldset.find('input[type="text"], input[type="password"], textarea').each(function () {
-                if ($(this).val() == "") {
-                    $(this).addClass('input-error');
-                    next_step = false;
-                }
-                else {
-                    $(this).removeClass('input-error');
-                }
-            });
-
-            if (next_step) {
-                $.ajax({
-                    url: '@Url.Action("NewUIRegisterLawyerStep1", "Lawyers")',
-                    type: 'POST',
-                    data: {
-                        name: $("#form-name").val(),
-                        email: $("#form-email").val(),
-                        password: $("#form-password").val(),
-                        username: $("#form-username").val()
-                    },
-                    success: function (data) {
-                        alert(data);
-                        
-                    }
-                });
-                parent_fieldset.fadeOut(400, function () {
-                    $(this).next().fadeIn();
-                });
-            }
-
-        });
-    });
 </script>
