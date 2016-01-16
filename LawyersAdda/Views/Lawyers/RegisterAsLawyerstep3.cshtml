@@ -5,6 +5,8 @@
 @{
     ViewBag.Title = "AddCourtToLawyer";
 }
+
+<h3 style="text-align:center">Thanks for joining as a Lawyer!</h3>
 <div class="col-md-8 col-md-offset-2">
 
 
@@ -39,9 +41,9 @@
 
     
     <div class="row">
-        <h2>Tell us what all courts you work in</h2>
-<hr />
-        <div class="class=" form-horizontal">
+        <h4>Add Courts to your Profile</h4>
+     <hr />
+        <div class="row">
             <div class="col-md-6">
                 @Html.Label("Select City")
                 <div class="form-group">
@@ -60,8 +62,8 @@
     </div>
 
     <div class="row">
-        <div class="col-md-5 col-md-offset-4">
-            <button id="btnAddCourts" class="btn btn-warning btn-lg">Add to your profile</button>
+        <div class="col-md-4 col-md-offset-4">
+            <button id="btnAddCourts" class="btn btn-default form-control"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add</button>
         </div>
     </div>
     <br />
@@ -78,8 +80,8 @@
     </div>
     <br />
     <div class="row">
-        <div class="col-md-5 col-md-offset-4">
-            <button id="btnSaveStep2" style="visibility:hidden" class="btn btn-lg btn-warning">Save and Go to next step</button>
+        <div class="col-md-4 col-md-offset-4">
+            <button id="btnSaveStep2" style="visibility:hidden" class="btn form-control btn-warning">Save and Go to next step</button>
         </div>
     </div>
     </div>
@@ -201,7 +203,7 @@
                     },
                     success: function (data) {
                         alert(data);
-                        var url = '@Url.Action("AddServiceToLawyer", "Lawyers")';
+                        var url = '@Url.Action("RegisterAsLawyerstep4", "Lawyers")';
                         window.location.href = url;
                     }
                 });

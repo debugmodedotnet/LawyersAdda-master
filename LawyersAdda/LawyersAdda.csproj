@@ -690,8 +690,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Lawyers\AddLawyerProfile.cshtml" />
     <Content Include="Views\Lawyers\RegisterAsLawyer.cshtml" />
-    <Content Include="Views\Lawyers\AddCourtToLawyer.cshtml" />
-    <Content Include="Views\Lawyers\AddServiceToLawyer.cshtml" />
+    <Content Include="Views\Lawyers\RegisterAsLawyerstep3.cshtml" />
+    <Content Include="Views\Lawyers\RegisterAsLawyerstep4.cshtml" />
     <Content Include="Views\Lawyers\AddImagesToLawyer.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Lawyers\SearchLawyer.cshtml" />

@@ -293,7 +293,9 @@ img {
 footer {
     float: left;
     width: 100%;
-    border-top: 2px solid #29282d;
+  
+    bottom:0;
+    border-top: 1px solid #29282d;
 }
 footer p {
     margin: 0;

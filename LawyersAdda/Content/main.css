@@ -28,9 +28,6 @@
     margin: 0 auto;
 }
 
-footer {
-    margin: 50px 0;
-}
 
 video#bgvid { 
     position: absolute;
@@ -297,3 +294,11 @@ nav.navbar-findcond span.badge.new { background: rgba(255, 0, 0, 0.8); color: #f
   border-radius: 15px;
   background-color:#FF9900;
 }
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    height: 20px;
+    background: #f0f0f0;
+    width: 100%;
+  }

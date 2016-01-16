@@ -4,7 +4,7 @@
     ViewBag.Title = "RegisterAsLawyerstep1";
 }
 
-<h2>RegisterAsLawyer step1</h2>
+<h3 style="text-align:center">Thanks for joining as a Lawyer!</h3>
 
 <br/>
 <div class="col-md-8 col-md-offset-2">
@@ -46,42 +46,41 @@
         <h4>Setup your account</h4>
         <hr />
         @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(m => m.FullName, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+        <div class="form-group form-group-lg">          
+            <div class="col-md-10 col-md-offset-1">
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control input-lg",@placeholder="Your Full Name" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            @*@Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })*@
+            <div class="col-md-10 col-md-offset-1">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control input-lg",@placeholder="Provide a UserName"})
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+            @*@Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })*@
+            <div class="col-md-10 col-md-offset-1">
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control input-lg", @placeholder = "Your PhoneNumber" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
+            <div class="col-md-10 col-md-offset-1">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-lg", @placeholder = "Your Email" })
             </div>
         </div>
 
+        <div class="form-group">
+            @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
+            <div class="col-md-10 col-md-offset-1">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg", @placeholder = "A Strong Password 3-6 characters long" })
+            </div>
+        </div>
+
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-default" value="Register" />
+            <div class="col-md-10 col-md-offset-1">
+                <input type="submit" class="btn btn-warning form-control input-lg" value="Save and go to step 2" />
             </div>
         </div>
     }

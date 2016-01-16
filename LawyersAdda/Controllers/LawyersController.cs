@@ -217,14 +217,14 @@ namespace LawyersAdda.Controllers
                 //  Session["LUserId"] = TempData["LUserId"] = user.Id;
                 TempData["Lcity"] = model.City;
                 TempData.Keep();
-                return RedirectToAction("AddCourtToLawyer");
+                return RedirectToAction("RegisterAsLawyerstep3");
             }
             return View(model);
             //  AddErrors(result);
         }
 
         // GET: Lawyers/Create
-        public ActionResult AddCourtToLawyer()
+        public ActionResult RegisterAsLawyerstep3()
         {
             //   var cid = TempData["Lcity"].ToString();
             // TempData.Keep();
@@ -236,7 +236,7 @@ namespace LawyersAdda.Controllers
         }
 
         // GET: Lawyers/Create
-        public ActionResult AddServiceToLawyer()
+        public ActionResult RegisterAsLawyerstep4()
         {
             var ListofServices = (from r in db.ServiceTypes select r);
             ViewBag.ListofServices = ListofServices;
