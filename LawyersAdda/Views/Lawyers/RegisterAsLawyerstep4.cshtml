@@ -3,7 +3,7 @@
     ViewBag.Title = "AddServiceToLawyer";
 
 }
-
+<link href="~/Content/bootstrap-duallistbox.css" rel="stylesheet" />
 <h3 style="text-align:center">Thanks for joining as a Lawyer!</h3>
 <div class="col-md-8 col-md-offset-2">
 
@@ -42,21 +42,40 @@
     <div class="row text-center" id="total"></div>
     <br />
     <div class="row">
-        @foreach (var service in ViewBag.ListofServices)
+        @*@foreach (var service in ViewBag.ListofServices)
         {
             <div id='@service.Id' class="btn-default btn" onclick="addService('@service.Id')">
                 @service.Name
             </div>
-        }
+        }*@
+        <div>
+            <select multiple="multiple" size="10" name="Services" class="DualListBox">
+                @foreach (var service in ViewBag.ListofServices)
+                {
+                    <option value="@service.Id">@service.Name</option>
+                }
+            </select>
+        </div>
     </div>
     <br />
     <div class="row text-center">
         <input type="button" class="btn-success btn" onclick="addServiceToLawyer()" value="Save and go to next step" />
     </div>
 </div>
+<script src="~/Scripts/jquery.bootstrap-duallistbox.js"></script>
+<script>
+
+    var DualListBox = $('.DualListBox').bootstrapDualListbox({
+        nonSelectedListLabel: 'Non-selected Services',
+        selectedListLabel: 'Selected Service',
+        preserveSelectionOnMove: 'moved',
+        moveOnSelect: false,
+    });
+</script>
 
 <script>
     var lawyerServices = [];
+
     function addService(id) {
 
 
@@ -80,6 +99,9 @@
     }
 
     function addServiceToLawyer() {
+        $('.DualListBox :selected').each(function (i, selected) {
+            lawyerServices.push($(selected).val());
+        });
         $.ajax({
             url: '@Url.Action("SaveServicesToLawyers", "Lawyers")',
             type: 'POST',
