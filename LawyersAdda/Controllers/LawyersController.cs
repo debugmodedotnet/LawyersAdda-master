@@ -432,5 +432,35 @@ namespace LawyersAdda.Controllers
             PagedList<Lawyer> model = new PagedList<Lawyer>(lstLawyers, page, pageSize);
             return View("SearchLawyer", model);
         }
+
+        [HttpPost]
+        public JsonResult CheckUser(string UserName)
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+            int TotalUser=context.Users.Where(t => t.UserName == UserName).ToList().Count;
+            if(TotalUser>0)
+            {
+                return Json(false);
+            }
+            else
+            {
+                return Json(true);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult CheckEmail(string Email)
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+            int TotalUser = context.Users.Where(t => t.Email == Email).ToList().Count;
+            if (TotalUser > 0)
+            {
+                return Json(false);
+            }
+            else
+            {
+                return Json(true);
+            }
+        }
     }
 }

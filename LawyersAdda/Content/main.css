@@ -7,7 +7,11 @@
 
 
 /* Header Image Background - Change the URL below to your image path (example: ../images/background.jpg) */
-
+body{
+    height:100%;
+    width:100%;
+    display: table;
+}
 .business-header {
     position: relative;
     height: 450px;
@@ -177,24 +181,27 @@ video#bgvid {
 /*For City Menu demo 1*/
 
 ul.dropdown-cart{
-    min-width:300px;
+    /*min-width:300px;*/
 }
 ul.dropdown-cart li .item{
     display:block;
-    padding:3px 10px;
-    margin: 3px 0;
+    /*padding:3px 10px;
+    margin: 3px 0;*/
 }
-ul.dropdown-cart li .item:hover{
+/*ul.dropdown-cart li .item:hover{
+    background-color:#f3f3f3;
+}*/
+ul.dropdown-cart li:hover{
     background-color:#f3f3f3;
 }
-ul.dropdown-cart li .item:after{
+/*ul.dropdown-cart li .item:after{
     visibility: hidden;
     display: block;
     font-size: 0;
     content: " ";
     clear: both;
     height: 0;
-}
+}*/
 
 ul.dropdown-cart li .item-left{
     float:left;
@@ -210,6 +217,9 @@ ul.dropdown-cart li .item-left span.item-info{
     background-color: #FFF;
     border-color: #E7E7E7;
 }
+.bootstrap-datetimepicker-widget>ul {
+    padding-left:0px;
+}
 
 /*For City Menu demo 2*/
 
@@ -221,7 +231,7 @@ nav.navbar-findcond ul.navbar-nav a:visited,
 nav.navbar-findcond ul.navbar-nav a:focus,
 nav.navbar-findcond ul.navbar-nav a:active { background: #fff; }
 nav.navbar-findcond ul.navbar-nav a:hover { border-color: #f0ad4e; }
-nav.navbar-findcond li.divider { background: #ccc; }
+nav.navbar-findcond li.divider { background: #ccc;}
 nav.navbar-findcond button.navbar-toggle { background: #f0ad4e; border-radius: 2px; }
 nav.navbar-findcond button.navbar-toggle:hover { background: #999; }
 nav.navbar-findcond button.navbar-toggle > span.icon-bar { background: #fff; }
@@ -299,6 +309,7 @@ nav.navbar-findcond span.badge.new { background: rgba(255, 0, 0, 0.8); color: #f
     position: absolute;
     bottom: 0;
     height: 20px;
+    display: table-row;
     background: #f0f0f0;
     width: 100%;
   }

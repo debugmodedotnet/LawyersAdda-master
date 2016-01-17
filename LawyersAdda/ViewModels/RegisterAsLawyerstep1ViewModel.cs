@@ -9,34 +9,28 @@ namespace LawyersAdda.ViewModels
 {
     public class RegisterAsLawyerstep1ViewModel
     {
-        [Required]
-
+        [Required(ErrorMessage = "Please Enter Full Name")]
         [Display(Name = "FullName")]
         public string FullName { get; set; }
 
-        [Required]
-
+        [Required(ErrorMessage = "Please Enter User Name")]
         [Display(Name = "UserName")]
         public string UserName { get; set; }
 
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Please Enter Email")]
+        [EmailAddress(ErrorMessage = "Email Address is Not Valid")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-
+        [Required(ErrorMessage = "Please Enter Phone Number")]
         [Display(Name = "PhoneNumber")]
         public string PhoneNumber { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Please Enter Password")]
+        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [MinLength(6, ErrorMessage = "The Password must be at least 6 characters long.")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
-
-
-
- 
     }
 }

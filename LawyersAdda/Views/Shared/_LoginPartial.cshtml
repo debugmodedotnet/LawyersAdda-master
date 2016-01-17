@@ -14,15 +14,14 @@
             <ul class="dropdown-menu dropdown-cart" role="menu">
 
                 @foreach (var item in ViewBag.Cities)
-                    {
-
-                    <li>
+                {
+                    <li style="float:none;text-align:center">
                         <span class="item" id=@item.Id>
                             @item.CityName
                         </span>
                     </li>
                 }
-                <li class="divider"></li>
+                <li class="divider" style="padding:0;float:none;margin:0px;"></li>
                 <li><a class="text-center" href="">View All Cities</a></li>
             </ul>
         </li>
@@ -33,9 +32,9 @@
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello @User.Identity.GetUserName()<span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li>@Html.ActionLink("Manage", "Index", "Profile", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
-                <li role="separator" class="divider"></li>
-                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                <li style="float:none;text-align:center;padding:0px;">@Html.ActionLink("Manage", "Index", "Profile", routeValues: null, htmlAttributes: new { title = "Manage", style = "padding: 10px 20px" })</li>
+                <li role="separator" class="divider" style="padding:0;float:none;margin:0px;"></li>
+                <li style="float:none;text-align:center;padding:0px;"><a style="padding:10px 20px" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
             </ul>
         </li>
 

@@ -40,40 +40,46 @@
 
 
 
-    @using (Html.BeginForm("RegisterAsLawyerstep1", "Lawyers", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("RegisterAsLawyerstep1", "Lawyers", FormMethod.Post, new { @class = "form-horizontal",id="Form1",role = "form" }))
     {
         @Html.AntiForgeryToken()
         <h4>Setup your account</h4>
         <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group form-group-lg">          
             <div class="col-md-10 col-md-offset-1">
-                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control input-lg",@placeholder="Your Full Name" })
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control input-lg Reset",@placeholder="Your Full Name" })
+                @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @*@Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })*@
             <div class="col-md-10 col-md-offset-1">
-                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control input-lg",@placeholder="Provide a UserName"})
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control input-lg Reset", @placeholder = "Provide a UserName" })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                <span id="UserExist"></span>
             </div>
         </div>
         <div class="form-group">
             @*@Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })*@
             <div class="col-md-10 col-md-offset-1">
-                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control input-lg", @placeholder = "Your PhoneNumber" })
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control input-lg Reset", @placeholder = "Your PhoneNumber" })
+                @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
             <div class="col-md-10 col-md-offset-1">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-lg", @placeholder = "Your Email" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-lg Reset", @placeholder = "Your Email" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                <span id="EmailExist"></span>
             </div>
         </div>
 
         <div class="form-group">
             @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
             <div class="col-md-10 col-md-offset-1">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg", @placeholder = "A Strong Password 3-6 characters long" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg Reset", @placeholder = "Password must be at least 6 characters long" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -87,4 +93,67 @@
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var isAuthenticatedUser = false;
+        var isAuthenticatedEmail = false;
+        $("#Form1").submit(function () {
+            checkUser();
+            checkEmail();
+            if (isAuthenticatedEmail==true&&isAuthenticatedUser==true) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        });
+
+
+        $("#UserName").blur(function () {
+            checkUser();
+        });
+        $("#Email").blur(function () {
+            checkEmail();
+        });
+        function checkUser() {
+            $.ajax({
+                type: 'POST',
+                url: '/Lawyers/CheckUser',
+                dataType: 'json',
+                data: { UserName: $("#UserName").val() },
+                success: function (data) {
+                    if (data == false) {
+                        $("#UserExist").html("This User Name Not Exists. Use Different User Name");
+                        isAuthenticatedUser = false;
+                    }
+                    else {
+                        $("#UserExist").html("");
+                        isAuthenticatedUser = true;
+                    }
+                }
+            });
+        }
+        function checkEmail() {
+            $.ajax({
+                type: 'POST',
+                url: '/Lawyers/CheckEmail',
+                dataType: 'json',
+                data: { Email: $("#Email").val() },
+                success: function (data) {
+                    if (data == false) {
+                        $("#EmailExist").html("This Email ID already Registed. User Different Email Address");
+                        isAuthenticatedEmail = false;
+                    }
+                    else {
+                        $("#EmailExist").html("");
+                        isAuthenticatedEmail = true;
+                    }
+                }
+            });
+        }
+
+        $(".Reset").keydown(function () { reset(); });
+        function reset(){
+            $(".field-validation-error").empty();
+        }
+    </script>
 }
