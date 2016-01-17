@@ -64,14 +64,12 @@ namespace LawyersAdda.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Please Enter Full Name")]
        
         [Display(Name = "FullName")]
         public string FullName { get; set; }
 
-       
-
-        [Required]
+        [Required(ErrorMessage = "Please Enter Email")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -81,19 +79,17 @@ namespace LawyersAdda.Models
         //[Display(Name = "PhoneNumber")]
         //public string PhoneNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please Enter Password")]
         //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [MinLength(6,ErrorMessage = "The Password must be at least 6 characters long.")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
-
-
+        //[DataType(DataType.Password)]
+        //[Display(Name = "Confirm password")]
+        //[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        //public string ConfirmPassword { get; set; }
     }
 
     public class ResetPasswordViewModel

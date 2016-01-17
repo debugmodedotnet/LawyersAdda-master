@@ -2,58 +2,80 @@
 @{
     ViewBag.Title = "Register";
 }
+<div class="col-md-8 col-md-offset-2">
 
-<h2>@ViewBag.Title.</h2>
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal",id="Form1", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Setup your account</h4>
+        <hr />
+        <div class="form-group">
+            @*@Html.LabelFor(m => m.FullName, new { @class = "col-md-2 control-label" })*@
+            <div class="col-md-10 col-md-offset-1">
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control input-lg Reset", @placeholder = "Your Full Name" })
+                @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
+            <div class="col-md-10 col-md-offset-1">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-lg Reset", @placeholder = "Your Email" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                <span id="EmailExist"></span>
+            </div>
+        </div>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.FullName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+        <div class="form-group">
+            @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
+            <div class="col-md-10 col-md-offset-1">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg Reset", @placeholder = "Password must be at least 6 character long" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-1">
+                <input type="submit" class="btn btn-warning form-control input-lg" value="Register" />
+            </div>
         </div>
-    </div>
-   
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div> 
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="CityId" class="col-md-2 control-label">City</label>
-        <div class="col-md-10">
-            <select name="CityId" id="CityId" class="form-control">
-                @foreach (var i in @ViewBag.Cities)
-                {
-                    <option value="@i.Id">@i.CityName</option>
+    }
+</div>
+<script>
+    var isAuthenticatedEmail = false;
+    $("#Form1").submit(function () {
+        checkEmail();
+        if (isAuthenticatedEmail == true) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    });
+    $("#Email").blur(function () {
+        checkEmail();
+    });
+    function checkEmail() {
+        $.ajax({
+            type: 'POST',
+            url: '/Lawyers/CheckEmail',
+            dataType: 'json',
+            data: { Email: $("#Email").val() },
+            success: function (data) {
+                if (data == false) {
+                    $("#EmailExist").html("This Email ID already Registed. User Different Email Address");
+                    isAuthenticatedEmail = false;
                 }
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+                else {
+                    $("#EmailExist").html("");
+                    isAuthenticatedEmail = true;
+                }
+            }
+        });
+    }
+    $(".Reset").keydown(function () { reset(); });
+    function reset() {
+        $(".field-validation-error").empty();
+    }
+</script>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
