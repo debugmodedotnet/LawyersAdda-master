@@ -55,14 +55,13 @@ else
                    
                     @foreach (var item in ViewBag.Cities)
                     {
-
-                        <li>
-                            <span class="item" id=@item.Id>                           
+                        <li style="float:none;text-align:center">
+                            <span class="item" id=@item.Id>
                                 @item.CityName
-                             </span>
+                            </span>
                         </li>
                     }
-                    <li class="divider"></li>
+                    <li class="divider" style="padding:0;float:none;margin:0px;"></li>
                     <li><a class="text-center" href="">View All Cities</a></li>
                 </ul>
             </li>
