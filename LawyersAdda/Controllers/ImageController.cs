@@ -96,6 +96,7 @@ namespace LawyersAdda.Controllers
             db.LawyerImages.Add(image);
             try
             {
+                db.Entry(l).State = EntityState.Modified;
                 db.SaveChanges();
             }
             catch (DbUpdateException)
@@ -114,7 +115,8 @@ namespace LawyersAdda.Controllers
         {
             HttpStatusCode result = new HttpStatusCode();
             var url = ""; var msg = ""; var finalString = "";
-            string UserId = Session["UserID"].ToString();
+            //string UserId = Session["UserID"].ToString();
+            string UserId = User.Identity.GetUserId();
             if (UserId != null && UserId.Length != 0)
             {
                 var httpRequest = HttpContext.Request;
