@@ -12,7 +12,7 @@
     {
         @Html.AntiForgeryToken()
         <div class="form-horizontal">
-            <h4>Ask Question</h4>
+            <h4>Enter Your Query In Details Below</h4>
             <hr />
             <div class="form-group">
                 @*@Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })*@
@@ -41,6 +41,30 @@
                 </div>
             </div>
         </div>
+    }
+    @if(@ViewBag.SubmittedSuccessfully!=null)
+    {
+    <div class="modal" id="SuccessfullySubmitted">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*<button type="button" class="close" data-dismiss="modal">x</button>*@
+                    <h3 style="text-align:center">Question Successfully Submited</h3>
+                </div>
+                <div class="modal-body">
+                    Your Questions submitted Successfully, We will get back to you in 24 hrs
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning input-lg form-control" onclick="window.location.href = '/';">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#SuccessfullySubmitted").modal('show');
+        });
+    </script>
     }
 </div>
     @section Scripts {
