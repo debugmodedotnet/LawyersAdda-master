@@ -48,12 +48,12 @@ namespace LawyersAdda.Models
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Please Enter UserName")]
         //[Display(Name = "Email")]
         //[EmailAddress]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage="Please Enter Password")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

@@ -11,6 +11,7 @@ using LawyersAdda.Models;
 using LawyersAdda.Entities;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity;
+using Microsoft.AspNet.Identity;
 
 namespace LawyersAdda.Controllers
 {
@@ -27,7 +28,8 @@ namespace LawyersAdda.Controllers
         {
             HttpStatusCode result = new HttpStatusCode();
             var url = ""; var msg = ""; var finalString = "";
-            string lawyerId = Session["LUserId"].ToString();
+            //string lawyerId = Session["LUserId"].ToString();
+            string lawyerId = User.Identity.GetUserId();
             if (lawyerId != null && lawyerId.Length != 0)
             {
                 var httpRequest = HttpContext.Request;

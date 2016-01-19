@@ -1,0 +1,55 @@
+﻿@model LawyersAdda.ViewModels.RegisterAsLawyerstep6ViewModel
+
+@{
+    ViewBag.Title = "RegisterAsLawyerstep6";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 style="text-align:center">Thanks for joining as a Lawyer!</h3>
+<div class="col-md-8 col-md-offset-2">
+    <div class="stepwizard">
+        <div class="stepwizard-row setup-panel">
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle">1</button>
+                <p>Account</p>
+            </div>
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle">2</button>
+                <p>Your Details</p>
+            </div>
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle">3</button>
+                <p>Add Courts</p>
+            </div>
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle">4</button>
+                <p>Add Services</p>
+            </div>
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle">5</button>
+                <p>Add Pic</p>
+            </div>
+            <div class="stepwizard-step">
+                <button class="btn btn-warning btn-circle">6</button>
+                <p>Describe Yourself</p>
+            </div>
+        </div>
+    </div>
+    @using (Html.BeginForm("RegisterAsLawyerstep6", "Lawyers", FormMethod.Post, new { @class = "form-horizontal",id="Form1",role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Describe Yourself</h4>
+        <hr />   
+        <div class="form-group form-group-lg">          
+            <div class="col-md-10 col-md-offset-1">
+                @Html.EditorFor(m => m.Bio, new { @class = "form-control input-lg" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-1">
+                <input type="submit" class="btn btn-warning form-control input-lg" value="Save and Finish" />
+            </div>
+        </div>
+    }
+</div>
+

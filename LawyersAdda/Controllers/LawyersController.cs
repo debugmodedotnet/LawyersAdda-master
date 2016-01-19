@@ -244,9 +244,29 @@ namespace LawyersAdda.Controllers
         }
 
         // GET: Lawyers/Create
-        public ActionResult AddImagesToLawyer()
+        public ActionResult RegisterAsLawyerstep5()
         {
             return View();
+        }
+
+        public ActionResult RegisterAsLawyerstep6()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult RegisterAsLawyerstep6(RegisterAsLawyerstep6ViewModel model)
+        {
+            try
+            {
+                var l = GetLawyerById(User.Identity.GetUserId().ToString());
+                l.Bio = model.Bio;
+                db.SaveChanges();
+            }
+            catch(Exception e)
+            {
+
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         //Fetching Cities as JSON

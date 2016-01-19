@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace LawyersAdda.Entities
 {
@@ -34,6 +35,9 @@ namespace LawyersAdda.Entities
 
         public string ImageUrl { get; set; }
 
+        [AllowHtml]
+        [UIHint("tinymce_full_compressed")]
+        [Display(Name = "Descriibe Yourself")]
         public string Bio { get; set; }
         [Required]
         public string Name { get; set; }

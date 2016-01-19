@@ -67,7 +67,7 @@ namespace LawyersAdda
             //custom
             bundles.Add(new ScriptBundle("~/bundles/customjs").Include(
                       "~/Scripts/custom/home.js",
-                      "~/Scripts/upload.js",
+                      
                       "~/Scripts/bootstrap-multiselect.js"));
         }
     }
