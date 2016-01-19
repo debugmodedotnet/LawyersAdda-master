@@ -210,7 +210,15 @@
                                     {
                                         <h3><a href="/Questions/ViewQuestion/@item.QuestionID"> @item.Title </a></h3>
                                         <p>
-                                            @Html.Raw((@Html.Raw(@item.HTMLText)).ToHtmlString().Substring(0, 200)) ...
+                                            @{bool length = (Html.Raw(item.HTMLText).ToHtmlString().Length>=200);}
+                                            @if(length)
+                                            {
+                                                @Html.Raw((@Html.Raw(@item.HTMLText)).ToHtmlString().Substring(0, 200)) 
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw((@Html.Raw(@item.HTMLText)).ToHtmlString())
+                                            }
                                         </p>
                                         <div class="row">
                                             <div class="col-sm-3"> @item.Services.Name </div>

@@ -22,7 +22,7 @@ namespace LawyersAdda.Entities
         public DateTime CreatedDate { get; set; }
         [Required]
         public DateTime ModifiedDate { get; set; }
-        [Required]
+        [Required(ErrorMessage="Please Provide Question Title")]
         public string Title { get; set; }
         [Required]
         public string PlainText { get; set; }

@@ -5,44 +5,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Ask Question to Lawyers</h2>
 
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <h4>Question</h4>
-        <hr />
-        <div class="form-group">
-            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+<div class="col-md-8 col-md-offset-2">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <h4>Ask Question</h4>
+            <hr />
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })*@
+                <div class="col-md-10 col-md-offset-1">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control input-lg", @placeholder="Question Title" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-1">
+                    @Html.LabelFor(model => model.HTMLText, "Question in Detail", new { @class = "control-label" })
+                    @Html.EditorFor(model => model.HTMLText, new { htmlAttributes = new { @class = "form-control input-lg" } })
+                    @Html.HiddenFor(model => model.PlainText)
+                    @Html.ValidationMessageFor(model => model.HTMLText)
+                </div>
+            </div>
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.ServiceID, "Service", new { @class = "control-label col-md-2" })*@
+                <div class="col-md-10 col-md-offset-1">
+                    @Html.DropDownList("ServiceID", new SelectList(ViewBag.LawServices, "Id", "Name"), "Select Service", new { @id = "ServiceList", @class = "form-control input-lg" })<br />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-1">
+                    <input type="submit" value="Submit Question" class="btn btn-warning form-control input-lg" />
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.HTMLText,"Question in Detail", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HTMLText, new { htmlAttributes = new { @class = "form-control"} })
-                @Html.HiddenFor(model => model.PlainText)
-                @Html.ValidationMessageFor(model => model.HTMLText)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.ServiceID,"Service", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ServiceID", new SelectList(ViewBag.LawServices, "Id", "Name"), "Select Service", new { @id = "ServiceList", @class = "form-control" })<br/>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Submit Question" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    }
+</div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
