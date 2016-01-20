@@ -204,7 +204,7 @@ namespace LawyersAdda.Controllers
         public ActionResult MemberProfile(string id)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            var name = (from r in db.Users where r.UserName == id select r.FullName).FirstOrDefault();
+            var name = (from r in db.Users where r.UserName == id select r).FirstOrDefault();
             ViewBag.Name = name;
             return View();
         }

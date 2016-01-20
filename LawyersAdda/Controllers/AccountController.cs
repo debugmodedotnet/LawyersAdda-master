@@ -141,10 +141,10 @@ namespace LawyersAdda.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ApplicationDbContext Context = new ApplicationDbContext();
-            List<City> lstCities = new List<City>();
-            lstCities = Context.Cities.ToList();
-            ViewBag.Cities = lstCities;
+            //ApplicationDbContext Context = new ApplicationDbContext();
+            //List<City> lstCities = new List<City>();
+            //lstCities = Context.Cities.ToList();
+            //ViewBag.Cities = lstCities;
             return View();
         }
 
