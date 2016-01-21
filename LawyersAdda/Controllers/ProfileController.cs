@@ -200,12 +200,40 @@ namespace LawyersAdda.Controllers
             Session["UserID"] = User.Identity.GetUserId();
             return View();
         }
-
-        public ActionResult MemberProfile(string id)
+        public ActionResult MemberProfile(string ID)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            var name = (from r in db.Users where r.UserName == id select r).FirstOrDefault();
-            ViewBag.Name = name;
+            //var name = (from r in db.Users where r.UserName == ID select r).FirstOrDefault();
+            //ViewBag.Name = name;
+            var user = db.Users.Where(t => t.UserName == ID).FirstOrDefault();
+            var Lawyer = db.Lawyers.Where(t => t.Id == user.Id).FirstOrDefault();
+            
+            List<ServiceType> lstServices = new List<ServiceType>();
+            db.Entry(Lawyer).Collection(t => t.ServiceTypes).Load();
+            foreach (ServiceType s in Lawyer.ServiceTypes)
+            {
+                lstServices.Add(s);
+            }
+
+            List<Court> lstCourts = new List<Court>();
+            db.Entry(Lawyer).Collection(t => t.Courts).Load();
+            foreach (Court c in Lawyer.Courts)
+            {
+                lstCourts.Add(c);
+            }
+            user.Lawyer.Courts = lstCourts;
+            List<LawyerImage> lstImages=new List<LawyerImage>();
+            try
+            {
+                lstImages = db.LawyerImages.Where(t => t.LawyerId == Lawyer.Id).ToList();
+            }
+            catch(Exception)
+            {
+
+            }
+            ViewBag.Lawyer=Lawyer;
+            ViewBag.Images = lstImages;
+            ViewBag.Users = user;
             return View();
         }
     }
