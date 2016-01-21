@@ -15,6 +15,7 @@ namespace LawyersAdda.ViewModels
 
         [Required(ErrorMessage = "Please Enter User Name")]
         [Display(Name = "UserName")]
+        [RegularExpression("^[a-zA-Z0-9]*$",ErrorMessage="User Name Should be Alpha-Numeric")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Please Enter Email")]
