@@ -8,24 +8,24 @@
 <section>
     <div class="container">
         <div class="row">
-            <main class="col-md-8">
+            <main class="col-md-12">
                 <article>
                     <div class="row">
-                        <div class="col-md-5" style="position:relative">
+                        <div class="col-md-3" style="position:relative">
                             <figure style="margin: 0 0 20px 0;">
-                                @if (@ViewBag.Users.ProfilePicURL == null || @ViewBag.Users.ProfilePicURL == "")
+                                @if (@ViewBag.Images == null)
                                 {
-                                    <img style="width: 100%; height: 285px;" onmouseout="HideEdit();" onmouseover="ShowEdit();" src="http://na1.www.gartner.com/imagesrv/apps/gcms/events/img/no_avatar.png;wa4b938a20593cb4ec" class="img-thumbnail img-responsive profile-pic" />
+                                    <img style="width: 100%; height: 285px;" src="http://na1.www.gartner.com/imagesrv/apps/gcms/events/img/no_avatar.png;wa4b938a20593cb4ec" class="img-thumbnail img-responsive profile-pic" />
                                 }
                                 else
                                 {
-                                    <img style="width: 100%; height: 285px;" onmouseout="HideEdit();" onmouseover="ShowEdit();" src="@ViewBag.Users.ProfilePicURL" class="img-thumbnail img-responsive profile-pic" />
+                                    <img style="width: 100%; height: 285px;" src="@ViewBag.Images[0].ImageUrl" class="img-thumbnail img-responsive profile-pic" />
                                 }
                             </figure>
                         </div>
                         <div class="col-md-7">
                             <h2 style="text-transform:capitalize">
-                                @ViewBag.Users.FullName 
+                                Adv. @ViewBag.Users.FullName 
                             </h2>
                             <ul style="list-style: none outside; padding: 0; margin: 0 0 1.5em; overflow: hidden; zoom: 1; clear: both;">
                                 <li style="margin-bottom:10px;"><a href="mailto:@ViewBag.Users.Email"><i class="glyphicon glyphicon-envelope"></i> @ViewBag.Users.Email</a></li>
@@ -37,36 +37,16 @@
                                 {
                                     <li style="margin-bottom:10px;"><i class="glyphicon glyphicon-map-marker"></i> @ViewBag.Users.City.CityName</li>
                                 }
-                                @{var i=0;}
-                                <li style="margin-bottom:10px;">
-                                    <strong>Courts : </strong>
+                                <li style="margin-bottom:20px;">
                                     @foreach (var Court in @ViewBag.Users.Lawyer.Courts)
                                     {
-                                        if (i==(@ViewBag.Users.Lawyer.Courts.Count-1))
-                                        {
-                                            <span>@Court.Name </span> 
-                                        }
-                                        else
-                                        {
-                                            <span>@Court.Name , </span>   
-                                        }
-                                        i++;
+                                        <span class="label label-default" style="font-size: 16px; margin-right: 5px;">@Court.Name </span>
                                     }
                                 </li>
-                                @{i = 0;}
-                                <li style="margin-bottom:10px;">
-                                    <strong>Services : </strong>
+                                <li style="margin-bottom:20px;">
                                     @foreach (var service in @ViewBag.Users.Lawyer.ServiceTypes)
                                     {
-                                        if (i == (@ViewBag.Users.Lawyer.ServiceTypes.Count - 1))
-                                        {
-                                            <span>@service.Name  </span>
-                                        }
-                                        else
-                                        {
-                                            <span>@service.Name , </span>   
-                                        }
-                                        i++;
+                                        <span class="label label-primary" style="font-size: 16px; margin-right: 5px;"> @service.Name  </span>
                                     }
                                 </li>
                             </ul>
@@ -90,7 +70,7 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-xs-12">
-                            <h3 style="border-bottom: 1px solid #f0ad4e; margin-bottom: 10px; padding: 10px"><span style="background-color: #f0a01a; padding: 10px 20px; border-top-left-radius: 10px; border-top-right-radius: 10px;">About Lawyer</span></h3>
+                            <h3 style="border-bottom: 1px solid #f0ad4e; margin-bottom: 10px; padding: 10px"><span style="background-color: #f0a01a; padding: 10px 20px; border-top-left-radius: 10px; border-top-right-radius: 10px;"> About @ViewBag.Lawyer.Name </span></h3>
                         </div>
                     </div>
                     <div class="row">
@@ -99,10 +79,53 @@
                         </div>
                     </div>
                 </div>
+            </main>
+            <main class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3 id="Profile" style="border-bottom: 1px solid #f0ad4e; margin-bottom: 10px; padding: 10px"><span style="background-color: #f0a01a; padding: 10px 20px; border-top-left-radius: 10px; border-top-right-radius: 10px;"> @ViewBag.Lawyer.Name's Photos  </span></h3>
+                        </div>
+                    </div>
+                    @{ 
+                     var i = 0;    
+                    }
+                    <div class="row">
+                    @foreach(var pic in @ViewBag.Images)
+                    {
+                        <div class="col-md-3">
+                            <a href="#Profile"><img src="@pic.ImageUrl" style="width:100%;height:200px;" class="img-thumbnail img-responsive" onclick="popUpImg(this);" /></a>
+                        </div>
+                    }
+                    </div>
+                </div>
                 <hr />
+                <div class="modal" id="ShowModel">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" onclick="CloseModel();">X</button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="" id="ModelImg" />
+                            </div>
+                            <div class="modal-footer">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
-
     </div>
-
 </section>
+<script>
+    function popUpImg(imgElement) {
+        var Source = $(imgElement).attr('src');
+        $("#ModelImg").attr('src', Source);
+        $("#ShowModel").show();
+    }
+    function CloseModel() {
+        $("#ShowModel").hide();
+    }
+</script>
