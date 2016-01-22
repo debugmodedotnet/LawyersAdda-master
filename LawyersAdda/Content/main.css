@@ -7,11 +7,11 @@
 
 
 /* Header Image Background - Change the URL below to your image path (example: ../images/background.jpg) */
-body{
+/*body{
     height:100%;
     width:100%;
     display: table;
-}
+}*/
 .business-header {
     position: relative;
     height: 450px;
@@ -213,17 +213,14 @@ ul.dropdown-cart li .item-left span.item-info{
 ul.dropdown-cart li .item-left span.item-info{
     margin-left:10px;   
 }
-.navbar-default {
-    background-color: #FFF;
-    border-color: #E7E7E7;
-}
+
 .bootstrap-datetimepicker-widget>ul {
     padding-left:0px;
 }
 
 /*For City Menu demo 2*/
 
-nav.navbar-findcond { background: #fff; border-color: #ccc; box-shadow: 0 0 2px 0 #ccc; }
+/*nav.navbar-findcond { background: #fff; border-color: #ccc; box-shadow: 0 0 2px 0 #ccc; }
 nav.navbar-findcond a { color:  #555; font-size:18px }
 nav.navbar-findcond ul.navbar-nav a { color: #555; border-style: solid; border-width: 0 0 2px 0; border-color: #fff; }
 nav.navbar-findcond ul.navbar-nav a:hover,
@@ -234,7 +231,7 @@ nav.navbar-findcond ul.navbar-nav a:hover { border-color: #f0ad4e; }
 nav.navbar-findcond li.divider { background: #ccc;}
 nav.navbar-findcond button.navbar-toggle { background: #f0ad4e; border-radius: 2px; }
 nav.navbar-findcond button.navbar-toggle:hover { background: #999; }
-nav.navbar-findcond button.navbar-toggle > span.icon-bar { background: #fff; }
+nav.navbar-findcond button.navbar-toggle > span.icon-bar { background: #fff; }*/
 /*nav.navbar-findcond ul.dropdown-menu { border: 0; background: #fff; border-radius: 4px; margin: 4px 0; box-shadow: 0 0 4px 0 #ccc; }
 nav.navbar-findcond ul.dropdown-menu > li > a { color: #444; }
 nav.navbar-findcond ul.dropdown-menu > li > a:hover { background: #f0ad4e; color: #fff; }
@@ -313,3 +310,21 @@ nav.navbar-findcond span.badge.new { background: rgba(255, 0, 0, 0.8); color: #f
     background: #f0f0f0;
     width: 100%;
   }
+
+
+
+
+
+/*to delete*/
+
+
+
+
+/*New CSS DJ- 22nd January 2016*/
+
+/*For Navigation Menu*/
+
+/*.navbar-default {
+    background-color: #FFF;
+    border-color: #E7E7E7;
+}*/

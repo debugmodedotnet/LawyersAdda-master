@@ -3,7 +3,25 @@
     ViewBag.Title = "Member";
 }
 
-<h2>Member</h2>
+
+
+<section>
+    <div class="col-md-12 col-lg-12">
+        <div class="row">
+            <div class="col-md-5 col-sm-5 col-md-offset-4 col-sm-offset-4">
+                @if (@ViewBag.Images == null)
+                {
+                    <img style="width: 40px; height: 40px;" src="http://na1.www.gartner.com/imagesrv/apps/gcms/events/img/no_avatar.png;wa4b938a20593cb4ec" class="img-circle img-responsive" />
+                }
+                else
+                {
+                    <img style="width: 40px; height: 40px;" src="@ViewBag.Images[0].ImageUrl" class="img-circle img-responsive" />
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <section>
     <div class="container">
@@ -119,6 +137,20 @@
         </div>
     </div>
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
     function popUpImg(imgElement) {
         var Source = $(imgElement).attr('src');

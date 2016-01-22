@@ -6,9 +6,6 @@
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
-
-
-
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-map-marker"></span><span id="menuCityNameTop"></span><span class="caret"></span></a>
             <ul class="dropdown-menu dropdown-cart" role="menu">
@@ -25,9 +22,6 @@
                 <li><a class="text-center" href="">View All Cities</a></li>
             </ul>
         </li>
-
-
-
     
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello @User.Identity.GetUserName()<span class="caret"></span></a>
@@ -39,8 +33,6 @@
         </li>
 
         <li><button class="btn btn-warning navbar-btn" type="button" onclick="location.href='@Url.Action("RegisterAsLawyerstep1", "Lawyers")'">Join as a Lawyer</button></li>
-       
-        
     </ul>
     }
 }
@@ -78,18 +70,7 @@ else
 
 
 
-@*<ul>
-    <li class="location_list">
-        <select>
-            <option>India </option>
-            <option>Austrlia</option>
-            <option>UK</option>
-        </select>
-    </li>
-    <li class="login_list"><span><img src="images/login.png"></span><a href="#">Login</a></li>
-    <li class="register_list"><span><img src="images/sign_up.png"></span><a href="#">Register</a></li>
-    <li class="join_list"><a href="#" class="join_lawyer_bt">join as  a lawyer</a></li>
-</ul>*@
+
 
 <script type="text/javascript">
     $(document).ready(function () {
