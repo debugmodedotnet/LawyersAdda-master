@@ -157,7 +157,7 @@ namespace LawyersAdda.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, FullName=model.FullName, Email = model.Email, CityId=CityId };
+                var user = new ApplicationUser { UserName = model.UserName, FullName=model.FullName, Email = model.Email, CityId=CityId };
                 user.ModifiedDate = DateTime.Now;
                 user.RegistrationDate = DateTime.Now;
                 //normal user registeration. Hence islawyer is set to false

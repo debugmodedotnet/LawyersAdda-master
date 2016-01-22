@@ -13,13 +13,13 @@
                     <div class="row">
                         <div class="col-md-3" style="position:relative">
                             <figure style="margin: 0 0 20px 0;">
-                                @if (@ViewBag.Images == null)
+                                @if(string.IsNullOrEmpty(@ViewBag.Lawyer.ImageUrl))
                                 {
                                     <img style="width: 100%; height: 285px;" src="http://na1.www.gartner.com/imagesrv/apps/gcms/events/img/no_avatar.png;wa4b938a20593cb4ec" class="img-thumbnail img-responsive profile-pic" />
                                 }
                                 else
                                 {
-                                    <img style="width: 100%; height: 285px;" src="@ViewBag.Images[0].ImageUrl" class="img-thumbnail img-responsive profile-pic" />
+                                    <img style="width: 100%; height: 285px;" src="@ViewBag.Lawyer.ImageUrl" class="img-thumbnail img-responsive profile-pic" />
                                 }
                             </figure>
                         </div>

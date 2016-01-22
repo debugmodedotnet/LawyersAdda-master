@@ -16,7 +16,14 @@
                 @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <div class="form-group">
+            @*@Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })*@
+            <div class="col-md-10 col-md-offset-1">
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control input-lg Reset", @placeholder = "Provide a UserName" })
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                <span id="UserExist"></span>
+            </div>
+        </div>
         <div class="form-group">
             @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
             <div class="col-md-10 col-md-offset-1">
@@ -54,6 +61,27 @@
     $("#Email").blur(function () {
         checkEmail();
     });
+    $("#UserName").blur(function () {
+        checkUser();
+    });
+    function checkUser() {
+        $.ajax({
+            type: 'POST',
+            url: '/Lawyers/CheckUser',
+            dataType: 'json',
+            data: { UserName: $("#UserName").val() },
+            success: function (data) {
+                if (data == false) {
+                    $("#UserExist").html("This User Name Not Exists. Use Different User Name");
+                    isAuthenticatedUser = false;
+                }
+                else {
+                    $("#UserExist").html("");
+                    isAuthenticatedUser = true;
+                }
+            }
+        });
+    }
     function checkEmail() {
         $.ajax({
             type: 'POST',
