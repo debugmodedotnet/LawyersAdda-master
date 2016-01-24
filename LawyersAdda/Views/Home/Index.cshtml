@@ -193,7 +193,55 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="fill-screen"></div>
+        <div class="fill-screen">
+            <div class="banner_main">
+                <div class="search_banner">
+                    <div class="container">
+                        <div class="search_main_bn">
+                            <div class="search_main">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <select class="form-control input-lg" id="CitySelect">
+                                                @foreach (var item in ViewBag.Cities)
+                                                {
+                                                    <option class="item" id="@item.Id" value="@item.Id">
+                                                        @item.CityName
+                                                    </option>
+                                                }
+                                            </select>
+                                            @*<a href="#" class="dropdown-toggle btn btn-warning input-lg" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-map-marker"></span><span id="menuCityNameTop"></span><span class="caret"></span></a>
+                                            <ul class="dropdown-menu dropdown-cart" role="menu">
+                                                @foreach (var item in ViewBag.Cities)
+                                                {
+                                                    <li style="float:none;text-align:center">
+                                                        <span class="item" id=@item.Id>
+                                                            @item.CityName
+                                                        </span>
+                                                    </li>
+                                                }
+                                                <li class="divider" style="padding:0;float:none;margin:0px;"></li>
+                                                <li><a class="text-center" href="">View All Cities</a></li>
+                                            </ul>*@
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <input id="project" class="form-control input-lg" placeholder="Select Service or Type Lawyer Name">
+                                            <input id="projectVal" type="hidden" />
+                                            <input id="categ" type="hidden" />
+                                        </div>
+                                    </div>                                    
+                                    <div class="row" style="margin-top:10px;">
+                                        <div class="col-md-12 text-center">
+                                            <button class="btn btn-warning btnSearch" id="searchLawyer">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row line-separator"></div>
     <div class="row text-banner">
@@ -427,6 +475,87 @@
             $(".fill-screen").css("height", window.innerHeight * 0.8);
             $(".fill-screen1").css("height", window.innerHeight * 0.6);
         })
+        $(document).ready(function () {
+            var selectedValue = localStorage.getItem("MenuCityId")
+            $("#CitySelect").val(selectedValue);
 
+            //Old Functions
+
+            var selectItem = function (event, ui) 
+            {
+                $("#projectVal").val(ui.item.value);
+                $("#project").val(ui.item.label);
+                $("#categ").val(ui.item.category);
+
+                if ($("#categ").val() == "Lawyers") {
+                    window.location.href = "/Profile/MemberProfile/" + ui.item.username;
+                }
+                else {
+                    $.ajax({
+                        url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
+                        type: 'POST',
+                        data: {
+                            "LawServiceList": $("#projectVal").val(),
+                            "CityList": localStorage.getItem("MenuCityId")
+                        },
+                        success: function (data) {
+                            var url = '@Url.Action("SearchLawyers", "Lawyers")';
+                            window.location.href = url;
+                        }
+                    });
+                }
+                return false;
+            }
+
+            $.widget("custom.catcomplete", $.ui.autocomplete, {
+                _create: function () {
+                    this._super();
+                    this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
+                },
+                _renderMenu: function (ul, items) {
+                    var that = this,
+                      currentCategory = "";
+                    $.each(items, function (index, item) {
+                        var li;
+                        if (item.category != currentCategory) {
+                            ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
+                            currentCategory = item.category;
+                        }
+                        li = that._renderItemData(ul, item);
+                        if (item.category) {
+                            li.attr("aria-label", item.category + " : " + item.Name);
+                        }
+                    });
+                }
+            });
+
+            $("#project").catcomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Home/GetServices",
+                        type: "POST",
+                        dataType: "json",
+                        data: { term: request.term },
+                        success: function (data) {
+                            console.log(data);
+                            response($.map(data, function (item) {
+                                return { label: item.Name, value: item.Id, username: item.UserName, category: item.category };
+                            }).slice(0, 5))
+                        }
+                    })
+                },
+                minLength: 0,
+                max: 5,
+                select: selectItem,
+                autoFocus: true
+            }).bind('focus', function () { $(this).catcomplete("search", " "); });;
+
+        });
+        $("#CitySelect").change(function () {
+            var cityid = $("#CitySelect").val()
+            var selText = $("#CitySelect option:selected").text();
+            localStorage.setItem("MenuCityName", selText);
+            localStorage.setItem("MenuCityId", cityid);
+        });
     });
 </script>

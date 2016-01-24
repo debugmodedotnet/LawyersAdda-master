@@ -389,7 +389,10 @@ body{
 .content-filler{
     min-height:300px;
 }
-
+.banner_main{
+    position:relative;
+    top:200px;
+}
 .text-banner{
     text-align:center;
     margin: 40px 20px;
@@ -430,7 +433,21 @@ body{
      color: #ffffff;
      text-decoration: none;
 }
-
+.btnSearch{
+    height:70px;
+    width : 250px;
+   background: #f0ad4e;
+   padding: 10px 20px 10px 20px;
+   text-decoration: none;
+   border: none;
+   color: #ffffff;
+  font-size: 35px;
+}
+.btnSearch:hover{
+     background: #f6b860;
+     color: #ffffff;
+     text-decoration: none;
+}
 .line-separator{
      height:1px;
      color:#f0ad4e;
