@@ -417,6 +417,14 @@
     <script src="~/Scripts/bootstrap-switch.js"></script>
     <script src="~/Scripts/UploadUserProfilePic.js"></script>
     <script>
+        //removing HTML Tags
+        $('xmp').each(function (index) {
+            alert(index + ': ' + $(this).text());
+        });
+        //var regex = /(<([^>]+)>)/ig;
+        //text
+    </script>
+    <script>
         $("input[name='SelectQuestion']").bootstrapSwitch();
         var SelectQuestion=1;
         var Order;

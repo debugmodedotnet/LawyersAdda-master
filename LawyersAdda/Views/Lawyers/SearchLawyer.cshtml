@@ -1,59 +1,13 @@
 ﻿@using PagedList
 @using PagedList.Mvc
+@using System.Text.RegularExpressions
 @model PagedList<LawyersAdda.Entities.Lawyer>
 @{
     ViewBag.Title = "Lawyers";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<style>
-    #SearchResults .panel-heading a:link, a:visited {
-        color: black;
-        font-size: 1.5em;
-    }
-
-    #SearchResults a:link, a:visited {
-        color: black;
-    }
-
-.ui-widget-header{background-image:none;background-color:#eea236;}
-    .imgLawyerContainer {
-        text-align: center;
-    } 
-.imgLawyer {
-    width:100%;
-    height:200px;
-}
-.divider{
-    border:2px solid #dddddd;
-    margin-top:25px;
-    margin-bottom:25px;
-}
-.title {
-    min-height: 80px;
-    margin-bottom: 30px;
-}
-    .titleName {
-        font-size: 26px;
-        font-weight: 300;
-        line-height: 1.2;
-    }
-    .CityAndWebsite {
-        font-size: 13px;
-    }
-    .lblLeft {
-        font-weight: 700;
-        text-align:left;
-    }
-    .HourlyCharge {
-        font-size: 28px;
-        line-height: 1;
-        margin-bottom: 5px;
-    }
-    .PerHour{
-        color:#888;
-    }
-</style>
+<link href="~/Content/SearchLawyer.css" rel="stylesheet" />
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -87,8 +41,6 @@
             <div class="divider"></div>
         </div>
     </div>
-
-
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
                 @foreach (var item in Model)
@@ -108,23 +60,24 @@
                             <div class="title">
                                 <div class="titleName">Adv. @item.Name</div>
                                 <div class="CityAndWebsite"><i class="glyphicon glyphicon-map-marker"> </i> @item.City.CityName  |  <i class="glyphicon glyphicon-globe"> </i> <a href="@item.WebSiteUrl"> @item.WebSiteUrl</a> </div>
-                            </div>
-                            <div class="row">
-                                    @{var length = false;}
-                                    @if (item.Bio != null)
+                                @if (item.Bio != null)
+                                {
+                                    Regex regex = new Regex("\\<[^\\>]*\\>");
+                                    string ss = Html.Raw(item.Bio).ToHtmlString();
+                                    ss=ss.Replace("&nbsp;", "");
+                                    string strLT = ss.Replace("&lt;", "<");
+                                    string strGT = strLT.Replace("&gt;", ">");
+                                    string finalStr = regex.Replace(strGT, String.Empty);
+                                    finalStr=finalStr.Replace("<br/>","");
+                                    if (finalStr.Length > 200)
                                     {
-                                        { length = (Html.Raw(item.Bio).ToHtmlString().Length >= 60); }
-                                        if (length)
-                                        {
-                                            <div class="col-xs-2 lblLeft">About: </div>
-                                            <div class="col-xs-10">@Html.Raw((@Html.Raw(@item.Bio)).ToHtmlString().Substring(0, 60)) ...</div>
-                                        }
-                                        else
-                                        {
-                                            <div class="col-xs-2 lblLeft">About: </div>
-                                            <div class="col-xs-10">@Html.Raw(item.Bio)</div>
-                                        }
+                                        <div>@finalStr.Substring(0, 200) ...</div>
                                     }
+                                    else
+                                    {
+                                        <div>@finalStr</div>
+                                    }
+                                }
                             </div>
                             <div class="row">
                                 <div class="col-xs-2 lblLeft">Services: </div>
@@ -219,8 +172,7 @@
         });
         getCourts();
 
-
-    var lowerRange = 0, upperRange = 500;
+        var lowerRange = 0, upperRange = 500;
     $("#amount").text("Consulting Fees: $" + lowerRange + " - $" + upperRange);
     $("#slider-range").slider({
         range: true,
