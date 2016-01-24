@@ -6,7 +6,7 @@
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+        @*<li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-map-marker"></span><span id="menuCityNameTop"></span><span class="caret"></span></a>
             <ul class="dropdown-menu dropdown-cart" role="menu">
 
@@ -21,7 +21,7 @@
                 <li class="divider" style="padding:0;float:none;margin:0px;"></li>
                 <li><a class="text-center" href="">View All Cities</a></li>
             </ul>
-        </li>
+        </li>*@
     
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello @User.Identity.GetUserName()<span class="caret"></span></a>
@@ -41,7 +41,7 @@ else
     <ul class="nav navbar-nav navbar-right">
         
 
-            <li class="dropdown">
+            @*<li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-map-marker"></span><span id="menuCityNameTop"></span><span class="caret"></span></a>
                 <ul class="dropdown-menu dropdown-cart" role="menu">
                    
@@ -56,12 +56,13 @@ else
                     <li class="divider" style="padding:0;float:none;margin:0px;"></li>
                     <li><a class="text-center" href="">View All Cities</a></li>
                 </ul>
-            </li>
+            </li>*@
    
        
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>  
         <li><button class="btn btn-warning navbar-btn" type="button" onclick="location.href='@Url.Action("RegisterAsLawyerstep1", "Lawyers")'">Join as a Lawyer</button></li>
+      
         @*<li>@Html.ActionLink("Join as a Lawyer ", "RegisterAsLawyer", "Lawyers",null, new { @class = "btn btn-warning navbar-btn" })</li>*@  
     </ul>
 }

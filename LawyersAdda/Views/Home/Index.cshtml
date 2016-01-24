@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Home Page";
 }
-<div id="wrapper">
+@*<div id="wrapper">
     <div class="banner_main">
         <div class="search_banner">
             <div class="container">
@@ -189,82 +189,244 @@
             </div>
         </div>
     </div>*@
-</div>
-<script type="text/javascript">
-    $(document).ready(function () {
+@*</div>*@
 
-        var divs = document.getElementById("lawyerBio");
-        console.log(divs);
-            if(divs.innerHTML.length > 100)
-                divs.innerHTML = divs.innerHTML.substring(0, 100) + " - read more...";
+<div class="container-fluid">
+    <div class="row">
+        <div class="fill-screen"></div>
+    </div>
+    <div class="row line-separator"></div>
+    <div class="row text-banner">
+        <h1>Our Services</h1>
+        @*<div class="col-md-4 portfolio-item">
+                <a href="#">
+                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
+                </a>
+            </div>*@
+        <div class="col-md-4 portfolio-item">
+            <button class="bser">Search Lawyers</button>
+        </div>
+        <div class="col-md-4 portfolio-item">
+            @*<a href="#">
+                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
+                </a>*@
+            <button class="bser">Legal Consulting</button>
+        </div>
+        <div class="col-md-4 portfolio-item">
+            <button class="bser">Legal Documents</button>
+        </div>
         
 
-        var selectItem = function (event, ui) {
-            $("#projectVal").val(ui.item.value);
-            $("#project").val(ui.item.label);
-            $("#categ").val(ui.item.category);
+    </div>
 
-            if ($("#categ").val() == "Lawyers") {
-                window.location.href = "/Profile/MemberProfile/" + ui.item.username;
-            }
-            else {
-                $.ajax({
-                    url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
-                    type: 'POST',
-                    data: {
-                        "LawServiceList": $("#projectVal").val(),
-                        "CityList": localStorage.getItem("MenuCityId")
-                    },
-                    success: function (data) {
-                        var url = '@Url.Action("SearchLawyers", "Lawyers")';
-                        window.location.href = url;
-                    }
-                });
-            }
-            return false;
-        }
+    <div class="row line-separator"></div>
+    <div class="row text-banner">
+        <h1>What we do ?</h1>
+        <ul class="timeline">
+            <li>
+                <div class="timeline-badge info"><i class="glyphicon glyphicon-search"></i></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">Search Lawyers</h4>
+                        @*<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> August 2011</small></p>*@
+                    </div>
+                    <div class="timeline-body">
+                        <p>
+                            We help you in seraching best Lawyers or Legal Consultant for your need. You can search on the basis of City,
+                            Services. You can rate service of a Lawyer. 
+                        </p>
+                    </div>
+                </div>
+            </li>
+            <li class="timeline-inverted">
+                <div class="timeline-badge warning"><i class="glyphicon glyphicon-eye-open"></i></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">Get Legal Consulting</h4>
+                    </div>
+                    <div class="timeline-body">
+                        <p>
+                            Laws are complex. Everyone among us need legal advices in some point. We allow you to get
+                            legal advices from best of the industry. You can ask your question and be assured to get
+                            best advice on that. We allow you to ask a question anonymously also. 
+                        </p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="timeline-badge danger"><i class="glyphicon glyphicon-folder-open"></i></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">Legal Documentation</h4>
+                        @*<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 3 years ago</small></p>*@
+                    </div>
+                    <div class="timeline-body">
+                        <p>Getting a legal document done is heache work. Now seat on your couch and allow us to get
+                        this job done for you. We help you in getting legal documents like House Rent Agreement , Tax document etc.</p>
+                    </div>
+                </div>
+            </li>
+            @*<li class="timeline-inverted">
+                <div class="timeline-badge default"><i class="glyphicon glyphicon-home"></i></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">Right Event</h4>
+                    </div>
+                    <div class="timeline-body">
+                        <p>Add more progress events and milestones to the left or right side of the timeline. Each event can be tagged with a date and given a beautiful icon to symbolize it's spectacular meaning.</p>
+                    </div>
+                </div>
+            </li>*@
 
-        $.widget("custom.catcomplete", $.ui.autocomplete, {
-            _create: function () {
-                this._super();
-                this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
-            },
-            _renderMenu: function (ul, items) {
-                var that = this,
-                  currentCategory = "";
-                $.each(items, function (index, item) {
-                    var li;
-                    if (item.category != currentCategory) {
-                        ul.append("<li class='ui-autocomplete-category'>" + item.category + "</li>");
-                        currentCategory = item.category;
-                    }
-                    li = that._renderItemData(ul, item);
-                    if (item.category) {
-                        li.attr("aria-label", item.category + " : " + item.Name);
-                    }
-                });
-            }
-        });
+        </ul> 
+    
+    </div>
+    <div class="row line-separator"></div>
+    @*<div class="row" text-banner>
+        <h1>5000 Lawyers, 4000 Advices, 600 Documents done so far</h1>
+        <div class="fill-screen1"></div>
+    </div>*@
 
-        $("#project").catcomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/Home/GetServices",
-                    type: "POST",
-                    dataType: "json",
-                    data: { term: request.term },
-                    success: function (data) {
-                        console.log(data);
-                        response($.map(data, function (item) {
-                            return { label: item.Name, value: item.Id, username: item.UserName, category: item.category };
-                        }).slice(0, 5))
-                    }
-                })
-            },
-            minLength: 0,
-            max: 5,
-            select: selectItem,
-            autoFocus: true
-        }).bind('focus', function () { $(this).catcomplete("search", " "); });;
+
+    <div class="row text-banner">
+        <h1>Our Consultants</h1>
+        
+
+        <div class="col-sm-6 col-md-3">
+            <a href="#">
+                <div class="thumbnail">
+                    <img src="~/images/r1.jpg" alt="Generic placeholder thumbnail">
+                </div>
+            </a>
+            
+            <div class="caption">
+                <h4>Ram Jethmalani</h4>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <a href="#">
+                <div class="thumbnail">
+                    <img src="~/images/karunanandi.PNG" alt="Generic placeholder thumbnail">
+                </div>
+            </a>
+
+            <div class="caption">
+                <h4>Karuna Nandi</h4>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <a href="#">
+                <div class="thumbnail">
+                    <img src="~/images/swamy.jpg" alt="Generic placeholder thumbnail">
+                </div>
+            </a>
+
+            <div class="caption">
+                <h4>Subramanian Swamy</h4>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <a href="#">
+                <div class="thumbnail">
+                    <img src="~/images/r1.jpg" alt="Generic placeholder thumbnail">
+                </div>
+            </a>
+
+            <div class="caption">
+                <h4>Ram Jethmalani</h4>
+            </div>
+        </div>
+        
+       
+       
+
+    </div>
+
+    <div class="row line-separator"></div>
+
+    <div class="row text-banner">
+      <h1>Pricing</h1>
+
+        <div class="col-md-4">
+
+            <!-- PRICE ITEM -->
+            <div class="panel price panel-white">
+                @*<div class="panel-heading arrow_box text-center">
+                    <h3>FREE PLAN</h3>
+                </div>*@
+                <div class="panel-body text-center">
+                    <p class="lead" style="font-size:40px"><strong>&#x20B9 500/Consulting</strong></p>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item"><i class="icon-ok text-success"></i> Answer on Portal</li>
+                    <li class="list-group-item"><i class="icon-ok text-success"></i>Download as PDF</li>
+                    <li class="list-group-item"><i class="icon-ok text-success"></i> Answer in 24 Hours</li>
+                </ul>
+                <div class="panel-footer">
+                    <a class="btn btn-lg btn-block btn-warning" href="#">Sign UP</a>
+                </div>
+            </div>
+            <!-- /PRICE ITEM -->
+
+
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel price panel-white">
+                @*<div class="panel-heading arrow_box text-center">
+                <h3>FREE PLAN</h3>
+            </div>*@
+                <div class="panel-body text-center">
+                    <p class="lead" style="font-size:40px"><strong>&#x20B9 750/Consulting</strong></p>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item"><i class="icon-ok text-success"></i> Answer on Portal</li>
+                    <li class="list-group-item"><i class="icon-ok text-success"></i>Download as PDF</li>
+                    <li class="list-group-item"><i class="icon-ok text-success"></i> Answer in 24 Hours</li>
+                    <li class="list-group-item"><i class="icon-ok text-success"></i>Discussion on Portal</li>
+                </ul>
+                <div class="panel-footer">
+                    <a class="btn btn-lg btn-block btn-warning" href="#">Sign UP</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="panel price panel-white">
+                @*<div class="panel-heading arrow_box text-center">
+                <h3>FREE PLAN</h3>
+            </div>*@
+                <div class="panel-body text-center">
+                    <p class="lead" style="font-size:40px"><strong>&#x20B9 1000/Doc</strong></p>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item"><i class="icon-ok text-success"></i>Deliver to your doorstep</li>
+                    <li class="list-group-item"><i class="icon-ok text-success"></i>You need to pay extra Goverment fee</li>
+                    <li class="list-group-item"><i class="icon-ok text-success"></i>On Call suppport</li>
+                </ul>
+                <div class="panel-footer">
+                    <a class="btn btn-lg btn-block btn-warning" href="#">Sign UP</a>
+                </div>
+            </div>
+
+        </div>
+
+      
+
+
+    </div>
+
+
+
+    </div>
+<script>
+    $(function () {
+        $(window).on("load resize", function () {
+            $(".fill-screen").css("height", window.innerHeight * 0.8);
+            $(".fill-screen1").css("height", window.innerHeight * 0.6);
+        })
+
     });
 </script>
