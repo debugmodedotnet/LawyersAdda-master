@@ -336,6 +336,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\karunanandi.PNG" />
+    <Content Include="images\r1.jpg" />
     <Content Include="images\blog_01.jpg" />
     <Content Include="images\blog_02.jpg" />
     <Content Include="images\contact.png" />
@@ -343,8 +345,10 @@
     <Content Include="images\lawyer02.jpg" />
     <Content Include="images\lawyer03.jpg" />
     <Content Include="images\lawyer04.jpg" />
+    <Content Include="images\LawyerJeeLogo.PNG" />
     <Content Include="images\legal_consulting.png" />
     <Content Include="images\legal_documentation.png" />
+    <Content Include="images\ljeelogo.png" />
     <Content Include="images\location.png" />
     <Content Include="images\login.png" />
     <Content Include="images\logo.png" />
@@ -353,6 +357,8 @@
     <Content Include="images\search_lawyer.png" />
     <Content Include="images\sign-up.png" />
     <Content Include="images\sign_up.png" />
+    <Content Include="images\supremecourtindia.jpg" />
+    <Content Include="images\swamy.jpg" />
     <Content Include="Scripts\jquery.bootstrap-duallistbox.js" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
