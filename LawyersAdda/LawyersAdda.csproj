@@ -664,6 +664,7 @@
     <Content Include="Scripts\tinymce\utils\form_utils.js" />
     <Content Include="Scripts\tinymce\utils\mctabs.js" />
     <Content Include="Scripts\tinymce\utils\validate.js" />
+    <Content Include="Scripts\typed.js" />
     <Content Include="Scripts\upload.js" />
     <Content Include="Scripts\UploadUserProfilePic.js" />
     <Content Include="Scripts\_references.js" />

@@ -202,6 +202,11 @@
                             <div class="search_main">
                                 <div class="col-md-12">
                                     <div class="row">
+                                        <div class="col-xs-12">
+                                            <h2 class="TypedHeader"><span class="TypedContent"></span></h2>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-xs-6">
                                             <select class="form-control input-lg" id="CitySelect">
                                                 @foreach (var item in ViewBag.Cities)
@@ -466,9 +471,17 @@
 
 
 
-
+<script src="~/Scripts/typed.js"></script>
 <script>
     $(function () {
+        $("span.TypedContent").typed({
+            strings: ["Search Lawyers", "Get Legal Consulting", "Get Legal Documentation"],
+            backDelay: 1500,
+            typeSpeed: 100,
+            backSpeed: 100,
+            loop: true
+        });
+
         $(window).on("load resize", function () {
             $(".fill-screen").css("height", window.innerHeight * 0.8);
             $(".fill-screen1").css("height", window.innerHeight * 0.6);
