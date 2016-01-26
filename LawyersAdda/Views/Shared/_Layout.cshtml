@@ -14,10 +14,10 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")   
     @Scripts.Render("~/bundles/customjs")
-
+    <link href="~/Content/Layout.css" rel="stylesheet" />
 </head>
 <body>
-    @*<div class="header_main" style="border-bottom: 1px solid #FF9900">*@
+        @*<div class="header_main" style="border-bottom: 1px solid #FF9900">*@
         <header>
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
                 <div class="container-fluid">
@@ -29,7 +29,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a href="#" onclick="location.href='@Url.Action("Index","Home")'">
-                            
+
                             <img class="img img-responsive" src="~/images/ljeelogo.png" />
                         </a>
                         @*<a href="#" onclick="location.href='@Url.Action("Index","Home")'"><img src="~/images/logo.png"></a>*@
@@ -43,21 +43,20 @@
                 </div>
             </nav>
         </header>
-    @*</div>*@
-  
-    <div class="container-fluid">
-        @RenderBody()
-    </div>
-    <div>
-        <footer>
-            @*<div class="container">
+        @*</div>*@
+
+        <div class="container-fluid">
+            @RenderBody()
+        </div>    
+        <footer class="foot">
+            <div class="container">
                 <div>
                     <div class="col-md-6 col-sm-6">
                         <p>© 2015 lawyer.com develop by xyz</p>
                     </div>
                     <div class="col-md-6 col-sm-6">
                         <ul class="social_main">
-                            <li><a class="fa fa-twitter" title="twitter" target="_blank" href="#">&nbsp;</a></li>
+                            <li><a class="social social-twitter" title="twitter" target="_blank" href="#">&nbsp;</a></li>
                             <li><a class="fa fa-facebook" title="facebook" target="_blank" href="#">&nbsp;</a></li>
                             <li><a class="fa fa-linkedin-square" title="linkedin" target="_blank" href="#">&nbsp;</a></li>
                             <li><a class="fa fa-pinterest" title="pinterest" target="_blank" href="#">&nbsp;</a></li>
@@ -66,9 +65,28 @@
                         </ul>
                     </div>
                 </div>
-            </div>*@
+            </div>
         </footer>
-    </div>
     @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            var windowHeight = $(window).height();
+            var BodyHeight = $("body").height();
+            if (BodyHeight < windowHeight) {
+                $(".foot").css({
+                    position: 'absolute',
+                    bottom: '0px',
+                    width:'100%'
+                });
+            }
+            else {
+                $(".foot").css({
+                    position: 'relative',
+                    bottom: '0px',
+                    width: '100%'
+                });
+            }
+        });
+    </script>
 </body>
 </html>

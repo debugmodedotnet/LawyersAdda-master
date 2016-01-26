@@ -290,6 +290,7 @@
     <Content Include="Content\fonts\Exo-Bold.svg" />
     <Content Include="Content\fonts\Exo-Regular.svg" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\Layout.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\SearchLawyer.css" />
     <Content Include="Content\themes\base\accordion.css" />

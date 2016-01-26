@@ -58,7 +58,7 @@
                         </div>
                         <div class="col-md-7">
                             <div class="title">
-                                <div class="titleName">Adv. @item.Name</div>
+                                <div class="titleName"><a href="~/Profile/MemberProfile/@item.User.UserName">Adv. @item.Name</a></div>
                                 <div class="CityAndWebsite"><i class="glyphicon glyphicon-map-marker"> </i> @item.City.CityName  |  <i class="glyphicon glyphicon-globe"> </i> <a href="@item.WebSiteUrl"> @item.WebSiteUrl</a> </div>
                                 @if (item.Bio != null)
                                 {
@@ -167,7 +167,7 @@
         getCourts();
 
         var lowerRange = 0, upperRange = 500;
-    $("#amount").text("Consulting Fees: $" + lowerRange + " - $" + upperRange);
+        $("#amount").text("Consulting Fees: ₹" + lowerRange + " - ₹" + upperRange);
     $("#slider-range").slider({
         range: true,
         min: 0,
