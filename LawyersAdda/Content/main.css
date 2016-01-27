@@ -391,7 +391,7 @@ body{
 }
 .banner_main{
     position:relative;
-    top:150px;
+    top:120px;
 }
 .text-banner{
     text-align:center;
@@ -434,14 +434,14 @@ body{
      text-decoration: none;
 }
 .btnSearch{
-    height:70px;
-    width : 250px;
+    height:50px;
+    width : 150px;
    background: #f0ad4e;
    padding: 10px 20px 10px 20px;
    text-decoration: none;
    border: none;
    color: #ffffff;
-  font-size: 35px;
+  font-size: 25px;
 }
 .btnSearch:hover{
      background: #f6b860;
@@ -747,4 +747,16 @@ body{
             color:#ffffff;
             margin-bottom:50px;
             text-align:center;
+            font-family: digital, arial, verdana;  
+            font-size:90px;
+        }
+        @font-face {
+            font-family: 'digital';
+            src: url('../fonts/DS-DIGI.TTF');
+        }  
+        select .item:checked {
+            background-color:#f0ad4e;
+        }
+        select .item:hover{
+            background-color:#f0ad4e;
         }
