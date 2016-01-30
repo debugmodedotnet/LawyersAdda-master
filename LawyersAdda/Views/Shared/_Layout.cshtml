@@ -48,7 +48,7 @@
         <div class="container-fluid">
             @RenderBody()
         </div>    
-        <footer class="foot">
+        @*<footer class="foot">
             <div class="container">
                 <div>
                     <div class="col-md-6 col-sm-6">
@@ -66,27 +66,27 @@
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer>*@
     @RenderSection("scripts", required: false)
     <script>
-        $(document).ready(function () {
-            var windowHeight = $(window).height();
-            var BodyHeight = $("body").height();
-            if (BodyHeight < windowHeight) {
-                $(".foot").css({
-                    position: 'absolute',
-                    bottom: '0px',
-                    width:'100%'
-                });
-            }
-            else {
-                $(".foot").css({
-                    position: 'relative',
-                    bottom: '0px',
-                    width: '100%'
-                });
-            }
-        });
+        //$(document).ready(function () {
+        //    var windowHeight = $(window).height();
+        //    var BodyHeight = $("body").height();
+        //    if (BodyHeight < windowHeight) {
+        //        $(".foot").css({
+        //            position: 'absolute',
+        //            bottom: '0px',
+        //            width:'100%'
+        //        });
+        //    }
+        //    else {
+        //        $(".foot").css({
+        //            position: 'relative',
+        //            bottom: '0px',
+        //            width: '100%'
+        //        });
+        //    }
+        //});
     </script>
 </body>
 </html>
