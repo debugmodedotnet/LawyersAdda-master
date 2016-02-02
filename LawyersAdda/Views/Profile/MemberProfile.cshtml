@@ -1,21 +1,60 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Member";
 }
 
-
-
+<link href="~/Content/NanoGallery/css/nanogallery.css" rel="stylesheet" />
+<script src="~/Scripts/NanoGallery/jquery.nanogallery.js"></script>
 <section>
     <div class="col-md-12 col-lg-12">
         <div class="row">
-            <div class="col-md-5 col-sm-5 col-md-offset-4 col-sm-offset-4">
-                @if (@ViewBag.Images.Count==0)
+            <div class="col-xs-6 col-xs-offset-5 col-md-6 col-md-offset-5 col-sm-6 col-sm-offset-5 col-lg-6 col-lg-offset-5 text-center" style="text-align:center">
+                @if (@ViewBag.Images.Count == 0)
                 {
-                    <img style="width: 40px; height: 40px;" src="http://na1.www.gartner.com/imagesrv/apps/gcms/events/img/no_avatar.png;wa4b938a20593cb4ec" class="img-circle img-responsive" />
+                    <img style="width: 180px; height: 180px;" src="http://na1.www.gartner.com/imagesrv/apps/gcms/events/img/no_avatar.png;wa4b938a20593cb4ec" class="img-circle img-responsive" />
                 }
                 else
                 {
-                    <img style="width: 40px; height: 40px;" src="@ViewBag.Images[0].ImageUrl" class="img-circle img-responsive" />
+                    <img style="width: 180px; height: 180px;" src="@ViewBag.Images[0].ImageUrl" class="img-circle img-responsive" />
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                @foreach (var Court in @ViewBag.Users.Lawyer.Courts)
+                {
+                    <a href="#">@Court.Name</a><span> , </span> 
+                }
+            </div>
+            <div class="col-md-12 text-center">
+                @foreach (var service in @ViewBag.Users.Lawyer.ServiceTypes)
+                {
+                    <a href="#">@service.Name</a><span> , </span> 
+                }
+            </div>
+            <div class="col-md-12 text-center">
+                <h2 style="text-transform:capitalize">
+                    Adv. @ViewBag.Users.FullName
+                </h2>
+            </div>
+            <div class="col-md-12">
+                @Html.Raw(@ViewBag.Lawyer.Bio)
+            </div>
+            <div class="col-lg-12">
+                Contact <i class="glyphicon glyphicon-envelope"></i> : @ViewBag.Users.Email</a>
+            </div>
+            @if (@ViewBag.Users.PhoneNumber != null)
+            {
+                <div class="col-md-12">
+                    Contact <i class="glyphicon glyphicon-earphone"></i> @ViewBag.Users.PhoneNumber
+                </div>
+            }
+            <div class="col-md-12" id="nanoGallery">
+                @foreach (var pic in @ViewBag.Images)
+                {
+                    <a href="@pic.ImageUrl" data-ngthumb="@pic.ImageUrl" data-ngdesc="Description1">Image1</a>
+                    @*<div class="col-md-3">*@
+                    @*<a href="#Profile"><img src="@pic.ImageUrl" style="width:100%;height:200px;" class="img-thumbnail img-responsive" onclick="popUpImg(this);" /></a>*@
+                    @*</div>*@
                 }
             </div>
         </div>
@@ -23,9 +62,9 @@
 </section>
 
 
-<section>
-    <div class="container">
-        <div class="row">
+@*<section>
+    <div class="container">*@
+        @*<div class="row">
             <main class="col-md-12">
                 <article>
                     <div class="row">
@@ -80,11 +119,11 @@
                 </aside>
             </div>
             <!-- /Sidebar -->
-        </div>
+        </div>*@
 
 
-        <div class="row">
-            <main class="row">
+        @*<div class="row">*@
+            @*<main class="row">
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-xs-12">
@@ -97,24 +136,25 @@
                         </div>
                     </div>
                 </div>
-            </main>
-            <main class="row">
-                <div class="col-md-12">
-                    <div class="row">
+            </main>*@
+            @*<main class="row">
+                <div class="col-md-12">*@
+                    @*<div class="row">
                         <div class="col-xs-12">
-                            <h3 id="Profile" style="border-bottom: 1px solid #f0ad4e; margin-bottom: 10px; padding: 10px"><span style="background-color: #f0a01a; padding: 10px 20px; border-top-left-radius: 10px; border-top-right-radius: 10px;"> @ViewBag.Lawyer.Name's Photos  </span></h3>
+                            <h3 id="Profile" style="border-bottom: 1px solid #f0ad4e; margin-bottom: 10px; padding: 10px"><span style="background-color: #f0a01a; padding: 10px 20px; border-top-left-radius: 10px; border-top-right-radius: 10px;"> Photos  </span></h3>
                         </div>
-                    </div>
-                    @{ 
+                    </div>*@
+                    @*@{ 
                      var i = 0;    
-                    }
-                    <div class="row">
-                    @foreach(var pic in @ViewBag.Images)
-                    {
-                        <div class="col-md-3">
-                            <a href="#Profile"><img src="@pic.ImageUrl" style="width:100%;height:200px;" class="img-thumbnail img-responsive" onclick="popUpImg(this);" /></a>
-                        </div>
-                    }
+                    }*@
+                    @*<div class="row" id="nanoGallery">
+                        @foreach (var pic in @ViewBag.Images)
+                        {*@
+                            @*<a href="@pic.ImageUrl" data-ngthumb="@pic.ImageUrl" data-ngdesc="Description1">Image1</a>*@
+                            @*<div class="col-md-3">*@
+                            @*<a href="#Profile"><img src="@pic.ImageUrl" style="width:100%;height:200px;" class="img-thumbnail img-responsive" onclick="popUpImg(this);" /></a>*@
+                            @*</div>*@
+                        @*}
                     </div>
                 </div>
                 <hr />
@@ -136,28 +176,20 @@
             </main>
         </div>
     </div>
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
+</section>*@
 
 <script>
-    function popUpImg(imgElement) {
-        var Source = $(imgElement).attr('src');
-        $("#ModelImg").attr('src', Source);
-        $("#ShowModel").show();
-    }
-    function CloseModel() {
-        $("#ShowModel").hide();
-    }
+    $(document).ready(function () {
+        $("#nanoGallery").nanoGallery({
+            
+        });
+    });
+    //function popUpImg(imgElement) {
+    //    var Source = $(imgElement).attr('src');
+    //    $("#ModelImg").attr('src', Source);
+    //    $("#ShowModel").show();
+    //}
+    //function CloseModel() {
+    //    $("#ShowModel").hide();
+    //}
 </script>
