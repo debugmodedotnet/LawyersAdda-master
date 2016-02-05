@@ -231,6 +231,9 @@ namespace LawyersAdda.Controllers
             {
 
             }
+            City lcity = new City();
+            lcity = db.Cities.Where(t => t.Id == Lawyer.CityId).SingleOrDefault();
+            Lawyer.City = lcity;
             ViewBag.Lawyer=Lawyer;
             ViewBag.Images = lstImages;
             ViewBag.Users = user;
