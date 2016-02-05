@@ -14,7 +14,7 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")   
     @Scripts.Render("~/bundles/customjs")
-    <link href="~/Content/Layout.css" rel="stylesheet" />
+    @*<link href="~/Content/Layout.css" rel="stylesheet" />*@
 </head>
 <body>
         @*<div class="header_main" style="border-bottom: 1px solid #FF9900">*@
@@ -48,7 +48,7 @@
         <div class="container-fluid">
             @RenderBody()
         </div>    
-        @*<footer class="foot">
+        @*<footer class="footer">
             <div class="container">
                 <div>
                     <div class="col-md-6 col-sm-6">
@@ -68,25 +68,6 @@
             </div>
         </footer>*@
     @RenderSection("scripts", required: false)
-    <script>
-        //$(document).ready(function () {
-        //    var windowHeight = $(window).height();
-        //    var BodyHeight = $("body").height();
-        //    if (BodyHeight < windowHeight) {
-        //        $(".foot").css({
-        //            position: 'absolute',
-        //            bottom: '0px',
-        //            width:'100%'
-        //        });
-        //    }
-        //    else {
-        //        $(".foot").css({
-        //            position: 'relative',
-        //            bottom: '0px',
-        //            width: '100%'
-        //        });
-        //    }
-        //});
-    </script>
+
 </body>
 </html>

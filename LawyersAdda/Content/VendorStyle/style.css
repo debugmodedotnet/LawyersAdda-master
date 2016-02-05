@@ -78,7 +78,7 @@ img {
 }
 .search_main {
     width: 768px;
-    font-family: 'Conv_Exo-Regular';
+    /*font-family: 'Conv_Exo-Regular';*/
     position: relative;
     margin: 0 auto;
 }

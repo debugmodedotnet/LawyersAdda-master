@@ -1,481 +1,163 @@
 ﻿
+<link href="~/Content/animate.css" rel="stylesheet" />
+
 
 @{
     ViewBag.Title = "Home Page";
 }
-@*<div id="wrapper">
-    <div class="banner_main">
-        <div class="search_banner">
-            <div class="container">
-                <div class="search_main_bn">
-                    <div class="search_main">
-                        <div class="col-md-12">
-                            <div class="col-md-10">
-                                <input id="project" class="form-control input-lg" placeholder="Select Service or Type Lawyer Name">
-                                <input id="projectVal" type="hidden" />
-                                <input id="categ" type="hidden" />
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-warning btn-lg" id="searchLawyer">Search</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="searvices_main">
-        <div class="container">
-            <div class="heading_01">
-                <h2>SERVICES</h2>
-            </div>
-            <div class="services_inn">
-                <div class="col-md-4 col-sm-4">
-                    <h3>SEARCH LAWYER</h3>
-                    <img src="~/images/search_lawyer.png">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
-                    <a href="#" class="know_more_service">KNOW MORE <span>></span></a>
-                </div>
-                <div class="col-md-4 col-sm-4">
-                    <h3>GET LEGAL CONSULTING</h3>
-                    <img src="~/images/legal_consulting.png">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
-                    <a href="#" class="know_more_service">KNOW MORE <span>></span></a>
-                </div>
-                <div class="col-md-4 col-sm-4">
-                    <h3>LEGAL DOCUMENTATION</h3>
-                    <img src="~/images/legal_documentation.png">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
-                    <a href="#" class="know_more_service">KNOW MORE <span>></span></a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="top_lawyer_main">
-        <div class="container">
-            <div class="heading_02">
-                <h2>OUR TOP LAWYERS</h2>
-            </div>
-            <div class="top_lawyer_in">
-                @foreach (var lawyer in ViewBag.topLawyers)
-                {
-                    <div class="col-md-3 col-sm-3 col-xs-3">
-                        @if (lawyer.ImageUrl != null)
-                        {
-                        <img class="img-rounded" src="@lawyer.ImageUrl" height="150" width="150" />
-                        }
-                        else
-                        {
-                        <img class="img-rounded" src="~/images/avatar_default.png" height="150" width="150" />
-                        }
-                        <h4>@lawyer.Name</h4>
-                        <p id="lawyerBio">@lawyer.Bio</p>
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
-    @*<div class="blog_main">
-        <div class="container">
-            <div class="heading_01">
-                <h2>LATEST BLOG</h2>
-            </div>
-            <div class="blog_inn">
-                <div class="col-md-3 col-sm-3 col-xs-3">
-                    <div class="blog_in_main">
-                        <div class="blog_img"><img src="images/blog_01.jpg"></div>
-                        <div class="year_main">
-                            <div class="left_year">
-                                <h5>Jun 2015</h5>
-                            </div>
-                            <div class="right_year">
-                                <span>4 Comment</span>
-                            </div>
-                            <div class="blog_in_head">
-                                <h4>Heading here</h4>
-                            </div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
-                            <div class="posted_main">POSTED IN <span>TEST CATEGORY </span><span>,</span><span>TEST CATEGORY</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-3">
-                    <div class="blog_in_main">
-                        <div class="blog_img"><img src="images/blog_02.jpg"></div>
-                        <div class="year_main">
-                            <div class="left_year">
-                                <h5>Jun 2015</h5>
-                            </div>
-                            <div class="right_year">
-                                <span>4 Comment</span>
-                            </div>
-                            <div class="blog_in_head">
-                                <h4>Heading here</h4>
-                            </div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
-                            <div class="posted_main">POSTED IN <span>TEST CATEGORY </span><span>,</span><span>TEST CATEGORY</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-3">
-                    <div class="blog_in_main">
-                        <div class="blog_img"><img src="images/blog_01.jpg"></div>
-                        <div class="year_main">
-                            <div class="left_year">
-                                <h5>Jun 2015</h5>
-                            </div>
-                            <div class="right_year">
-                                <span>4 Comment</span>
-                            </div>
-                            <div class="blog_in_head">
-                                <h4>Heading here</h4>
-                            </div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
-                            <div class="posted_main">POSTED IN <span>TEST CATEGORY </span><span>,</span><span>TEST CATEGORY</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-3">
-                    <div class="blog_in_main">
-                        <div class="blog_img"><img src="images/blog_02.jpg"></div>
-                        <div class="year_main">
-                            <div class="left_year">
-                                <h5>Jun 2015</h5>
-                            </div>
-                            <div class="right_year">
-                                <span>4 Comment</span>
-                            </div>
-                            <div class="blog_in_head">
-                                <h4>Heading here</h4>
-                            </div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has</p>
-                            <div class="posted_main">POSTED IN <span>TEST CATEGORY </span><span>,</span><span>TEST CATEGORY</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="pricing_main">
-        <div class="container">
-            <div class="heading_02">
-                <h2>PRICING</h2>
-            </div>
-            <div class="pricing_inn_main">
-                <div class="col-md-4 col-sm-4">
-                    <div class="pricing_inn">
-                        <h2>1 Question</h2>
-                        <div class="price">5<sup>$</sup></div>
-                        <p>Lorem Ipsum is simply dummy text o the printing and typesetting industry. Lorem Ipsum has</p>
-                        <div class="price_button"><a href="#">SIGN UP</a></div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4">
-                    <div class="pricing_inn">
-                        <h2>5 Question</h2>
-                        <div class="price">20<sup>$</sup></div>
-                        <p>Lorem Ipsum is simply dummy text o the printing and typesetting industry. Lorem Ipsum has</p>
-                        <div class="price_button"><a href="#">SIGN UP</a></div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4">
-                    <div class="pricing_inn">
-                        <h2>10 Question</h2>
-                        <div class="price">40<sup>$</sup></div>
-                        <p>Lorem Ipsum is simply dummy text o the printing and typesetting industry. Lorem Ipsum has</p>
-                        <div class="price_button"><a href="#">SIGN UP</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>*@
-@*</div>*@
 
-
-  
     <div class="row">
         <div class="fill-screen">
-            <div class="banner_main">
-                <div class="search_banner">
-                    <div class="container">
-                        <div class="search_main_bn">
-                            <div class="search_main">
-                                <div class="col-md-12">
-                                    <div class="row hidden-xs">
-                                        <div class="col-xs-12">
-                                            <h2 class="TypedHeader"><span class="TypedContent"></span></h2>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6" style="margin-bottom:5px;">
-                                            <select class="form-control input-lg" id="CitySelect">
-                                                @foreach (var item in ViewBag.Cities)
-                                                {
-                                                    <option class="item" id="@item.Id" value="@item.Id">
-                                                        @item.CityName
-                                                    </option>
-                                                }
-                                            </select>
-                                            @*<a href="#" class="dropdown-toggle btn btn-warning input-lg" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-map-marker"></span><span id="menuCityNameTop"></span><span class="caret"></span></a>
-            <ul class="dropdown-menu dropdown-cart" role="menu">
-                @foreach (var item in ViewBag.Cities)
-                {
-                    <li style="float:none;text-align:center">
-                        <span class="item" id=@item.Id>
-                            @item.CityName
-                        </span>
-                    </li>
-                }
-                <li class="divider" style="padding:0;float:none;margin:0px;"></li>
-                <li><a class="text-center" href="">View All Cities</a></li>
-            </ul>*@
-                                        </div>
-                                        <div class="col-md-6" style="margin-bottom:5px;">
-                                            <input id="project" class="form-control input-lg" placeholder="Select Service or Type Lawyer Name">
-                                            <input id="projectVal" type="hidden" />
-                                            <input id="categ" type="hidden" />
-                                        </div>
-                                    </div>                                    
-                                    <div class="row" style="margin-top:10px;">
-                                        <div class="col-md-12 text-center">
-                                            <button class="btn btn-warning btnSearch" id="searchLawyer">Search</button>
-                                        </div>
-                                    </div>
+           
+            <div class="content-center">
+                <div class="row hidden-sm hidden-xs">
+            <div class="col-xs-12">
+                <h2 class="TypedHeader"><span class="TypedContent"></span></h2>
+            </div>
+        </div>
+                
+                <div class="row">
+                    <div class="col-md-6" style="margin-bottom:5px;">
+                        <select class="form-control input-lg" id="CitySelect">
+                            @foreach (var item in ViewBag.Cities)
+                              {
+                            <option class="item" id="@item.Id" value="@item.Id">
+                                @item.CityName
+                            </option>
+                              }
+                        </select>
+
+                    </div>
+                    <div class="col-md-6" style="margin-bottom:5px;">
+                        <input id="project" class="form-control input-lg" placeholder="Select Service or Type Lawyer Name">
+                        <input id="projectVal" type="hidden" />
+                        <input id="categ" type="hidden" />
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-md-12 text-center">
+                        <button class="btnSearch" id="searchLawyer">Search</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<div class="row line-separator"></div>
+
+<div class="row activity-section">
+    <div class="activity-element col-md-4 wow fadeInLeft">
+        <img src="~/images/searchdiv2.png" />
+        <h2>Search Lawyers</h2>
+        <p class="txtDes">Search our database of lawyers to find the perfect lawyer for your legal needs</p>
+        
+        <button class="btnmore">More</button>
+    </div>
+    <div class="activity-element col-md-4 wow fadeInLeft">
+
+        <img src="~/images/legal_consulting.png" />
+        <h2>Legal Consulting</h2>
+        <p class="txtDes">The law is complex, but we make it easy to get expert answers from seasoned lawyers.</p>
+        <button class="btnmore">More</button>
+    </div>
+    <div class="activity-element col-md-4 wow fadeInLeft">
+
+        <img src="~/images/legal_documentation.png" />
+        <h2>Legal Documentation</h2>
+        <p class="txtDes">Filing legal documents doesn't have to be hard. Let us do for you</p>
+        <button class="btnmore">More</button>
+    </div>
+</div>
+
+
+
+<div class="row fill-screen1">
+   
+    @*<div class="row">
+        <div class='col-md-offset-2 col-md-8 text-center'>
+            <h2>So far ....</h2>
+        </div>
+    </div>*@
+    <div class='row'>
+        <div class='col-md-offset-2 col-md-9'>
+            <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+                <!-- Bottom Carousel Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#quote-carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#quote-carousel" data-slide-to="1"></li>
+                    <li data-target="#quote-carousel" data-slide-to="2"></li>
+                </ol>
+
+                <!-- Carousel Slides / Quotes -->
+                <div class="carousel-inner">
+
+                    <!-- Quote 1 -->
+                    <div class="item active">
+                        <blockquote>
+                            <div class="row">
+                                @*<div class="col-sm-3 text-center">*@
+                                    @*<img class="img-circle" src="http://www.reactiongifs.com/r/overbite.gif" style="width: 100px;height:100px;">*@
+                                    <!--<img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/128.jpg" style="width: 100px;height:100px;">-->
+                                @*</div>*@
+                                <div class="col-sm-12">
+                                    <p class="qitemtext">India has 1.5 Million Lawyers </p>
+                                   
                                 </div>
                             </div>
-                        </div>
+                        </blockquote>
+                    </div>
+                    <!-- Quote 2 -->
+                    <div class="item">
+                        <blockquote>
+                            <div class="row">
+                                @*<div class="col-sm-3 text-center">
+                                    <img class="img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/mijustin/128.jpg" style="width: 100px;height:100px;">
+                                </div>*@
+                                <div class="col-sm-12">
+                                   <p class="qitemtext">Over 3 crore court cases pending across country</p>
+                                </div>
+                            </div>
+                        </blockquote>
+                    </div>
+                    <!-- Quote 3 -->
+                    <div class="item">
+                        <blockquote>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p class="qitemtext">There are 500 Courts across India</p>
+                                </div>
+                            </div>
+                        </blockquote>
                     </div>
                 </div>
+
+                <!-- Carousel Buttons Next/Prev -->
+                <a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i class="fa fa-chevron-left"></i></a>
+                <a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a>
             </div>
         </div>
     </div>
-    <div class="row line-separator"></div>
-    <div class="row text-banner">
-        <h1>Our Services</h1>
-        @*<div class="col-md-4 portfolio-item">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                </a>
-            </div>*@
-        <div class="col-md-4 portfolio-item">
-            <button class="bser">Search Lawyers</button>
-        </div>
-        <div class="col-md-4 portfolio-item">
-            @*<a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                </a>*@
-            <a href="~/Questions/AskQuestion"><button class="bser">Legal Consulting</button></a>
-        </div>
-        <div class="col-md-4 portfolio-item">
-            <button class="bser">Legal Documents</button>
-        </div>
-        
-
-    </div>
-
-    <div class="row line-separator"></div>
-    <div class="row text-banner">
-        <h1>What we do ?</h1>
-        <ul class="timeline">
-            <li>
-                <div class="timeline-badge info"><i class="glyphicon glyphicon-search"></i></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Search Lawyers</h4>
-                        @*<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> August 2011</small></p>*@
-                    </div>
-                    <div class="timeline-body">
-                        <p>
-                            We help you in seraching best Lawyers or Legal Consultant for your need. You can search on the basis of City,
-                            Services. You can rate service of a Lawyer. 
-                        </p>
-                    </div>
-                </div>
-            </li>
-            <li class="timeline-inverted">
-                <div class="timeline-badge warning"><i class="glyphicon glyphicon-eye-open"></i></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Get Legal Consulting</h4>
-                    </div>
-                    <div class="timeline-body">
-                        <p>
-                            Laws are complex. Everyone among us need legal advices in some point. We allow you to get
-                            legal advices from best of the industry. You can ask your question and be assured to get
-                            best advice on that. We allow you to ask a question anonymously also. 
-                        </p>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="timeline-badge danger"><i class="glyphicon glyphicon-folder-open"></i></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Legal Documentation</h4>
-                        @*<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> 3 years ago</small></p>*@
-                    </div>
-                    <div class="timeline-body">
-                        <p>Getting a legal document done is heache work. Now seat on your couch and allow us to get
-                        this job done for you. We help you in getting legal documents like House Rent Agreement , Tax document etc.</p>
-                    </div>
-                </div>
-            </li>
-            @*<li class="timeline-inverted">
-                <div class="timeline-badge default"><i class="glyphicon glyphicon-home"></i></div>
-                <div class="timeline-panel">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">Right Event</h4>
-                    </div>
-                    <div class="timeline-body">
-                        <p>Add more progress events and milestones to the left or right side of the timeline. Each event can be tagged with a date and given a beautiful icon to symbolize it's spectacular meaning.</p>
-                    </div>
-                </div>
-            </li>*@
-
-        </ul> 
-    
-    </div>
-    <div class="row line-separator"></div>
-    @*<div class="row" text-banner>
-        <h1>5000 Lawyers, 4000 Advices, 600 Documents done so far</h1>
-        <div class="fill-screen1"></div>
-    </div>*@
-
-
-    <div class="row text-banner">
-        <h1>Our Consultants</h1>
-        
-
-        <div class="col-sm-6 col-md-3">
-            <a href="#">
-                <div class="thumbnail">
-                    <img src="~/images/r1.jpg" alt="Generic placeholder thumbnail">
-                </div>
-            </a>
-            
-            <div class="caption">
-                <h4>Ram Jethmalani</h4>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-            <a href="#">
-                <div class="thumbnail">
-                    <img src="~/images/karunanandi.PNG" alt="Generic placeholder thumbnail">
-                </div>
-            </a>
-
-            <div class="caption">
-                <h4>Karuna Nandi</h4>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-            <a href="#">
-                <div class="thumbnail">
-                    <img src="~/images/swamy.jpg" alt="Generic placeholder thumbnail">
-                </div>
-            </a>
-
-            <div class="caption">
-                <h4>Subramanian Swamy</h4>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3">
-            <a href="#">
-                <div class="thumbnail">
-                    <img src="~/images/r1.jpg" alt="Generic placeholder thumbnail">
-                </div>
-            </a>
-
-            <div class="caption">
-                <h4>Ram Jethmalani</h4>
-            </div>
-        </div>
-        
-       
-       
-
-    </div>
-
-    <div class="row line-separator"></div>
-
-    <div class="row text-banner">
-      <h1>Pricing </h1>
-
-        <div class="col-md-4">
-
-            <!-- PRICE ITEM -->
-            <div class="panel price panel-white">
-                @*<div class="panel-heading arrow_box text-center">
-                    <h3>FREE PLAN</h3>
-                </div>*@
-                <div class="panel-body text-center">
-                    <p class="lead" style="font-size:40px"><strong>&#x20B9 500/Consulting</strong></p>
-                </div>
-                <ul class="list-group list-group-flush text-center">
-                    <li class="list-group-item"><i class="icon-ok text-success"></i> Answer on Portal</li>
-                    <li class="list-group-item"><i class="icon-ok text-success"></i>Download as PDF</li>
-                    <li class="list-group-item"><i class="icon-ok text-success"></i> Answer in 24 Hours</li>
-                </ul>
-                <div class="panel-footer">
-                    <a class="btn btn-lg btn-block btn-warning" href="#">Sign UP</a>
-                </div>
-            </div>
-            <!-- /PRICE ITEM -->
-
-
-        </div>
-
-        <div class="col-md-4">
-            <div class="panel price panel-white">
-                @*<div class="panel-heading arrow_box text-center">
-                <h3>FREE PLAN</h3>
-            </div>*@
-                <div class="panel-body text-center">
-                    <p class="lead" style="font-size:40px"><strong>&#x20B9 750/Consulting</strong></p>
-                </div>
-                <ul class="list-group list-group-flush text-center">
-                    <li class="list-group-item"><i class="icon-ok text-success"></i> Answer on Portal</li>
-                    <li class="list-group-item"><i class="icon-ok text-success"></i>Download as PDF</li>
-                    <li class="list-group-item"><i class="icon-ok text-success"></i> Answer in 24 Hours</li>
-                    <li class="list-group-item"><i class="icon-ok text-success"></i>Discussion on Portal</li>
-                </ul>
-                <div class="panel-footer">
-                    <a class="btn btn-lg btn-block btn-warning" href="#">Sign UP</a>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="col-md-4">
-
-            <div class="panel price panel-white">
-                @*<div class="panel-heading arrow_box text-center">
-                <h3>FREE PLAN</h3>
-            </div>*@
-                <div class="panel-body text-center">
-                    <p class="lead" style="font-size:40px"><strong>&#x20B9 1000/Doc</strong></p>
-                </div>
-                <ul class="list-group list-group-flush text-center">
-                    <li class="list-group-item"><i class="icon-ok text-success"></i>Deliver to your doorstep</li>
-                    <li class="list-group-item"><i class="icon-ok text-success"></i>You need to pay extra Goverment fee</li>
-                    <li class="list-group-item"><i class="icon-ok text-success"></i>On Call suppport</li>
-                </ul>
-                <div class="panel-footer">
-                    <a class="btn btn-lg btn-block btn-warning" href="#">Sign UP</a>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
+   
+</div>
+ 
+<div class="row line-separator"></div>
+<div class="row">
+     <h1 class="text-center">Contact us</h1>
+     <div class="col-md-7 col-md-offset-3">
+         <input type="text" placeholder="Enter Your Email" class="form-control input-lg" />
+         
+     </div>
+</div>
 
 
 
 <script src="~/Scripts/typed.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
 <script>
     $(function () {
         $("span.TypedContent").typed({
-            strings: ["Search Lawyers", "Get Legal Consulting", "Get Legal Documentation"],
+            strings: ["Search Lawyers", "Legal Consulting", "Legal Documentations"],
             backDelay: 1500,
             typeSpeed: 100,
             backSpeed: 100,
@@ -483,12 +165,20 @@
         });
 
         $(window).on("load resize", function () {
-            $(".fill-screen").css("height", window.innerHeight * 0.8);
-            $(".fill-screen1").css("height", window.innerHeight * 0.6);
+            $(".fill-screen").css("height", window.innerHeight);
+            $(".fill-screen1").css("height", window.innerHeight * 0.2);
+            new WOW().init();
+            
         })
+        
         $(document).ready(function () {
+            
             var selectedValue = localStorage.getItem("MenuCityId")
             $("#CitySelect").val(selectedValue);
+            $('#quote-carousel').carousel({
+                pause: true,
+                interval: 4000,
+            });
 
             //Old Functions
 

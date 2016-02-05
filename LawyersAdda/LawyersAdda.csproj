@@ -279,6 +279,7 @@
     <Compile Include="ViewModels\RegisterAsLawyerstep6ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-duallistbox.css" />
     <Content Include="Content\bootstrap-multiselect.css" />
@@ -353,6 +354,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="images\karunanandi.PNG" />
+    <Content Include="images\lawyerconsultingdiv1.jpg" />
     <Content Include="images\r1.jpg" />
     <Content Include="images\blog_01.jpg" />
     <Content Include="images\blog_02.jpg" />
@@ -368,6 +370,7 @@
     <Content Include="images\location.png" />
     <Content Include="images\login.png" />
     <Content Include="images\logo.png" />
+    <Content Include="images\searchdiv2.png" />
     <Content Include="images\search_banner.jpg" />
     <Content Include="images\search_icon.png" />
     <Content Include="images\search_lawyer.png" />
