@@ -2,128 +2,297 @@
     ViewBag.Title = "Member";
 }
 
+<link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 <link href="~/Content/NanoGallery/css/nanogallery.css" rel="stylesheet" />
+<link href="~/Content/MemberProfile.css" rel="stylesheet" />
 <script src="~/Scripts/NanoGallery/jquery.nanogallery.js"></script>
-<section>
-    <div class="col-md-12 col-lg-12">
+<div class="profile-page">
+    <div class="container">
         <div class="row">
-            <div class="col-xs-6 col-xs-offset-5 col-md-6 col-md-offset-5 col-sm-6 col-sm-offset-5 col-lg-6 col-lg-offset-5 text-center" style="text-align:center">
-                @if (@ViewBag.Images.Count == 0)
-                {
-                    <img style="width: 180px; height: 180px;" src="http://na1.www.gartner.com/imagesrv/apps/gcms/events/img/no_avatar.png;wa4b938a20593cb4ec" class="img-circle img-responsive" />
-                }
-                else
-                {
-                    <img style="width: 180px; height: 180px;" src="@ViewBag.Images[0].ImageUrl" class="img-circle img-responsive" />
-                }
+            <div class="col-md-3 nopr">
+                <header id="header">
+                    <div class="main-header">
+                        <figure class="img-profile">
+                            @if (@ViewBag.Images.Count == 0)
+                            {
+                                <img style="width:100%; height: 262px;" src="http://na1.www.gartner.com/imagesrv/apps/gcms/events/img/no_avatar.png;wa4b938a20593cb4ec" />
+                            }
+                            else
+                            {
+                                <img style="width:100%; height: 262px;" src="@ViewBag.Images[0].ImageUrl" />
+                            }
+                        </figure>
+                        <nav id="main-nav" class="main-nav clearfix tabbed">
+                            <ul class="list-unordered">
+                                <li><a href="#portfolio"><i class="fa fa-camera"></i>Photos</a></li>
+                                <li><a href="#blog"><i class="fa fa-envelope"></i>@ViewBag.Users.Email</a></li>
+                                <li><a href="#contact"><i class="fa fa-phone"></i>Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="bottom-header bgWhite ofsTSmall ofsBSmall tCenter">
+                        <ul class="social list-unordered">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-globe"></i></a></li>
+                        </ul>
+                    </div>
+                </header>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 text-center">
-                @foreach (var Court in @ViewBag.Users.Lawyer.Courts)
-                {
-                    <a href="#">@Court.Name</a><span> , </span> 
-                }
-            </div>
-            <div class="col-md-12 text-center">
-                @foreach (var service in @ViewBag.Users.Lawyer.ServiceTypes)
-                {
-                    <a href="#">@service.Name</a><span> , </span> 
-                }
-            </div>
-            <div class="col-md-12 text-center">
-                <h2 style="text-transform:capitalize">
-                    Adv. @ViewBag.Users.FullName
-                </h2>
-            </div>
-            <div class="col-md-12">
-                @Html.Raw(@ViewBag.Lawyer.Bio)
-            </div>
-            <div class="col-lg-12">
-                Contact <i class="glyphicon glyphicon-envelope"></i> : @ViewBag.Users.Email</a>
-            </div>
-            @if (@ViewBag.Users.PhoneNumber != null)
-            {
-                <div class="col-md-12">
-                    Contact <i class="glyphicon glyphicon-earphone"></i> @ViewBag.Users.PhoneNumber
-                </div>
-            }
-            <div class="col-md-12" id="nanoGallery">
-                @foreach (var pic in @ViewBag.Images)
-                {
-                    <a href="@pic.ImageUrl" data-ngthumb="@pic.ImageUrl" data-ngdesc="Description1">Image1</a>
-                    @*<div class="col-md-3">*@
-                    @*<a href="#Profile"><img src="@pic.ImageUrl" style="width:100%;height:200px;" class="img-thumbnail img-responsive" onclick="popUpImg(this);" /></a>*@
-                    @*</div>*@
-                }
+            <div class="col-md-9 right-content">
+                <section id="about" class="bgWhite ofsInBottom">
+                    <div class="about">
+                        <div class="main-title">
+                            <h1><button class="btn btn-default">Contact</button></h1>
+                            <div class="divider">
+
+                            </div>
+                        </div>
+                        <div class="content abt-content">
+                            <div class="block-content margBSmall">
+                                <div class="profile margBSmall">
+                                    <h1>Adv. @ViewBag.Users.FullName</h1>
+                                    <h3>Service / court </h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 about-more">
+                                        @Html.Raw(@ViewBag.Lawyer.Bio)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-content">
+                                <div class="info-more">
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <table class="table table-bordered table-hover">
+                                                    <tr>
+                                                        <th colspan="2" class="text-center">Services</th>
+                                                    </tr>
+                                                    @foreach (var service in @ViewBag.Users.Lawyer.ServiceTypes)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @service.Name
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </table>
+                                                @*<ul class="info-list clearfix">
+                                                    <li><span class="inf">Name </span>  <span class="value">Carlose Smith</span></li>
+                                                    <li><span class="inf">Date of birth</span>  <span class="value"> September 9, 1982 </span></li>
+                                                    <li><span class="inf">Address</span>  <span class="value"> 1234 Street Road City Name</span></li>
+                                                </ul>*@
+                                            </div>
+                                            <div class="col-md-6">
+                                                <table class="table table-bordered table-hover" style="scroll">
+                                                    <tr>
+                                                        <th colspan="2" class="text-center">Courts</th>
+                                                    </tr>
+                                                    @foreach (var Court in @ViewBag.Users.Lawyer.Courts)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @Court.Name
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </table>
+                                                @*<ul class="info-list">
+                                                    <li><span class="inf">Email</span>  <span class="value">youremail@gmail.com</span></li>
+                                                    <li><span class="inf">Phone</span>  <span class="value"> + 123 456 789 456	</span></li>
+                                                    <li><span class="inf">Skype</span>  <span class="value">Carlose_Smith</span></li>
+                                                </ul>*@
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="main-title">
+                            <h1>photos</h1>
+                            <div class="divider">
+
+                            </div>
+                        </div>
+                        <div class="content abt-content">
+                            <div class="col-md-12" id="nanoGallery">
+                                @foreach (var pic in @ViewBag.Images)
+                                {
+                                    <a href="@pic.ImageUrl" data-ngthumb="@pic.ImageUrl"></a>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="main-title">
+                            <h1>Contact</h1>
+                            <div class="divider">
+
+                            </div>
+                        </div>
+                        <div class="content abt-content">
+                            <div class="block-content">
+                                <div class="blok-info">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="info-holder margTMedium">
+                                                <div class="address-info">
+                                                    <i class="fa fa-map-marker"></i>
+                                                    <p>
+                                                        @ViewBag.Lawyer.City.CityName
+                                                        @*The Company Name Inc.1234 Street Road <br/>
+                                                        City Name,IN 567 890.*@
+                                                    </p>
+                                                </div>
+                                                <div class="contact-info tCenter">
+                                                    <ul>
+                                                        <li>
+                                                            <div class="ico"><i class="fa fa-envelope"></i></div>
+                                                            <p>Email : @ViewBag.Users.Email </p>
+                                                        </li>
+                                                        <li>
+                                                            <div class="ico"><i class="fa fa-phone"></i></div>
+                                                            <p>Tel : @ViewBag.Users.PhoneNumber</p>
+                                                        </li>
+                                                        <li>
+                                                            <div class="ico"><i class="fa fa-link"></i></div>
+                                                            <p>WebSite : <a href="#">@ViewBag.Lawyer.WebSiteUrl</a></p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
-</section>
-
-
-@*<section>
-    <div class="container">*@
-        @*<div class="row">
-            <main class="col-md-12">
-                <article>
+</div>
+            @*<section>
+                <div class="col-md-12 col-lg-12">
                     <div class="row">
-                        <div class="col-md-3" style="position:relative">
-                            <figure style="margin: 0 0 20px 0;">
-                                @if(string.IsNullOrEmpty(@ViewBag.Lawyer.ImageUrl))
-                                {
-                                    <img style="width: 100%; height: 285px;" src="http://na1.www.gartner.com/imagesrv/apps/gcms/events/img/no_avatar.png;wa4b938a20593cb4ec" class="img-thumbnail img-responsive profile-pic" />
-                                }
-                                else
-                                {
-                                    <img style="width: 100%; height: 285px;" src="@ViewBag.Lawyer.ImageUrl" class="img-thumbnail img-responsive profile-pic" />
-                                }
-                            </figure>
-                        </div>
-                        <div class="col-md-7">
-                            <h2 style="text-transform:capitalize">
-                                Adv. @ViewBag.Users.FullName 
-                            </h2>
-                            <ul style="list-style: none outside; padding: 0; margin: 0 0 1.5em; overflow: hidden; zoom: 1; clear: both;">
-                                <li style="margin-bottom:10px;"><a href="mailto:@ViewBag.Users.Email"><i class="glyphicon glyphicon-envelope"></i> @ViewBag.Users.Email</a></li>
-                                @if (@ViewBag.Users.PhoneNumber != null)
-                                {
-                                    <li style="margin-bottom:10px;"><i class="glyphicon glyphicon-earphone"></i> @ViewBag.Users.PhoneNumber</li>
-                                }
-                                @if (@ViewBag.Users.CityId != null)
-                                {
-                                    <li style="margin-bottom:10px;"><i class="glyphicon glyphicon-map-marker"></i> @ViewBag.Users.City.CityName</li>
-                                }
-                                <li style="margin-bottom:20px;">
-                                    @foreach (var Court in @ViewBag.Users.Lawyer.Courts)
-                                    {
-                                        <span class="label label-default" style="font-size: 16px; margin-right: 5px;">@Court.Name </span>
-                                    }
-                                </li>
-                                <li style="margin-bottom:20px;">
-                                    @foreach (var service in @ViewBag.Users.Lawyer.ServiceTypes)
-                                    {
-                                        <span class="label label-primary" style="font-size: 16px; margin-right: 5px;"> @service.Name  </span>
-                                    }
-                                </li>
-                            </ul>
+                        <div class="col-xs-6 col-xs-offset-5 col-md-6 col-md-offset-5 col-sm-6 col-sm-offset-5 col-lg-6 col-lg-offset-5 text-center" style="text-align:center">
+                            @if (@ViewBag.Images.Count == 0)
+                            {
+                                <img style="width: 180px; height: 180px;" src="http://na1.www.gartner.com/imagesrv/apps/gcms/events/img/no_avatar.png;wa4b938a20593cb4ec" class="img-circle img-responsive" />
+                            }
+                            else
+                            {
+                                <img style="width: 180px; height: 180px;" src="@ViewBag.Images[0].ImageUrl" class="img-circle img-responsive" />
+                            }
                         </div>
                     </div>
-                </article>
-            </main>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            @foreach (var Court in @ViewBag.Users.Lawyer.Courts)
+                            {
+                                <a href="#">@Court.Name</a><span> , </span>
+                            }
+                        </div>
+                        <div class="col-md-12 text-center">
+                            @foreach (var service in @ViewBag.Users.Lawyer.ServiceTypes)
+                            {
+                                <a href="#">@service.Name</a><span> , </span>
+                            }
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <h2 style="text-transform:capitalize">
+                                Adv. @ViewBag.Users.FullName
+                            </h2>
+                        </div>
+                        <div class="col-md-12">
+                            @Html.Raw(@ViewBag.Lawyer.Bio)
+                        </div>
+                        <div class="col-lg-12">
+                            Contact <i class="glyphicon glyphicon-envelope"></i> : @ViewBag.Users.Email</a>
+                        </div>
+                        @if (@ViewBag.Users.PhoneNumber != null)
+                        {
+                            <div class="col-md-12">
+                                Contact <i class="glyphicon glyphicon-earphone"></i> @ViewBag.Users.PhoneNumber
+                            </div>
+                        }
+                        <div class="col-md-12" id="nanoGallery">
+                            @foreach (var pic in @ViewBag.Images)
+                            {
+                                <a href="@pic.ImageUrl" data-ngthumb="@pic.ImageUrl" data-ngdesc="Description1">Image1</a>
+                                @*<div class="col-md-3">*@
+        @*<a href="#Profile"><img src="@pic.ImageUrl" style="width:100%;height:200px;" class="img-thumbnail img-responsive" onclick="popUpImg(this);" /></a>*@
+        @*</div>*@
+        @*}
+                        </div>
+                    </div>
+                </div>
+            </section>*@
 
-            <!-- Sidebar -->
-            <div class="sidebar col-md-3 col-md-offset-1">
-                <aside>
-                    
-                </aside>
-            </div>
-            <!-- /Sidebar -->
-        </div>*@
+
+        @*<section>
+            <div class="container">*@
+        @*<div class="row">
+                <main class="col-md-12">
+                    <article>
+                        <div class="row">
+                            <div class="col-md-3" style="position:relative">
+                                <figure style="margin: 0 0 20px 0;">
+                                    @if(string.IsNullOrEmpty(@ViewBag.Lawyer.ImageUrl))
+                                    {
+                                        <img style="width: 100%; height: 285px;" src="http://na1.www.gartner.com/imagesrv/apps/gcms/events/img/no_avatar.png;wa4b938a20593cb4ec" class="img-thumbnail img-responsive profile-pic" />
+                                    }
+                                    else
+                                    {
+                                        <img style="width: 100%; height: 285px;" src="@ViewBag.Lawyer.ImageUrl" class="img-thumbnail img-responsive profile-pic" />
+                                    }
+                                </figure>
+                            </div>
+                            <div class="col-md-7">
+                                <h2 style="text-transform:capitalize">
+                                    Adv. @ViewBag.Users.FullName
+                                </h2>
+                                <ul style="list-style: none outside; padding: 0; margin: 0 0 1.5em; overflow: hidden; zoom: 1; clear: both;">
+                                    <li style="margin-bottom:10px;"><a href="mailto:@ViewBag.Users.Email"><i class="glyphicon glyphicon-envelope"></i> @ViewBag.Users.Email</a></li>
+                                    @if (@ViewBag.Users.PhoneNumber != null)
+                                    {
+                                        <li style="margin-bottom:10px;"><i class="glyphicon glyphicon-earphone"></i> @ViewBag.Users.PhoneNumber</li>
+                                    }
+                                    @if (@ViewBag.Users.CityId != null)
+                                    {
+                                        <li style="margin-bottom:10px;"><i class="glyphicon glyphicon-map-marker"></i> @ViewBag.Users.City.CityName</li>
+                                    }
+                                    <li style="margin-bottom:20px;">
+                                        @foreach (var Court in @ViewBag.Users.Lawyer.Courts)
+                                        {
+                                            <span class="label label-default" style="font-size: 16px; margin-right: 5px;">@Court.Name </span>
+                                        }
+                                    </li>
+                                    <li style="margin-bottom:20px;">
+                                        @foreach (var service in @ViewBag.Users.Lawyer.ServiceTypes)
+                                        {
+                                            <span class="label label-primary" style="font-size: 16px; margin-right: 5px;"> @service.Name  </span>
+                                        }
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                </main>
+
+                <!-- Sidebar -->
+                <div class="sidebar col-md-3 col-md-offset-1">
+                    <aside>
+
+                    </aside>
+                </div>
+                <!-- /Sidebar -->
+            </div>*@
 
 
         @*<div class="row">*@
-            @*<main class="row">
+        @*<main class="row">
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-xs-12">
@@ -137,59 +306,59 @@
                     </div>
                 </div>
             </main>*@
-            @*<main class="row">
-                <div class="col-md-12">*@
-                    @*<div class="row">
-                        <div class="col-xs-12">
-                            <h3 id="Profile" style="border-bottom: 1px solid #f0ad4e; margin-bottom: 10px; padding: 10px"><span style="background-color: #f0a01a; padding: 10px 20px; border-top-left-radius: 10px; border-top-right-radius: 10px;"> Photos  </span></h3>
-                        </div>
-                    </div>*@
-                    @*@{ 
-                     var i = 0;    
-                    }*@
-                    @*<div class="row" id="nanoGallery">
-                        @foreach (var pic in @ViewBag.Images)
-                        {*@
-                            @*<a href="@pic.ImageUrl" data-ngthumb="@pic.ImageUrl" data-ngdesc="Description1">Image1</a>*@
-                            @*<div class="col-md-3">*@
-                            @*<a href="#Profile"><img src="@pic.ImageUrl" style="width:100%;height:200px;" class="img-thumbnail img-responsive" onclick="popUpImg(this);" /></a>*@
-                            @*</div>*@
-                        @*}
+        @*<main class="row">
+            <div class="col-md-12">*@
+        @*<div class="row">
+                <div class="col-xs-12">
+                    <h3 id="Profile" style="border-bottom: 1px solid #f0ad4e; margin-bottom: 10px; padding: 10px"><span style="background-color: #f0a01a; padding: 10px 20px; border-top-left-radius: 10px; border-top-right-radius: 10px;"> Photos  </span></h3>
+                </div>
+            </div>*@
+        @*@{
+             var i = 0;
+            }*@
+        @*<div class="row" id="nanoGallery">
+            @foreach (var pic in @ViewBag.Images)
+            {*@
+        @*<a href="@pic.ImageUrl" data-ngthumb="@pic.ImageUrl" data-ngdesc="Description1">Image1</a>*@
+        @*<div class="col-md-3">*@
+        @*<a href="#Profile"><img src="@pic.ImageUrl" style="width:100%;height:200px;" class="img-thumbnail img-responsive" onclick="popUpImg(this);" /></a>*@
+        @*</div>*@
+        @*}
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="modal" id="ShowModel">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" onclick="CloseModel();">X</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img src="" id="ModelImg" />
+                                        </div>
+                                        <div class="modal-footer">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
                     </div>
                 </div>
-                <hr />
-                <div class="modal" id="ShowModel">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" onclick="CloseModel();">X</button>
-                            </div>
-                            <div class="modal-body">
-                                <img src="" id="ModelImg" />
-                            </div>
-                            <div class="modal-footer">
+            </section>*@
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
-</section>*@
+        <script>
+            $(document).ready(function () {
+                $("#nanoGallery").nanoGallery({
 
-<script>
-    $(document).ready(function () {
-        $("#nanoGallery").nanoGallery({
-            
-        });
-    });
-    //function popUpImg(imgElement) {
-    //    var Source = $(imgElement).attr('src');
-    //    $("#ModelImg").attr('src', Source);
-    //    $("#ShowModel").show();
-    //}
-    //function CloseModel() {
-    //    $("#ShowModel").hide();
-    //}
-</script>
+                });
+            });
+            //function popUpImg(imgElement) {
+            //    var Source = $(imgElement).attr('src');
+            //    $("#ModelImg").attr('src', Source);
+            //    $("#ShowModel").show();
+            //}
+            //function CloseModel() {
+            //    $("#ShowModel").hide();
+            //}
+        </script>

@@ -1,0 +1,400 @@
+﻿.profile-page {
+    background: #efefef;
+    margin: 0;
+    padding: 0;
+}
+
+.nopr {
+    padding-right: 0;
+}
+
+.list-unordered {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    text-decoration: none;
+    list-style: none;
+}
+
+.img-profile {
+    position: relative;
+}
+
+    .img-profile .name-profile {
+        left: -22%;
+        position: absolute;
+        top: 23.2%;
+        -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+        transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#33373d+0,33373d+100&amp;1+0,0+100 */
+        background: -moz-linear-gradient(left, rgba(51,55,61,1) 0%, rgba(51,55,61,0) 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(51,55,61,1)), color-stop(100%,rgba(51,55,61,0))); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(left, rgba(51,55,61,1) 0%,rgba(51,55,61,0) 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(left, rgba(51,55,61,1) 0%,rgba(51,55,61,0) 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(left, rgba(51,55,61,1) 0%,rgba(51,55,61,0) 100%); /* IE10+ */
+        background: linear-gradient(to left, rgba(51,55,61,1) 0%,rgba(51,55,61,0) 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33373d', endColorstr='#0033373d',GradientType=0 ); /* IE6-9 */
+    }
+
+
+        .img-profile .name-profile span {
+            color: #ffffff;
+            opacity: .95;
+            font-family: "open_sans",Arial,sans-serif;
+            padding: 0 15px 0px 30px;
+            font-size: 11px;
+            display: block;
+            text-transform: uppercase;
+        }
+
+
+
+            .img-profile .name-profile span sup {
+                font-size: 8px;
+                line-height: 5px;
+            }
+
+.icon-setting {
+    margin-top: 10px;
+}
+
+.main-nav ul li {
+    position: relative;
+    border-bottom: 1px solid #26292e;
+}
+
+
+    .main-nav ul li:last-child {
+        border-bottom: none;
+    }
+
+
+    .main-nav ul li a {
+        display: table;
+        text-align: right;
+        background: #33373d;
+        color: #85878b;
+        font-size: 12px;
+        text-transform: uppercase;
+        padding: 15px 25px;
+        -webkit-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -ms-transition-property: color;
+        -webkit-transition-property: color;
+        transition-property: color;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        width: 100%;
+    }
+
+
+
+.main-nav li a:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #cd5353;
+    -webkit-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transform-origin: 50%;
+    -ms-transform-origin: 50%;
+    transform-origin: 50%;
+    -webkit-transition-property: transform;
+    -ms-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    -ms-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    -ms-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+
+
+
+.main-nav li a:hover, .main-nav li a:focus, .main-nav li a:active {
+    color: #ffffff;
+}
+
+    .main-nav li a:hover:before, .main-nav li a:focus:before, .main-nav li a:active:before {
+        -webkit-transform: scaleX(1);
+        -ms-transform: scaleX(1);
+        transform: scaleX(1);
+    }
+
+.main-nav li a.active:before {
+    color: #ffffff;
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #cd5353;
+    -webkit-transform: scaleX(1);
+    -ms-transform: scaleX(1);
+    transform: scaleX(1);
+    -webkit-transform-origin: 50%;
+    -ms-transform-origin: 50%;
+    transform-origin: 50%;
+    -webkit-transition-property: transform;
+    -ms-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    -ms-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    -ms-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+
+.main-nav li a.active {
+    color: #ffffff;
+    background: #cd5353;
+}
+
+.main-nav ul li a i {
+    position: absolute;
+    left: 25px;
+    font-size: 22px;
+}
+
+.bgWhite {
+    background: #ffffff;
+}
+
+.ofsBSmall {
+    padding-bottom: 20px !important;
+}
+
+.ofsTSmall {
+    padding-top: 20px !important;
+}
+
+.tCenter {
+    text-align: center;
+}
+
+.social li {
+    display: inline-block;
+    margin-right: 2px;
+    text-align: center;
+}
+
+.social a {
+    border: 2px solid #33373d;
+    border-radius: 20px;
+    color: #33373d;
+    display: inline-block;
+    height: 35px;
+    width: 35px;
+}
+
+
+.social li i {
+    line-height: 32px;
+    font-size: 12px;
+}
+
+
+.social a:hover {
+    border: 2px solid #cd5353;
+    color: #cd5353;
+}
+
+.main-title {
+    border-bottom: 1px solid #efefef;
+    padding: 30px 10px 2px 40px;
+    position: relative;
+}
+
+    .main-title h1 {
+        margin-bottom: 10px;
+    }
+
+    .main-title .divider {
+        left: 30px;
+        position: absolute;
+        top: 50px;
+    }
+
+    .main-title h1 {
+        font-size: 25px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+.margBSmall {
+    margin-bottom: 30px !important;
+}
+
+.abt-content {
+    padding: 40px;
+}
+
+.about {
+    overflow: hidden;
+}
+
+    .about .profile h1 {
+        color: #333333;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        font-size: 28px;
+        line-height: 25px;
+    }
+
+    .about .profile h3 {
+        font-weight: normal;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        font-size: 22px;
+        color: #777777;
+    }
+
+    .about .about-more p {
+        line-height: 22px;
+        color: #999999;
+    }
+
+.info-more ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+    .info-more ul.info-list {
+        border: 1px solid #efefef;
+        text-align: center;
+    }
+
+
+        .info-more ul.info-list li {
+            border-bottom: 1px solid #efefef;
+            background: #fafafa;
+            font-size: 14px;
+        }
+
+            .info-more ul.info-list li .inf, .info ul.info-list li .value {
+                display: inline-block;
+                padding: 8px 0;
+            }
+
+            .info-more ul.info-list li .inf {
+                width: 35%;
+                background: #ffffff;
+                left: -1px;
+                position: relative;
+                border-right: 1px solid #efefef;
+                color: #333333;
+            }
+
+            .info-more ul.info-list li .value {
+                width: 63%;
+                color: #666666;
+            }
+
+            .info-more ul.info-list li:last-child {
+                border-bottom: none;
+            }
+
+
+
+.info-holder {
+    border: 1px solid #efefef;
+    padding: 20px;
+    text-align: center;
+}
+
+.margTMedium {
+    margin-top: 40px !important;
+}
+
+.address-info {
+    position: relative;
+    font-size: 14px;
+    text-align: center;
+}
+
+.address-info i {
+    background: #cd5353;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 28px;
+    height: 90px;
+    left: 50%;
+    line-height: 60px;
+    margin-left: -50px;
+    position: absolute;
+    top: -70px;
+    width: 90px;
+    border: 15px solid #ffffff;
+    border-radius:50px;
+    background-clip: padding-box;
+}
+.address-info p {
+    color: #2d2d2d;
+    font-size: 18px;
+    font-weight:bold;
+    padding-bottom: 40px;
+    padding-top: 40px;
+    line-height: 30px;
+}
+.address-info {
+    font-size: 14px;
+    text-align: center;
+}
+
+
+.contact-info a {
+    color: #999999;
+}
+
+
+.contact-info li {
+    display: inline-block;
+    position: relative;
+    width: 200px;
+}
+
+
+.contact-info ul {
+    padding-bottom: 25px;
+}
+.contact-info ul {
+    list-style: none;
+    padding-bottom: 25px;
+}
+.contact-info li .ico {
+    background: #33373d;
+    color: #ffffff;
+    font-size: 20px;
+    height: 80px;
+    left: 50%;
+    line-height: 52px;
+    margin-left: -36px;
+    position: absolute;
+    top: 43px;
+    width: 80px;
+    border: 15px solid #ffffff;
+    border-radius:50px;
+    background-clip: padding-box;
+}
+.contact-info ul li p{
+    font-size: 14px;
+    font-weight: bold;
+    color: #999999;
+}
