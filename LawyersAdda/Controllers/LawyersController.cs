@@ -428,6 +428,10 @@ namespace LawyersAdda.Controllers
         //DJ sir to modify the query
         public ActionResult SearchLawyers(int page = 1, int pageSize = 4)
         {
+            //Getting Cities 
+            var cities = from r in db.Cities select r;
+            ViewBag.Cities = cities;
+            
             string CityList = Session["CityList"].ToString();
             string LawServiceList = Session["LawServiceList"].ToString();
             List<string> Courts = Session["courtList"] as List<String>;

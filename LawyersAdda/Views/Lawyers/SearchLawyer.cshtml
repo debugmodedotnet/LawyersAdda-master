@@ -8,7 +8,27 @@
 }
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link href="~/Content/SearchLawyer.css" rel="stylesheet" />
-
+    <div class="row">
+        <div class="col-md-10  col-md-offset-1">
+            <select class="form-control input-lg" id="CitySelect">
+                @foreach (var city in @ViewBag.Cities)
+                {
+                    if (Session["CityList"].ToString() == @city.Id)
+                    {
+                        <option class="item" id="@city.Id" value="@city.Id" selected="selected">
+                            @city.CityName
+                        </option>
+                    }
+                    else
+                    { 
+                        <option class="item" id="@city.Id" value="@city.Id">
+                            @city.CityName
+                        </option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="row">
@@ -207,6 +227,7 @@
                 url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
                 type: 'POST',
                 data: {
+                    "CityList": $("#CitySelect").val(),
                     "exp": $("#experience").val(),
                     "courtList": courtList,
                     "lowerFees": lowerRange,
