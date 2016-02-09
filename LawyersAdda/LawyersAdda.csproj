@@ -358,6 +358,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\employee-justina-m-circle.jpg" />
+    <Content Include="images\employee-matthew-a-circle.jpg" />
     <Content Include="images\karunanandi.PNG" />
     <Content Include="images\lawyerconsultingdiv1.jpg" />
     <Content Include="images\r1.jpg" />

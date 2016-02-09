@@ -2,22 +2,24 @@
 @{
     ViewBag.Title = "Register";
 }
+
+<div class="row">
+    <div class="text-banner">
+        <h1>Thanks for becoming lawyerJee member</h1>
+    </div>
+</div>
 <div class="col-md-8 col-md-offset-2">
 
     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal",id="Form1", role = "form" }))
     {
         @Html.AntiForgeryToken()
-        <h4>Setup your account</h4>
-        <hr />
         <div class="form-group">
-            @*@Html.LabelFor(m => m.FullName, new { @class = "col-md-2 control-label" })*@
             <div class="col-md-10 col-md-offset-1">
                 @Html.TextBoxFor(m => m.FullName, new { @class = "form-control input-lg Reset", @placeholder = "Your Full Name" })
                 @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @*@Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })*@
             <div class="col-md-10 col-md-offset-1">
                 @Html.TextBoxFor(m => m.UserName, new { @class = "form-control input-lg Reset", @placeholder = "Provide a UserName" })
                 @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
@@ -25,7 +27,6 @@
             </div>
         </div>
         <div class="form-group">
-            @*@Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })*@
             <div class="col-md-10 col-md-offset-1">
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-lg Reset", @placeholder = "Your Email" })
                 @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
@@ -34,15 +35,17 @@
         </div>
 
         <div class="form-group">
-            @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
             <div class="col-md-10 col-md-offset-1">
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg Reset", @placeholder = "Password must be at least 6 character long" })
                 @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-10 col-md-offset-1">
-                <input type="submit" class="btn btn-warning form-control input-lg" value="Register" />
+            <div class="col-md-4 col-md-offset-2">
+                <input type="submit" class="btnRegister" value="Go" />
+            </div>
+            <div class="col-md-4">
+                <input type="submit" class="btnNotRegister" value="Later" />
             </div>
         </div>
     }
