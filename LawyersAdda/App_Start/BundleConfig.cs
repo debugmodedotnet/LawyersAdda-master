@@ -29,7 +29,9 @@ namespace LawyersAdda
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(                      
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"
+                      "~/Scripts/respond.js",
+                      "~/Scripts/bootstrap3-typeahead.js",
+                      "~/Scripts/underscore-min.js"
                       ));
 
             //it was used before 
@@ -73,7 +75,7 @@ namespace LawyersAdda
             //custom
             bundles.Add(new ScriptBundle("~/bundles/customjs").Include(
                       "~/Scripts/custom/home.js",
-                      
+                      "~/Scripts/custom/CustomTypeahead.js",
                       "~/Scripts/bootstrap-multiselect.js"));
         }
     }

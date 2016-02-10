@@ -406,6 +406,34 @@ namespace LawyersAdda.Controllers
             return Json(context.Lawyers.Select(t=>t.Name).ToList() ,JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetLawyersWithImages()
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+            context.Configuration.ProxyCreationEnabled = false;
+            List<Lawyer> lstlawyers=new List<Lawyer>();
+            lstlawyers=context.Lawyers.ToList();
+            foreach (var l in lstlawyers)
+            {
+                string imgurl = "images/avatar_default.png";
+                List<LawyerImage> lstLawyerImages=new List<LawyerImage>();
+                string[] images = context.LawyerImages.Where(t => t.LawyerId == l.Id).Select(t => t.ImageUrl).ToArray();
+                if(images.Length>0)
+                {
+                    imgurl=images[0];
+                }
+                l.ImageUrl = imgurl;
+            }
+            foreach (var l in lstlawyers)
+            {
+                var cityList = new CitiesController().GetCities();
+                City c=new City();
+                c= cityList.Where(t => t.Id == l.CityId).SingleOrDefault() ;
+                l.City = c;
+            }
+            //return Json(context.Lawyers.Select(t => t.Name).ToList(), JsonRequestBehavior.AllowGet);
+            return Json(lstlawyers.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
         //search params
         public JsonResult SetSearchLawyersParam(string CityList = null, string LawServiceList = null, string exp = null, List<string> courtList = null, string lowerFees = null, string upperFees = null)
         {

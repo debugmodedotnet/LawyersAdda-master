@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using LawyersAdda.Entities;
 using System.Data.Entity;
+using System.Web.Routing;
 
 namespace LawyersAdda.Controllers
 {
@@ -199,6 +200,12 @@ namespace LawyersAdda.Controllers
         {
             Session["UserID"] = User.Identity.GetUserId();
             return View();
+        }
+        public ActionResult MemberProfileByID(string ID)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            string UserName = db.Users.Where(t => t.Id == ID).ToList()[0].UserName;
+            return RedirectToAction("MemberProfile", new RouteValueDictionary(new { controller = "Profile", action = "MemberProfile", ID = UserName }));
         }
         public ActionResult MemberProfile(string ID)
         {

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Bootstrap-3-Typeahead</id>
+    <version>3.1.1</version>
+    <title>Bootstrap 3 Typeahead</title>
+    <authors>Bass Jobsen</authors>
+    <owners>Bass Jobsen</owners>
+    <projectUrl>https://github.com/bassjobsen/Bootstrap-3-Typeahead</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The Typeahead plugin from Twitter's Bootstrap 2 ready to use with Bootstrap 3.</description>
+    <tags>bootstrap typeahead autocomplete</tags>
+    <dependencies>
+      <dependency id="bootstrap" version="3.2.0" />
+    </dependencies>
+  </metadata>
+</package>

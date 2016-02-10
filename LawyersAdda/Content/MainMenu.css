@@ -1,0 +1,33 @@
+﻿.bond {
+      text-align: left;
+}
+.bond img {
+    max-width: 60px;
+    margin-left:5px;
+}
+.dropdown-menu{
+    left:0px;
+}
+.dropdown-menu{
+    padding-left:0px;
+}
+.typeahead-menu {
+    width: 500px;
+    margin-left: 50px;
+}
+.typeahead-menu form {
+    width:100%;
+}
+.typeahead-menu form .typeahead {
+    width:100%;
+}
+@media only screen and (max-width: 500px) {
+    .typeahead-menu {
+        width: 100%;
+        margin-left: 0px;
+    }
+    .bond img {
+        max-width: 20px;
+        margin-left: 5px;
+    }
+}

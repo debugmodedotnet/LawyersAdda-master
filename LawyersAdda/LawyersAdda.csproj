@@ -297,6 +297,7 @@
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\Layout.css" />
     <Content Include="Content\main.css" />
+    <Content Include="Content\MainMenu.css" />
     <Content Include="Content\MemberProfile.css" />
     <Content Include="Content\NanoGallery\css\font\nano_icon_font3.svg" />
     <Content Include="Content\NanoGallery\css\loading.gif" />
@@ -385,6 +386,9 @@
     <Content Include="images\sign_up.png" />
     <Content Include="images\supremecourtindia.jpg" />
     <Content Include="images\swamy.jpg" />
+    <Content Include="Scripts\bootstrap3-typeahead.js" />
+    <Content Include="Scripts\bootstrap3-typeahead.min.js" />
+    <Content Include="Scripts\custom\CustomTypeahead.js" />
     <Content Include="Scripts\jquery.bootstrap-duallistbox.js" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -415,9 +419,6 @@
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\fonts\FontAwesome.otf" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\DS-DIGI.TTF" />
     <Content Include="Content\NanoGallery\css\font\nano_icon_font3.eot" />
     <Content Include="Content\NanoGallery\css\font\nano_icon_font3.ttf" />
@@ -459,6 +460,11 @@
     <Content Include="Content\font-awesome\scss\_rotated-flipped.scss" />
     <Content Include="Content\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\font-awesome\scss\_variables.scss" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.4-vsdoc.js" />
     <Content Include="Scripts\custom\home.js" />
@@ -732,6 +738,7 @@
     <Content Include="Scripts\tinymce\utils\mctabs.js" />
     <Content Include="Scripts\tinymce\utils\validate.js" />
     <Content Include="Scripts\typed.js" />
+    <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\upload.js" />
     <Content Include="Scripts\UploadUserProfilePic.js" />
     <Content Include="Scripts\_references.js" />

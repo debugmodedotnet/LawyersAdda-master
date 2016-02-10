@@ -17,6 +17,7 @@
     @*<link href="~/Content/Layout.css" rel="stylesheet" />*@
 </head>
 <body>
+    <link href="~/Content/MainMenu.css" rel="stylesheet" />
         @*<div class="header_main" style="border-bottom: 1px solid #FF9900">*@
         <header>
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -29,15 +30,21 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a href="#" onclick="location.href='@Url.Action("Index","Home")'">
-
                             <img class="img img-responsive" src="~/images/ljeelogo.png" />
                         </a>
                         @*<a href="#" onclick="location.href='@Url.Action("Index","Home")'"><img src="~/images/logo.png"></a>*@
                     </div>
 
-
-
-                    <div class="navbar-collapse collapse">
+                    <div class="navbar-collapse collapse">                        
+                        <ul class="nav navbar-nav">
+                            <li class="typeahead-menu">
+                                <form class="navbar-form" action="#" role="search">
+                                    <input type="text" id="Lawyer" data-provide="typeahead" autocomplete="off" class="form-control typeahead" name="LawyerName" placeholder="Search Lawyer">
+                                    <br/>
+                                    <input type="hidden" class="span1" name="bondId" id="bondId" value="" />
+                                </form>
+                            </li>
+                        </ul>
                         @Html.Partial("_LoginPartial")
                     </div>
                 </div>
@@ -74,7 +81,6 @@
                 </div>
             </div>
         </footer>*@
-    @RenderSection("scripts", required: false)
-
+            @RenderSection("scripts", required: false)
 </body>
 </html>
