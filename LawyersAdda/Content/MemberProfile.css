@@ -6,6 +6,7 @@
 
 .nopr {
     padding-right: 0;
+    margin-top:150px;
 }
 
 .list-unordered {
@@ -103,7 +104,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: #cd5353;
+    background: #eea236;
     -webkit-transform: scaleX(0);
     -ms-transform: scaleX(0);
     transform: scaleX(0);
@@ -142,7 +143,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: #cd5353;
+    background: #eea236;
     -webkit-transform: scaleX(1);
     -ms-transform: scaleX(1);
     transform: scaleX(1);
@@ -162,7 +163,7 @@
 
 .main-nav li a.active {
     color: #ffffff;
-    background: #cd5353;
+    background: #eea236;
 }
 
 .main-nav ul li a i {
@@ -210,8 +211,8 @@
 
 
 .social a:hover {
-    border: 2px solid #cd5353;
-    color: #cd5353;
+    border: 2px solid #eea236;
+    color: #eea236;
 }
 
 .main-title {
@@ -330,7 +331,7 @@
 }
 
 .address-info i {
-    background: #cd5353;
+    background: #eea236;
     color: #ffffff;
     display: inline-block;
     font-size: 28px;
