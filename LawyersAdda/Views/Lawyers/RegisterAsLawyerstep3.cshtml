@@ -6,7 +6,9 @@
     ViewBag.Title = "AddCourtToLawyer";
 }
 
-<h3 style="text-align:center">Thanks for joining as a Lawyer!</h3>
+<div class="text-banner">
+    <h1>Thanks for joining us as Lawyer !</h1>
+</div>
 <div class="col-md-8 col-md-offset-2">
 
 
@@ -18,43 +20,46 @@
             </div>
             <div class="stepwizard-step">
                 <button class="btn btn-warning btn-circle">2</button>
-                <p>Your Details</p>
+                <p>Details</p>
             </div>
             <div class="stepwizard-step">
                 <button class="btn btn-warning btn-circle">3</button>
-                <p>Add Courts</p>
+                <p>Courts</p>
             </div>
             <div class="stepwizard-step">
                 <button class="btn btn-warning btn-circle" disabled="disabled">4</button>
-                <p>Add Services</p>
+                <p>Services</p>
             </div>
             <div class="stepwizard-step">
                 <button class="btn btn-warning btn-circle" disabled="disabled">5</button>
-                <p>Add Pic</p>
+                <p>Photos</p>
             </div>
             <div class="stepwizard-step">
                 <button class="btn btn-warning btn-circle" disabled="disabled">6</button>
-                <p>Describe Yourself</p>
+                <p>Yourself</p>
             </div>
         </div>
     </div>
 
     
     <div class="row">
-        <h4>Add Courts to your Profile</h4>
-     <hr />
+        <h3 style="text-align:center">Add Courts</h3>
+        <hr />
         <div class="row">
-            <div class="col-md-6">
-                @Html.Label("Select City")
+            <div class="col-md-5">
+                @*@Html.Label("Select City")*@
                 <div class="form-group">
-                    @Html.DropDownList("CityList", new SelectList(string.Empty, "Value", "Text"), "Please select a City", new { @class = "form-control" })
+                    @Html.DropDownList("CityList", new SelectList(string.Empty, "Value", "Text"), "Please select a City", new { @class = "form-control input-lg" })
                 </div>
             </div>
-            <div class="col-md-6">
-                @Html.Label("Select Court")
+            <div class="col-md-5">
+                @*@Html.Label("Select Court")*@
                 <div class="form-group">
-                    @Html.DropDownList("CourtList", new SelectList(string.Empty, "Value", "Text"), "Please select a Court", new { @class = "form-control" })
+                    @Html.DropDownList("CourtList", new SelectList(string.Empty, "Value", "Text"), "Please select a Court", new { @class = "form-control input-lg" })
                 </div>
+            </div>
+            <div class="col-md-2">
+                <button id="btnAddCourts" class="btnAddLawyerRegisterStep3 form-control">add</button>
             </div>
         </div>
 
@@ -62,9 +67,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <button id="btnAddCourts" class="btn btn-default form-control"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add</button>
-        </div>
+        
     </div>
     <br />
 
@@ -81,7 +84,7 @@
     <br />
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            <button id="btnSaveStep2" style="visibility:hidden" class="btn form-control btn-warning">Save and Go to next step</button>
+            <button id="btnSaveStep2" style="visibility:hidden" class="form-control btnRegister">Save and add Services</button>
         </div>
     </div>
     </div>

@@ -9,6 +9,7 @@
 </div>
 
 <br/>
+
 <div class="col-md-8 col-md-offset-2">
 
     <div class="stepwizard">
@@ -45,7 +46,7 @@
     @using (Html.BeginForm("RegisterAsLawyerstep1", "Lawyers", FormMethod.Post, new { @class = "form-horizontal",id="Form1",role = "form" }))
     {
         @Html.AntiForgeryToken()
-        <h4>Setup your account</h4>
+        <h3 style="text-align:center">Create Account</h3>
         <hr />
         <div class="form-group form-group-lg">          
             <div class="col-md-10 col-md-offset-1">
@@ -88,7 +89,7 @@
 
         <div class="form-group">
             <div class="col-md-10 col-md-offset-1">
-                <input type="submit" class="form-control btnRegister" value="Save and go to step 2" />
+                <input type="submit" class="form-control btnRegister" value="Save and add Details" />
             </div>
         </div>
     }
