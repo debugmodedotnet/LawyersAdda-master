@@ -149,7 +149,7 @@
                 var cityid = $("#CityList option:selected").val();
                 var courtname = $("#CourtList option:selected").text();
                 var courtid = $("#CourtList option:selected").val();
-                if (courtname == "") {
+                if (courtname == "" || courtname == "Please select a Court") {
                     alert("Court is Empty");
                 }
                 else {
@@ -214,6 +214,10 @@
             courtsoflawyer.splice(indexOfArray, 1)
             courtListToSave.splice(indexOfArray, 1)
             console.log($(btnCurrent).parent().parent().remove());
+            if (courtListToSave.length == 0) {
+                $("#courttable").css('visibility', 'hidden');
+                $("#btnSaveStep2").css('visibility', 'hidden');
+            }
         }
 
     </script>

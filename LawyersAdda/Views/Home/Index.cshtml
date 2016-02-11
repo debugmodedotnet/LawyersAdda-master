@@ -29,9 +29,17 @@
 
                     </div>
                     <div class="col-md-6" style="margin-bottom:5px;">
-                        <input id="project" class="form-control input-lg" placeholder="Select Service or Type Lawyer Name">
+                        <select class="form-control input-lg" id="ServicesSelect">
+                            @foreach (var item in ViewBag.LawServices)
+                            {
+                                <option class="item" id="@item.Id" value="@item.Id">
+                                    @item.Name
+                                </option>
+                            }
+                        </select>
+                        @*<input id="project" class="form-control input-lg" placeholder="Select Service or Type Lawyer Name">
                         <input id="projectVal" type="hidden" />
-                        <input id="categ" type="hidden" />
+                        <input id="categ" type="hidden" />*@
                     </div>
                 </div>
                 <div class="row" style="margin-top:10px;">
@@ -138,7 +146,7 @@
 
 <script src="~/Scripts/typed.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
-<script>
+<script>    
     $(function () {
         $("span.TypedContent").typed({
             strings: ["Search Lawyers", "Legal Consulting", "Legal Documentations"],
@@ -147,7 +155,20 @@
             backSpeed: 100,
             loop: true
         });
-
+        $("#searchLawyer").click(function () {
+            $.ajax({
+                url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
+                type: 'POST',
+                data: {
+                    "LawServiceList": $("#ServicesSelect").val(),
+                    "CityList": $("#CitySelect").val()
+                },
+                success: function (data) {
+                    var url = '@Url.Action("SearchLawyers", "Lawyers")';
+                    window.location.href = url;
+                }
+            });
+        });
         $(window).on("load resize", function () {
             $(".fill-screen").css("height", window.innerHeight);
             $(".fill-screen1").css("height", window.innerHeight * 0.2);

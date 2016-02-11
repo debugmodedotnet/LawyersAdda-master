@@ -4,7 +4,22 @@
 
 }
 <link href="~/Content/bootstrap-duallistbox.css" rel="stylesheet" />
-<h3 style="text-align:center">Thanks for joining as a Lawyer!</h3>
+<style>
+    .bootstrap-duallistbox-container .btn.moveall,
+    .bootstrap-duallistbox-container .btn.removeall {
+        display: none;
+    }
+    .bootstrap-duallistbox-container .btn.move,
+    .bootstrap-duallistbox-container .btn.remove {
+        width: 100%;
+    }
+    .bootstrap-duallistbox-container .info-container{
+        display:none;
+    }
+</style>
+<div class="text-banner">
+    <h1>Thanks for joining us as Lawyer !</h1>
+</div>
 <div class="col-md-8 col-md-offset-2">
 
 
@@ -59,15 +74,19 @@
     </div>
     <br />
     <div class="row text-center">
-        <input type="button" class="btn-success btn" onclick="addServiceToLawyer()" value="Save and go to next step" />
+        <button id="btnSaveStep2" class="form-control btnRegister" onclick="addServiceToLawyer();">
+            Save and go to next step
+        </button>
+        <br /><br />
+            @*<input type="button" class="btn-success btn" onclick="addServiceToLawyer()" value="" />*@
     </div>
 </div>
 <script src="~/Scripts/jquery.bootstrap-duallistbox.js"></script>
 <script>
 
     var DualListBox = $('.DualListBox').bootstrapDualListbox({
-        nonSelectedListLabel: 'Non-selected Services',
-        selectedListLabel: 'Selected Service',
+        nonSelectedListLabel: 'Select Services',
+        selectedListLabel: 'Your Services',
         preserveSelectionOnMove: 'moved',
         moveOnSelect: false,
     });

@@ -459,7 +459,9 @@ namespace LawyersAdda.Controllers
             //Getting Cities 
             var cities = from r in db.Cities select r;
             ViewBag.Cities = cities;
-            
+            var lawservices = from r in db.ServiceTypes select r;
+            ViewBag.LawServices = lawservices;
+
             string CityList = Session["CityList"].ToString();
             string LawServiceList = Session["LawServiceList"].ToString();
             List<string> Courts = Session["courtList"] as List<String>;

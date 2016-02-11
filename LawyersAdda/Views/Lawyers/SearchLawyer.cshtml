@@ -9,29 +9,51 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link href="~/Content/SearchLawyer.css" rel="stylesheet" />
     <div class="row">
-        <div class="col-md-10  col-md-offset-1">
-            <select class="form-control input-lg" id="CitySelect">
-                @foreach (var city in @ViewBag.Cities)
-                {
-                    if (Session["CityList"].ToString() == @city.Id)
-                    {
-                        <option class="item" id="@city.Id" value="@city.Id" selected="selected">
-                            @city.CityName
-                        </option>
-                    }
-                    else
-                    { 
-                        <option class="item" id="@city.Id" value="@city.Id">
-                            @city.CityName
-                        </option>
-                    }
-                }
-            </select>
-        </div>
-    </div>
-    <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="row">
+                <div class="col-md-4">
+                    <select class="form-control input-lg" id="CitySelect">
+                        @foreach (var city in @ViewBag.Cities)
+                    {
+                        if (Session["CityList"].ToString() == @city.Id)
+                        {
+                            <option class="item" id="@city.Id" value="@city.Id" selected="selected">
+                                @city.CityName
+                            </option>
+                        }
+                        else
+                        {
+                            <option class="item" id="@city.Id" value="@city.Id">
+                                @city.CityName
+                            </option>
+                        }
+                    }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-control input-lg" id="ServicesSelect">
+                        @foreach (var Service in @ViewBag.LawServices)
+                        {
+                            if (Session["LawServiceList"].ToString() == @Service.Id)
+                            {
+                                <option class="item" id="@Service.Id" value="@Service.Id" selected="selected">
+                                    @Service.Name
+                                </option>
+                            }
+                            else
+                            {
+                                <option class="item" id="@Service.Id" value="@Service.Id">
+                                    @Service.Name
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btnSearch" id="searchLawyer">Search</button>
+                </div>
+            </div>
+            @*<div class="row">
                 <div class="col-md-3">
                     <label class="filter-col" style="margin-right:0;" for="pref-perpage">Experience</label>
                     <select id="experience" class="form-control">
@@ -57,100 +79,126 @@
                         <span class="glyphicon glyphicon-filter"></span> Redefine Search Result
                     </button>
                 </div>
-            </div>
+            </div>*@
             <div class="divider"></div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-                @foreach (var item in Model)
-                {
-                    <div class="row">
-                        <div class="imgLawyerContainer col-md-3">
-                            @if(item.ImageUrl != null)
-                            {
-                                <img class="imgLawyer pull-left img-thumbnail" src="@item.ImageUrl" />
-                            }
-                            else
-                            {
-                                <img class="imgLawyer pull-left" src="~/images/avatar_default.png" />
-                            }
-                        </div>
-                        <div class="col-md-7">
-                            <div class="title">
-                                <div class="titleName"><a href="~/Profile/MemberProfile/@item.User.UserName">Adv. @item.Name</a></div>
-                                <div class="CityAndWebsite"><i class="glyphicon glyphicon-map-marker"> </i> @item.City.CityName  |  <i class="glyphicon glyphicon-globe"> </i> <a href="@item.WebSiteUrl"> @item.WebSiteUrl</a> </div>
-                                @if (item.Bio != null)
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="filter-col" style="margin-right:0;" for="pref-perpage">Experience</label>
+                    <select id="experience" class="form-control">
+                        <option value="">Select experience</option>
+                        <option value="1"> < 2 Years</option>
+                        <option value="2"> > 2 and < 5 Years</option>
+                        <option value="3"> > 5 Years</option>
+                    </select>
+                    <br />
+                    <label class="filter-col" style="margin-right:0;" for="courts">Choose Court</label>
+                    <br />
+                    <select class="form-control" id="courtList" multiple="multiple"></select>
+                    <br />
+                    <br />
+                    <label id="amount" class="filter-col" style="margin-right:0;" for="amount">Consulting fees:</label>
+                    <br />
+                    <div class="form-control" style="margin-top:10px;" id="slider-range"></div>
+                    <br />
+                    <button type="button" id="applyFilter" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-filter"></span> Redefine Search Result
+                    </button>
+                </div>
+                <div class="col-md-9">
+                    @foreach (var item in Model)
+                    {
+                        <div class="row">
+                            <div class="imgLawyerContainer col-md-3">
+                                @if (item.ImageUrl != null)
                                 {
-                                    Regex regex = new Regex("\\<[^\\>]*\\>");
-                                    string ss = Html.Raw(item.Bio).ToHtmlString();
-                                    ss=ss.Replace("&nbsp;", "");
-                                    string strLT = ss.Replace("&lt;", "<");
-                                    string strGT = strLT.Replace("&gt;", ">");
-                                    string finalStr = regex.Replace(strGT, String.Empty);
-                                    finalStr=finalStr.Replace("<br/>","");
-                                    if (finalStr.Length > 200)
-                                    {
-                                        <div>@finalStr.Substring(0, 200) ...</div>
-                                    }
-                                    else
-                                    {
-                                        <div>@finalStr</div>
-                                    }
+                                    <img class="imgLawyer pull-left img-thumbnail" src="@item.ImageUrl" />
+                                }
+                                else
+                                {
+                                    <img class="imgLawyer pull-left" src="~/images/avatar_default.png" />
                                 }
                             </div>
-                            <div class="row">
-                                <div class="col-xs-2 lblLeft">Services: </div>
-                                <div class="col-xs-10">
-                                    @foreach (var service in item.ServiceTypes)
+                            <div class="col-md-7">
+                                <div class="title">
+                                    <div class="titleName"><a href="~/Profile/MemberProfile/@item.User.UserName">Adv. @item.Name</a></div>
+                                    <div class="CityAndWebsite"><i class="glyphicon glyphicon-map-marker"> </i> @item.City.CityName  |  <i class="glyphicon glyphicon-globe"> </i> <a href="@item.WebSiteUrl"> @item.WebSiteUrl</a> </div>
+                                    @if (item.Bio != null)
                                     {
-                                        if (service != item.ServiceTypes.Last())
+                                        Regex regex = new Regex("\\<[^\\>]*\\>");
+                                        string ss = Html.Raw(item.Bio).ToHtmlString();
+                                        ss = ss.Replace("&nbsp;", "");
+                                        string strLT = ss.Replace("&lt;", "<");
+                                        string strGT = strLT.Replace("&gt;", ">");
+                                        string finalStr = regex.Replace(strGT, String.Empty);
+                                        finalStr = finalStr.Replace("<br/>", "");
+                                        if (finalStr.Length > 200)
                                         {
-                                            <a href="#"> @service.Name, </a>
+                                            <div>@finalStr.Substring(0, 200) ...</div>
                                         }
                                         else
                                         {
-                                            <a href="#"> @service.Name</a>
+                                            <div>@finalStr</div>
                                         }
                                     }
                                 </div>
-                            </div>
-                            <div class="row">
-                                @if (item.Courts.Count > 0)
-                                {
-                                    <div class="col-xs-2 lblLeft">Courts: </div>
+                                <div class="row">
+                                    <div class="col-xs-2 lblLeft">Services: </div>
                                     <div class="col-xs-10">
-                                        @foreach (var court in item.Courts)
+                                        @foreach (var service in item.ServiceTypes)
                                         {
-                                            if (court != item.Courts.Last())
+                                            if (service != item.ServiceTypes.Last())
                                             {
-                                                <a href="#"> @court.Name, </a>
+                                                <a href="#"> @service.Name, </a>
                                             }
                                             else
                                             {
-                                                <a href="#"> @court.Name</a>
+                                                <a href="#"> @service.Name</a>
                                             }
                                         }
                                     </div>
-                                }
+                                </div>
+                                <div class="row">
+                                    @if (item.Courts.Count > 0)
+                                    {
+                                        <div class="col-xs-2 lblLeft">Courts: </div>
+                                        <div class="col-xs-10">
+                                            @foreach (var court in item.Courts)
+                                            {
+                                                if (court != item.Courts.Last())
+                                                {
+                                                    <a href="#"> @court.Name, </a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="#"> @court.Name</a>
+                                                }
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <i class="glyphicon glyphicon-earphone"> </i> @item.PhoneNumber  |  <i class="glyphicon glyphicon-envelope"> </i> @item.Email
+                                    </div>
+                                </div>
                             </div>
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <i class="glyphicon glyphicon-earphone"> </i> @item.PhoneNumber  |  <i class="glyphicon glyphicon-envelope"> </i> @item.Email
+                            <div class="col-md-2 text-center">
+                                <div class="HourlyCharge">
+                                    &#8377; @item.HourlyRate <br />
+                                </div>
+                                <div class="PerHour">
+                                    per/hour
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 text-center">
-                            <div class="HourlyCharge">
-                               &#8377; @item.HourlyRate <br />
-                            </div>
-                            <div class="PerHour">
-                                per/hour
-                            </div>
-                        </div>
-                    </div>
-                    <div class="divider"></div>
-                }
+                        <div class="divider"></div>
+                    }
+                </div>
+            </div>
         </div>
     </div>
     <div class="pagedList text-center">
@@ -232,6 +280,20 @@
                     "courtList": courtList,
                     "lowerFees": lowerRange,
                     "upperFees": upperRange
+                },
+                success: function (data) {
+                    var url = '@Url.Action("SearchLawyers", "Lawyers")';
+                    window.location.href = url;
+                }
+            });
+        });
+        $("#searchLawyer").click(function () {
+            $.ajax({
+                url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
+                type: 'POST',
+                data: {
+                    "LawServiceList": $("#ServicesSelect").val(),
+                    "CityList": $("#CitySelect").val()
                 },
                 success: function (data) {
                     var url = '@Url.Action("SearchLawyers", "Lawyers")';
