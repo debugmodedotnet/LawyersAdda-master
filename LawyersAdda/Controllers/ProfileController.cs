@@ -15,6 +15,7 @@ namespace LawyersAdda.Controllers
     {
         //
         // GET: /Profile/
+        [Authorize]
         public ActionResult Index()
         {
             ApplicationDbContext Context = new ApplicationDbContext();
@@ -82,6 +83,7 @@ namespace LawyersAdda.Controllers
                 return View("UserProfile", lstQuestions);
             }
         }
+        [Authorize]
         [HttpPost]
         public ActionResult GetQuestions(int? Order, int? SelectQuestion)
         {
@@ -126,6 +128,7 @@ namespace LawyersAdda.Controllers
             }
             return Json(lstQuestions,JsonRequestBehavior.AllowGet);
         }
+        [Authorize]
         public ActionResult Edit()
         {
             ApplicationDbContext Context = new ApplicationDbContext();
@@ -156,6 +159,7 @@ namespace LawyersAdda.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
+        [Authorize]
         public ActionResult EditLawyer([Bind(Include = "Id,CreatedDate,ModifiedDate,CreatedBy,ModifiedBy,ImageUrl,Bio,Name,Email,PhoneNumber,AlternatePhoneNumber,Sex,WebSiteUrl,CityId")] Lawyer lawyer)
         {
             ApplicationDbContext Context = new ApplicationDbContext();
@@ -178,6 +182,7 @@ namespace LawyersAdda.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
+        [Authorize]
         public ActionResult EditUser(ApplicationUser user)
         {
             ApplicationDbContext Context = new ApplicationDbContext();
@@ -195,12 +200,12 @@ namespace LawyersAdda.Controllers
             }
             return RedirectToAction("Index");
         }
-
+        [Authorize]
         public ActionResult AddUserProfilePic()
         {
             Session["UserID"] = User.Identity.GetUserId();
             return View();
-        }
+        }        
         public ActionResult MemberProfileByID(string ID)
         {
             ApplicationDbContext db = new ApplicationDbContext();

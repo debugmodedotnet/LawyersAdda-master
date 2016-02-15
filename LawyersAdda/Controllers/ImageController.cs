@@ -15,6 +15,7 @@ using Microsoft.AspNet.Identity;
 
 namespace LawyersAdda.Controllers
 {
+    [Authorize]
     public class ImageController : Controller
     {
 

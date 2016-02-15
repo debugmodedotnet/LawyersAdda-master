@@ -208,8 +208,8 @@
     <div class="pagedList text-center">
         @if (@Model.Count > 0)
         {
-            @*@Html.PagedListPager(Model, page => Url.Action("SearchLawyers", new { page }))
-            <p>Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Lawyers found</p>*@
+            @Html.PagedListPager(Model, page => Url.Action("SearchLawyers", new { page }))
+            <p>Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount Lawyers found</p>
         }
         else
         {

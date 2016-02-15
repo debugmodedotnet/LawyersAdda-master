@@ -152,13 +152,14 @@ namespace LawyersAdda.Controllers
             return View(model);
             //  AddErrors(result);
         }
-
+        [Authorize]
         public ActionResult RegisterAsLawyerstep2()
         {
             var cityList = new CitiesController().GetCities();
             ViewBag.city = cityList;
             return View();
         }
+        [Authorize]
         [HttpPost]
         [AllowAnonymous]
         public ActionResult RegisterAsLawyerstep2(RegisterAsLawyerstep2ViewModel model)
@@ -224,6 +225,7 @@ namespace LawyersAdda.Controllers
         }
 
         // GET: Lawyers/Create
+        [Authorize]
         public ActionResult RegisterAsLawyerstep3()
         {
             //   var cid = TempData["Lcity"].ToString();
@@ -236,6 +238,7 @@ namespace LawyersAdda.Controllers
         }
 
         // GET: Lawyers/Create
+        [Authorize]
         public ActionResult RegisterAsLawyerstep4()
         {
             var ListofServices = (from r in db.ServiceTypes select r);
@@ -244,15 +247,17 @@ namespace LawyersAdda.Controllers
         }
 
         // GET: Lawyers/Create
+        [Authorize]
         public ActionResult RegisterAsLawyerstep5()
         {
             return View();
         }
-
+        [Authorize]
         public ActionResult RegisterAsLawyerstep6()
         {
             return View();
         }
+        [Authorize]
         [HttpPost]
         public ActionResult RegisterAsLawyerstep6(RegisterAsLawyerstep6ViewModel model)
         {
@@ -287,6 +292,7 @@ namespace LawyersAdda.Controllers
         }
 
         //get laywer object by id
+        [Authorize]
         public Lawyer GetLawyerById(string id)
         {
             var lawyer = db.Lawyers.Find(id);
@@ -294,6 +300,7 @@ namespace LawyersAdda.Controllers
         }
 
         //add court to lawyer
+        [Authorize]
         public JsonResult SaveCourtsToLawyers(List<string> courts)
         {
             var l = GetLawyerById(User.Identity.GetUserId().ToString());
@@ -314,6 +321,7 @@ namespace LawyersAdda.Controllers
         }
 
         //add services to lawyer
+        [Authorize]
         public JsonResult SaveServicesToLawyers(List<string> services)
         {
             var l = GetLawyerById(User.Identity.GetUserId().ToString());
@@ -400,6 +408,7 @@ namespace LawyersAdda.Controllers
                 _signInManager = value;
             }
         }
+
         public ActionResult GetLawyers()
         {
             ApplicationDbContext context = new ApplicationDbContext();

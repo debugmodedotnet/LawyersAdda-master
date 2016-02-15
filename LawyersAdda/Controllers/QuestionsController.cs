@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace LawyersAdda.Controllers
 {
+    [Authorize]
     public class QuestionsController : Controller
     {
         //
