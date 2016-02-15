@@ -471,13 +471,31 @@ namespace LawyersAdda.Controllers
             List<ServiceType> lstServices;
             List<Court> lstCourts;
             List<Lawyer> lstLawyers;
-            lstServices = context.ServiceTypes.Where(t=>t.Id == LawServiceList).ToList();
-            lstCourts = context.Courts.ToList();
-            lstLawyers = context.Lawyers.Where(t=>t.CityId== CityList
-                            && (t.ServiceTypes.Any(u=>u.Id == LawServiceList.ToString())) 
-                            && (t.HourlyRate > lowerFees)
-                            && (upperFees == 0 || t.HourlyRate < upperFees)
-                            ).ToList();
+            if (LawServiceList == "Any")
+            {
+                lstServices = context.ServiceTypes.ToList();
+                lstCourts = context.Courts.ToList();
+                lstLawyers = context.Lawyers.Where(t => t.CityId == CityList
+                                && (t.HourlyRate > lowerFees)
+                                && (upperFees == 0 || t.HourlyRate < upperFees)
+                                ).ToList();
+            }
+            else
+            {
+                lstServices = context.ServiceTypes.Where(t => t.Id == LawServiceList).ToList();
+                lstCourts = context.Courts.ToList();
+                lstLawyers = context.Lawyers.Where(t => t.CityId == CityList
+                                && (t.ServiceTypes.Any(u => u.Id == LawServiceList.ToString()))
+                                && (t.HourlyRate > lowerFees)
+                                && (upperFees == 0 || t.HourlyRate < upperFees)
+                                ).ToList();
+            }
+            //lstCourts = context.Courts.ToList();
+            //lstLawyers = context.Lawyers.Where(t=>t.CityId== CityList
+            //                && (t.ServiceTypes.Any(u=>u.Id == LawServiceList.ToString())) 
+            //                && (t.HourlyRate > lowerFees)
+            //                && (upperFees == 0 || t.HourlyRate < upperFees)
+            //                ).ToList();
             foreach (Lawyer l in lstLawyers)
             {
                 context.Entry(l).Collection(t => t.ServiceTypes).Load();

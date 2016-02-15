@@ -8,10 +8,10 @@
 }
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link href="~/Content/SearchLawyer.css" rel="stylesheet" />
-    <div class="row">
+    <div class="row" style="margin-top:10px;">
         <div class="col-md-10 col-md-offset-1">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <select class="form-control input-lg" id="CitySelect">
                         @foreach (var city in @ViewBag.Cities)
                     {
@@ -30,8 +30,9 @@
                     }
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <select class="form-control input-lg" id="ServicesSelect">
+                        <option class="item">Any</option>
                         @foreach (var Service in @ViewBag.LawServices)
                         {
                             if (Session["LawServiceList"].ToString() == @Service.Id)
@@ -49,8 +50,8 @@
                         }
                     </select>
                 </div>
-                <div class="col-md-4">
-                    <button class="btn btnSearch" id="searchLawyer">Search</button>
+                <div class="col-md-2">
+                    <button class="btn btnSearch form-control" id="searchLawyer">Search</button>
                 </div>
             </div>
             @*<div class="row">

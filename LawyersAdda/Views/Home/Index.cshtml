@@ -30,6 +30,7 @@
                     </div>
                     <div class="col-md-6" style="margin-bottom:5px;">
                         <select class="form-control input-lg" id="ServicesSelect">
+                            <option class="item">Any</option>
                             @foreach (var item in ViewBag.LawServices)
                             {
                                 <option class="item" id="@item.Id" value="@item.Id">
