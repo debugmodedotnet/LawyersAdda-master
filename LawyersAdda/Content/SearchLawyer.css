@@ -121,3 +121,17 @@
     -webkit-transition: none;
     transition: none;
 }
+.modal-dialog {
+  height: 80% !important;
+  padding-top:10%;
+}
+
+.modal-content {
+  /*height: 100% !important;*/
+  overflow:visible;
+}
+
+.modal-body {
+  height: 80%;
+  overflow: auto;
+}
