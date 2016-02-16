@@ -15,7 +15,7 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="row">
                 <div class="col-md-5">
-                    <select class="form-control input-lg" id="CitySelect">
+                    <select class="form-control input-lg" id="CitySelectSearch">
                         @foreach (var city in @ViewBag.Cities)
                     {
                         if (Session["CityList"].ToString() == @city.Id)
@@ -312,12 +312,17 @@
             });
         });
         $("#searchLawyer").click(function () {
+            //changing local storag            
+                var cityid = $("#CitySelectSearch").val()
+                var selText = $("#CitySelectSearch option:selected").text();
+                localStorage.setItem("MenuCityName", selText);
+                localStorage.setItem("MenuCityId", cityid);
             $.ajax({
                 url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
                 type: 'POST',
                 data: {
                     "LawServiceList": $("#ServicesSelect").val(),
-                    "CityList": $("#CitySelect").val()
+                    "CityList": $("#CitySelectSearch").val()
                 },
                 success: function (data) {
                     var url = '@Url.Action("SearchLawyers", "Lawyers")';
