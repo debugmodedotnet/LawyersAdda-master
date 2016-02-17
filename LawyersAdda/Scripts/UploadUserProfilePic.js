@@ -22,7 +22,7 @@
         progress.style.display = "inline";
         $.ajax({
             type: "POST",
-            url: 'http://localhost:63025/Image/AddUserImage',
+            url: '/Image/AddUserImage',
             contentType: false,
             processData: false,
             data: data,
