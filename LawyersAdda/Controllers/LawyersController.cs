@@ -470,45 +470,53 @@ namespace LawyersAdda.Controllers
             ViewBag.Cities = cities;
             var lawservices = from r in db.ServiceTypes select r;
             ViewBag.LawServices = lawservices;
+            List<Lawyer> lstLawyers=new List<Lawyer>();
+            try
+            {
+                string CityList = Session["CityList"].ToString();
+                string LawServiceList = Session["LawServiceList"].ToString();
+                List<string> Courts = Session["courtList"] as List<String>;
+                double lowerFees = Convert.ToDouble(Session["lowerFees"]);
+                double upperFees = Convert.ToDouble(Session["upperFees"]);
+                ApplicationDbContext context = new ApplicationDbContext();
+                List<ServiceType> lstServices;
+                List<Court> lstCourts;
+                //List<Lawyer> lstLawyers;
+                if (LawServiceList == "Any")
+                {
+                    lstServices = context.ServiceTypes.ToList();
+                    lstCourts = context.Courts.ToList();
+                    lstLawyers = context.Lawyers.Where(t => t.CityId == CityList
+                                    && (t.HourlyRate > lowerFees)
+                                    && (upperFees == 0 || t.HourlyRate < upperFees)
+                                    ).ToList();
+                }
+                else
+                {
+                    lstServices = context.ServiceTypes.Where(t => t.Id == LawServiceList).ToList();
+                    lstCourts = context.Courts.ToList();
+                    lstLawyers = context.Lawyers.Where(t => t.CityId == CityList
+                                    && (t.ServiceTypes.Any(u => u.Id == LawServiceList.ToString()))
+                                    && (t.HourlyRate > lowerFees)
+                                    && (upperFees == 0 || t.HourlyRate < upperFees)
+                                    ).ToList();
+                }
+                //lstCourts = context.Courts.ToList();
+                //lstLawyers = context.Lawyers.Where(t=>t.CityId== CityList
+                //                && (t.ServiceTypes.Any(u=>u.Id == LawServiceList.ToString())) 
+                //                && (t.HourlyRate > lowerFees)
+                //                && (upperFees == 0 || t.HourlyRate < upperFees)
+                //                ).ToList();
+                foreach (Lawyer l in lstLawyers)
+                {
+                    context.Entry(l).Collection(t => t.ServiceTypes).Load();
+                    context.Entry(l).Collection(t => t.Courts).Load();
+                }
+                //PagedList<Lawyer> model = new PagedList<Lawyer>(lstLawyers, page, pageSize);
+            }
+            catch (Exception ex)
+            {
 
-            string CityList = Session["CityList"].ToString();
-            string LawServiceList = Session["LawServiceList"].ToString();
-            List<string> Courts = Session["courtList"] as List<String>;
-            double lowerFees = Convert.ToDouble(Session["lowerFees"]);
-            double upperFees = Convert.ToDouble(Session["upperFees"]);
-            ApplicationDbContext context = new ApplicationDbContext();
-            List<ServiceType> lstServices;
-            List<Court> lstCourts;
-            List<Lawyer> lstLawyers;
-            if (LawServiceList == "Any")
-            {
-                lstServices = context.ServiceTypes.ToList();
-                lstCourts = context.Courts.ToList();
-                lstLawyers = context.Lawyers.Where(t => t.CityId == CityList
-                                && (t.HourlyRate > lowerFees)
-                                && (upperFees == 0 || t.HourlyRate < upperFees)
-                                ).ToList();
-            }
-            else
-            {
-                lstServices = context.ServiceTypes.Where(t => t.Id == LawServiceList).ToList();
-                lstCourts = context.Courts.ToList();
-                lstLawyers = context.Lawyers.Where(t => t.CityId == CityList
-                                && (t.ServiceTypes.Any(u => u.Id == LawServiceList.ToString()))
-                                && (t.HourlyRate > lowerFees)
-                                && (upperFees == 0 || t.HourlyRate < upperFees)
-                                ).ToList();
-            }
-            //lstCourts = context.Courts.ToList();
-            //lstLawyers = context.Lawyers.Where(t=>t.CityId== CityList
-            //                && (t.ServiceTypes.Any(u=>u.Id == LawServiceList.ToString())) 
-            //                && (t.HourlyRate > lowerFees)
-            //                && (upperFees == 0 || t.HourlyRate < upperFees)
-            //                ).ToList();
-            foreach (Lawyer l in lstLawyers)
-            {
-                context.Entry(l).Collection(t => t.ServiceTypes).Load();
-                context.Entry(l).Collection(t => t.Courts).Load();
             }
             PagedList<Lawyer> model = new PagedList<Lawyer>(lstLawyers, page, pageSize);
             return View("SearchLawyer", model);
