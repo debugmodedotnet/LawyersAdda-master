@@ -74,7 +74,7 @@
             <img src="~/images/legal_consulting.png" />
             <h2>Legal Consulting</h2>
             <p class="txtDes">The law is complex, but we make it easy to get expert answers from seasoned lawyers.</p>
-            <button class="btnmore">More</button>
+            <button class="btnmore" id="legalConsulting">More</button>
         </div>
         <div class="activity-element col-md-4 wow fadeInLeft">
 
@@ -176,7 +176,9 @@
             new WOW().init();
             
         })
-        
+        $("#legalConsulting").click(function () {
+            window.location.href = "/Questions/AskQuestion"
+        });
         $(document).ready(function () {
             
             var selectedValue = localStorage.getItem("MenuCityId")

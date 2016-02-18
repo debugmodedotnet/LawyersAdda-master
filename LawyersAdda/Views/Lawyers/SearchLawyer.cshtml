@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link href="~/Content/SearchLawyer.css" rel="stylesheet" />
     <div class="row" style="margin-top:10px;">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-10 col-md-offset-1" id="SearchingDiv">
             <div class="row">
                 <div class="col-md-5">
                     <select class="form-control input-lg" id="CitySelectSearch">
@@ -20,15 +20,15 @@
                     {
                         if (Session["CityList"].ToString() == @city.Id)
                         {
-                            <option class="item" id="@city.Id" value="@city.Id" selected="selected">
-                                @city.CityName
-                            </option>
+                        <option class="item" id="@city.Id" value="@city.Id" selected="selected">
+                            @city.CityName
+                        </option>
                         }
                         else
                         {
-                            <option class="item" id="@city.Id" value="@city.Id">
-                                @city.CityName
-                            </option>
+                        <option class="item" id="@city.Id" value="@city.Id">
+                            @city.CityName
+                        </option>
                         }
                     }
                     </select>
@@ -40,15 +40,15 @@
                         {
                             if (Session["LawServiceList"].ToString() == @Service.Id)
                             {
-                                <option class="item" id="@Service.Id" value="@Service.Id" selected="selected">
-                                    @Service.Name
-                                </option>
+                        <option class="item" id="@Service.Id" value="@Service.Id" selected="selected">
+                            @Service.Name
+                        </option>
                             }
                             else
                             {
-                                <option class="item" id="@Service.Id" value="@Service.Id">
-                                    @Service.Name
-                                </option>
+                        <option class="item" id="@Service.Id" value="@Service.Id">
+                            @Service.Name
+                        </option>
                             }
                         }
                     </select>
@@ -91,6 +91,9 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="row" style="overflow:hidden">
                 <div class="col-md-3" style="margin-bottom: -99999px; padding-bottom: 99999px; background-color: #ccc; padding-top: 40px;">
+                    <button type="button" id="redefineSearch" class="btn btn-warning">
+                         Redefine Search 
+                    </button><br />
                     <label class="filter-col" style="margin-right:0;" for="pref-perpage">Experience</label>
                     <select id="experience" class="form-control">
                         <option value="">Select experience</option>
@@ -109,7 +112,7 @@
                     <div class="form-control" style="margin-top:10px;" id="slider-range"></div>
                     <br />
                     <button type="button" id="applyFilter" class="btn btn-warning">
-                        <span class="glyphicon glyphicon-filter"></span> Redefine Search Result
+                        <span class="glyphicon glyphicon-filter"></span> Filter
                     </button>
                 </div>
                 <div class="col-md-9">
@@ -242,6 +245,10 @@
         if (ShowPopup == true) {
             $("#NoLawyerFound").show();
         }
+        $("#SearchingDiv").hide();
+        $("#redefineSearch").click(function () {
+            $("#SearchingDiv").slideToggle(1000);
+        });
         var cityName = document.getElementById("cityName");
         //cityName.innerHTML = localStorage.getItem("MenuCityName");
 

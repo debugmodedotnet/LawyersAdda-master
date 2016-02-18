@@ -5,68 +5,90 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="row" style="overflow:hidden">
+    <div class="col-md-3 col-md-offset-1" style="margin-bottom: -99999px; padding-bottom: 99999px; background-color: #ccc; padding-top: 40px;">
 
-
-<div class="col-md-8 col-md-offset-2">
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <div class="form-horizontal">
-            <h4>Enter Your Query In Details Below</h4>
-            <hr />
-            <div class="form-group">
-                @*@Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })*@
-                <div class="col-md-10 col-md-offset-1">
-                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control input-lg", @placeholder="Question Title" } })
-                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-1">
-                    @Html.LabelFor(model => model.HTMLText, "Question in Detail", new { @class = "control-label" })
-                    @Html.EditorFor(model => model.HTMLText, new { htmlAttributes = new { @class = "form-control input-lg" } })
-                    @Html.HiddenFor(model => model.PlainText)
-                    @Html.ValidationMessageFor(model => model.HTMLText)
-                </div>
-            </div>
-            <div class="form-group">
-                @*@Html.LabelFor(model => model.ServiceID, "Service", new { @class = "control-label col-md-2" })*@
-                <div class="col-md-10 col-md-offset-1">
-                    @Html.DropDownList("ServiceID", new SelectList(ViewBag.LawServices, "Id", "Name"), "Select Service", new { @id = "ServiceList", @class = "form-control input-lg" })<br />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-10 col-md-offset-1">
-                    <input type="submit" value="Submit Question" class="btn btn-warning form-control input-lg" />
-                </div>
-            </div>
-        </div>
-    }
-    @if(@ViewBag.SubmittedSuccessfully!=null)
-    {
-    <div class="modal" id="SuccessfullySubmitted">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    @*<button type="button" class="close" data-dismiss="modal">x</button>*@
-                    <h3 style="text-align:center">Question Successfully Submited</h3>
-                </div>
-                <div class="modal-body">
-                    Your Questions submitted Successfully, We will get back to you in 24 hrs
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-warning input-lg form-control" onclick="window.location.href = '/';">OK</button>
-                </div>
-            </div>
-        </div>
     </div>
-    <script>
+    <div class="col-md-7">
+        <form id="frmQuestion" method="post">
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <div class="text-banner">
+                    <h1>Submit Your Query</h1>
+                </div>
+                <hr />
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })*@
+                    <div class="col-md-10 col-md-offset-1">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control input-lg", @placeholder = "Question Title" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-1">
+                        @*@Html.LabelFor(model => model.HTMLText, "Question in Detail", new { @class = "control-label" })*@
+                        @Html.EditorFor(model => model.HTMLText, new { htmlAttributes = new { @class = "form-control input-lg" } })
+                        @Html.HiddenFor(model => model.PlainText)
+                        @Html.ValidationMessageFor(model => model.HTMLText)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.ServiceID, "Service", new { @class = "control-label col-md-2" })*@
+                    <div class="col-md-10 col-md-offset-1">
+                        @Html.DropDownList("ServiceID", new SelectList(ViewBag.LawServices, "Id", "Name"), "Select Service", new { @id = "ServiceList", @class = "form-control input-lg" })<br />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-1">
+                        <input type="submit" id="btnSubmitQuestion" value="Submit Question" class="btn btn-warning form-control input-lg" />
+                    </div>
+                </div>
+            </div>
+        </form>
+        @if (@ViewBag.SubmittedSuccessfully != null)
+        {
+            <div class="modal" id="SuccessfullySubmitted">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            @*<button type="button" class="close" data-dismiss="modal">x</button>*@
+                            <h3 style="text-align:center">Question Successfully Submited</h3>
+                        </div>
+                        <div class="modal-body">
+                            Your Questions submitted Successfully, We will get back to you in 24 hrs
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-warning input-lg form-control" onclick="window.location.href = '/';">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
         $(document).ready(function () {
+            localStorage.removeItem("QTitle");
+            localStorage.removeItem("QDetails");
+            localStorage.removeItem("QService");
             $("#SuccessfullySubmitted").modal('show');
         });
-    </script>
-    }
+            </script>
+        }
+    </div>
 </div>
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(document).ready(function () {
+        var QTitle = localStorage.getItem("QTitle");
+        var QDetails = localStorage.getItem("QDetails");
+        var QService = localStorage.getItem("QService");
+        $("#Title").val(QTitle);
+        $("#HTMLText").html(QDetails);
+        $("#ServiceList").val(QService)
+    });
+    $("#frmQuestion").submit(function () {
+        localStorage.setItem("QTitle", $("#Title").val());
+        localStorage.setItem("QDetails", tinymce.get("HTMLText").getContent());
+        localStorage.setItem("QService", $("#ServiceList").val());
+    });
+</script>
     }

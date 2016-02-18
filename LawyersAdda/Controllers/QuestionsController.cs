@@ -58,7 +58,7 @@ namespace LawyersAdda.Controllers
             }
             return View(lstQuestion);
         }
-
+        [AllowAnonymous]
         public ActionResult AskQuestion()
         {
             var lawservices = from r in db.ServiceTypes select r;
@@ -66,6 +66,7 @@ namespace LawyersAdda.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult AskQuestion(Question model)
         {
