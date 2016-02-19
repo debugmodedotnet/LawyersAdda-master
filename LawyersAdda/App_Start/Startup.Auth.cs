@@ -54,9 +54,9 @@ namespace LawyersAdda
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "1713235985557296",
+               appSecret: "c9962eec35bfa5a0e2e6ffc75f411e39");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
