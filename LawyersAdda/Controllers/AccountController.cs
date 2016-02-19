@@ -375,7 +375,7 @@ namespace LawyersAdda.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,ModifiedDate=DateTime.Now,RegistrationDate=DateTime.Now };
+                var user = new ApplicationUser { FullName=model.FullName,UserName = model.UserName, Email = model.Email,ModifiedDate=DateTime.Now,RegistrationDate=DateTime.Now };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

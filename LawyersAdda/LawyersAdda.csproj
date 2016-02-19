@@ -355,6 +355,8 @@
     <Content Include="Content\VendorStyle\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\VendorStyle\select.css" />
     <Content Include="Content\VendorStyle\style.css" />
+    <Content Include="Content\zocial\zocial.css" />
+    <Content Include="Content\zocial\zocial.svg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -465,6 +467,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\zocial\zocial.eot" />
+    <Content Include="Content\zocial\zocial.ttf" />
+    <Content Include="Content\zocial\zocial.woff" />
     <None Include="Properties\PublishProfiles\LawyerJee.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.4-vsdoc.js" />

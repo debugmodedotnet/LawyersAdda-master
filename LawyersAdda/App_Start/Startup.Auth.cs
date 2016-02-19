@@ -14,6 +14,14 @@ namespace LawyersAdda
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+            var facebookOptions = new Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions()
+            {
+                AppId = "1713235985557296",
+                AppSecret = "c9962eec35bfa5a0e2e6ffc75f411e39"
+            };
+            facebookOptions.Scope.Add("email");
+            facebookOptions.Scope.Add("public_profile");
+
             // Configure the db context, user manager and signin manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
@@ -50,19 +58,20 @@ namespace LawyersAdda
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            app.UseTwitterAuthentication(
+               consumerKey: "eWsNHEodAU4io911c8aEcvxUd",
+               consumerSecret: "xAPAf0IKGccKxTY0GqKUJpWVFTnKaZLhfd6v4Z8T5eDIa5bb3g");
 
-            app.UseFacebookAuthentication(
-               appId: "1713235985557296",
-               appSecret: "c9962eec35bfa5a0e2e6ffc75f411e39");
+            //app.UseFacebookAuthentication(
+            //   appId: "1713235985557296",
+            //   appSecret: "c9962eec35bfa5a0e2e6ffc75f411e39");
+            app.UseFacebookAuthentication(facebookOptions);
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "568016096080-bat1nd2huq395iaqf62pv1dq5peaql8r.apps.googleusercontent.com",
+                ClientSecret = "KnbzcI7wUEulwb2a2mNei_4H"
+            });
         }
     }
 }
