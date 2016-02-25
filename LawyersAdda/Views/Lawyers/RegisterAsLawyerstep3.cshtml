@@ -87,9 +87,29 @@
             <button id="btnSaveStep2" style="visibility:hidden" class="form-control btnRegister">Save and add Services</button>
         </div>
     </div>
+
+    <div class="modal" id="ErrorResult">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 style="text-align:center" id="ErrorResultHeader"></h3>
+                </div>
+                <div class="modal-body" id="ErrorResultBody">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning input-lg form-control" onclick="CloseModal();">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     </div>
 
     <script type="text/javascript">
+        function CloseModal() {
+            $("#ErrorResult").hide();
+        }
         var courtsoflawyer = [];
         var courtListToSave = [];
         $(document).ready(function () {
@@ -108,9 +128,7 @@
                     statesProgress.hide();
                 }
             });
-
-
-
+            
             $("#CityList").change(function () {
 
 
@@ -150,7 +168,10 @@
                 var courtname = $("#CourtList option:selected").text();
                 var courtid = $("#CourtList option:selected").val();
                 if (courtname == "" || courtname == "Please select a Court") {
-                    alert("Court is Empty");
+                    //alert("Court is Empty");
+                    $("#ErrorResultHeader").html("Court is Empty");
+                    $("#ErrorResultBody").html("Please select atleast one Court");
+                    $("#ErrorResult").show();
                 }
                 else {
                     // Creating object to add to array of courts
@@ -177,7 +198,10 @@
                     // if already added alert else add
 
                     if (alredayaddedflag == true) {
-                        alert("Alreday added");
+                        //alert("Alreday added");
+                        $("#ErrorResultHeader").html("Court is Already Added");
+                        $("#ErrorResultBody").html("The Court Which you want to add that is already added to list");
+                        $("#ErrorResult").show();
                     }
                     else {
                         courtsoflawyer.push(objcourtsoflawyer);
@@ -199,7 +223,7 @@
                         "courts": courtListToSave
                     },
                     success: function (data) {
-                        alert(data);
+                        //alert(data);
                         var url = '@Url.Action("RegisterAsLawyerstep4", "Lawyers")';
                         window.location.href = url;
                     }

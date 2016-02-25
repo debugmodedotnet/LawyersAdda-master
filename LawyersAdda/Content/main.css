@@ -230,6 +230,10 @@ nav.navbar-findcond span.badge.new { background: rgba(255, 0, 0, 0.8); color: #f
     background-color: #FF9900;
 }
 
+.btn-warning{
+    /*background-color:#D11121;
+    border-color:#D11121;*/
+}
 
 
 
@@ -418,6 +422,7 @@ div.content-center {
     height: 50px;
     width: 150px;
     background: #f0ad4e;
+    /*background: #D11121;*/
     padding: 10px 20px 10px 20px;
     text-decoration: none;
     border: none;
@@ -426,6 +431,24 @@ div.content-center {
 }
 
 .btnSearch:hover {
+        background: #f6b860;
+        color: #ffffff;
+        text-decoration: none;
+ }
+
+.btnSearch2 {
+    height: 50px;
+    width: 150px;
+    background: #cccccc;
+    /*background: #D11121;*/
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    border: none;
+    color: #ffffff;
+    font-size: 25px;
+}
+
+.btnSearch2:hover {
         background: #f6b860;
         color: #ffffff;
         text-decoration: none;

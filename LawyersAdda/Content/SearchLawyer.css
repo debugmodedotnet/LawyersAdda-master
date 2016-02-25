@@ -11,6 +11,20 @@
     background-image: none;
     background-color: #eea236;
 }
+.list-services{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.list-courts{
+    margin-bottom:10px;
+}
+.Laywer-Search-Content{
+    min-height:550px;
+}
+#redefineSearch
+{
+    margin-bottom:20px;
+}
 
 .imgLawyerContainer {
     text-align: center;
@@ -40,6 +54,7 @@
 
 .CityAndWebsite {
     font-size: 13px;
+    margin-bottom:10px;
 }
 
 .lblLeft {

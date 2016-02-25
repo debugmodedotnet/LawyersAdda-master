@@ -314,6 +314,7 @@
     <Content Include="Content\NanoGallery\css\themes\light\nanogallery_light.css" />
     <Content Include="Content\NanoGallery\css\themes\light\nanogallery_light.woff.css" />
     <Content Include="Content\NanoGallery\css\themes\light\nano_logo.png" />
+    <Content Include="Content\ProgressBar.css" />
     <Content Include="Content\SearchLawyer.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />

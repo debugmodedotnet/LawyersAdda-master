@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "AddImagesToLawyer";
 }
+<link href="~/Content/ProgressBar.css" rel="stylesheet" />
 <div class="col-md-8 col-md-offset-2">
 
     <div class="stepwizard">
@@ -33,10 +34,10 @@
     </div>
 
     <div class="container">
-        <h2>Add your picture</h2>
+        <h2>Upload Photos to your profile</h2>
 <hr />
         <div class="panel panel-default">
-            <div class="panel-heading"><strong>Upload Files</strong> <small>add images to you profile</small></div>
+            <div class="panel-heading"><strong>Upload Photos</strong> <small> to you profile</small></div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -61,11 +62,11 @@
                 </div>
 
                 <!-- Progress Bar -->
-                <div class="progress progress-bar-striped" id="progress" style="display:none;">
+                @*<div class="progress progress-bar-striped" id="progress" style="display:none;">
                     <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
                         <span class="sr-only">Loading in Progress</span>
                     </div>
-                </div>
+                </div>*@
                 <!-- Upload Finished -->
                 <div class="js-upload-finished">
                     <h3>Processed files</h3>
@@ -80,6 +81,19 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="uploadingData">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 style="text-align:center" id="ProgressHeader">Please Wait Photo is Uploading...</h3>
+                </div>
+                <div class="modal-body" style="text-align:center">
+                    <progress max="100" value="0" id="progress">
+                    </progress> 
+                </div>
             </div>
         </div>
     </div>

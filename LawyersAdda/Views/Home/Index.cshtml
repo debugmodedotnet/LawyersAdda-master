@@ -67,7 +67,7 @@
             <h2>Search Lawyers</h2>
             <p class="txtDes">Search our database of lawyers to find the perfect lawyer for your legal needs</p>
 
-            <button class="btnmore">More</button>
+            <button class="btnmore" id="searchLawyerAny">More</button>
         </div>
         <div class="activity-element col-md-4 wow fadeInLeft">
 
@@ -156,6 +156,20 @@
             backSpeed: 100,
             loop: true
         });
+        $("#searchLawyerAny").click(function () {
+            $.ajax({
+                url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
+                type: 'POST',
+                data: {
+                    "LawServiceList": 'Any',
+                    "CityList": 1
+                },
+                success: function (data) {
+                    var url = '@Url.Action("SearchLawyers", "Lawyers")';
+                    window.location.href = url;
+                }
+            });
+        });
         $("#searchLawyer").click(function () {
             $.ajax({
                 url: '@Url.Action("SetSearchLawyersParam", "Lawyers")',
@@ -218,7 +232,7 @@
 
             $.widget("custom.catcomplete", $.ui.autocomplete, {
                 _create: function () {
-                    this._super();
+                    this._super(); 
                     this.widget().menu("option", "items", "> :not(.ui-autocomplete-category)");
                 },
                 _renderMenu: function (ul, items) {
