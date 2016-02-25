@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LawyersAdda.ViewModels
 {
-   public class RegisterAsLawyerstep2ViewModel
+    public class RegisterAsLawyerstep2ViewModel
     {
         [Display(Name = "Blog or Website ")]
         public string BlogUrl { get; set; }
