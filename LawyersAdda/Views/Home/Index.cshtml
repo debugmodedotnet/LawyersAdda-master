@@ -162,7 +162,8 @@
                 type: 'POST',
                 data: {
                     "LawServiceList": 'Any',
-                    "CityList": 1
+                    "CityList": 1,
+                    "isNewRequest": true
                 },
                 success: function (data) {
                     var url = '@Url.Action("SearchLawyers", "Lawyers")';
@@ -176,7 +177,8 @@
                 type: 'POST',
                 data: {
                     "LawServiceList": $("#ServicesSelect").val(),
-                    "CityList": $("#CitySelect").val()
+                    "CityList": $("#CitySelect").val(),
+                    "isNewRequest": true
                 },
                 success: function (data) {
                     var url = '@Url.Action("SearchLawyers", "Lawyers")';

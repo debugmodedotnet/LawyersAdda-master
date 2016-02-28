@@ -444,7 +444,7 @@ namespace LawyersAdda.Controllers
         }
 
         //search params
-        public JsonResult SetSearchLawyersParam(string CityList = null, string LawServiceList = null, string exp = null, List<string> courtList = null, string lowerFees = null, string upperFees = null)
+        public JsonResult SetSearchLawyersParam(string CityList = null, string LawServiceList = null, string exp = null, List<string> courtList = null, string lowerFees = null, string upperFees = null,bool isNewRequest=false)
         {
             if(CityList != null)
                 Session["CityList"] = CityList;
@@ -458,7 +458,13 @@ namespace LawyersAdda.Controllers
                 Session["lowerFees"] = lowerFees;
             if(upperFees != null)
                 Session["upperFees"] = upperFees;
-            
+            if(isNewRequest)
+            {
+                Session.Remove("courtList");
+                Session.Remove("Experience");
+                Session.Remove("lowerFees");
+                Session.Remove("upperFees");
+            }
             return Json(true);
         }
 

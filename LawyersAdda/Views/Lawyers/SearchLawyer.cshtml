@@ -333,7 +333,8 @@
                 type: 'POST',
                 data: {
                     "LawServiceList": $("#ServicesSelect").val(),
-                    "CityList": $("#CitySelectSearch").val()
+                    "CityList": $("#CitySelectSearch").val(),
+                    "isNewRequest": true
                 },
                 success: function (data) {
                     var url = '@Url.Action("SearchLawyers", "Lawyers")';
