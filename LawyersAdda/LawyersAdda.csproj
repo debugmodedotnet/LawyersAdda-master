@@ -231,6 +231,7 @@
     <Compile Include="Controllers\AnswersController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\CourtsController.cs" />
+    <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ImgReturn.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\City.cs" />
     <Compile Include="Entities\Court.cs" />
+    <Compile Include="Entities\Documentation.cs" />
     <Compile Include="Entities\Lawyer.cs" />
     <Compile Include="Entities\LawyerImage.cs" />
     <Compile Include="Entities\Question.cs" />
@@ -812,6 +814,11 @@
     <Content Include="Views\Lawyers\RegisterAsLawyerstep1.cshtml" />
     <Content Include="Views\Lawyers\RegisterAsLawyerstep2.cshtml" />
     <Content Include="Views\Lawyers\RegisterAsLawyerstep6.cshtml" />
+    <Content Include="Views\Document\Create.cshtml" />
+    <Content Include="Views\Document\Delete.cshtml" />
+    <Content Include="Views\Document\Details.cshtml" />
+    <Content Include="Views\Document\Edit.cshtml" />
+    <Content Include="Views\Document\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
