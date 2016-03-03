@@ -4,46 +4,66 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Create</h2>
-
-
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Documentation</h4>
-        <hr />
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h4> Create Document</h4>
+                <hr />
+            </div>
+        </div>
         @Html.ValidationSummary(true)
         <div class="form-group">
             @*@Html.LabelFor(model => model.DocumentType,"Document Type", new { @class = "control-label col-md-2" })*@
             <div class="col-md-8 col-md-offset-2">
                 @Html.EditorFor(model => model.DocumentType, new { htmlAttributes = new { @class = "form-control input-lg", @placeholder = "Document Type" } })
                 @Html.ValidationMessageFor(model => model.DocumentType)
+                <input type="hidden" value="@ViewBag.DocumentID" id="DocumentID" name="ID" />
             </div>
         </div>
 
         <div class="form-group">
-            @*@Html.LabelFor(model => model.DocumentDescription,"Document Description", new { @class = "control-label col-md-2" })*@
             <div class="col-md-8 col-md-offset-2">
+                @Html.LabelFor(model => model.DocumentDescription, "Document Description", new { @class = "control-label" })
+                <br/>
                 @Html.EditorFor(model => model.DocumentDescription)
                 @Html.ValidationMessageFor(model => model.DocumentDescription)
             </div>
+        </div>        
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-4">
+                    <b>Attach Related Documents</b>
+                    <input class="form-control" type="file" name="files[]" id="js-upload-files" multiple>
+                </div>
+                <button type="button" class="btn btn-sm btn-warning" id="js-upload-submit">Upload files</button>
+            </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-8">
                 <input type="submit" value="Create" class="btn btn-warning" />
             </div>
         </div>
     </div>
+    <div class="modal" id="uploadingData">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 style="text-align:center" id="ProgressHeader">Please Wait File is Uploading...</h3>
+                </div>
+                <div class="modal-body" style="text-align:center">
+                    <progress max="100" value="0" id="progress">
+                    </progress> 
+                </div>
+            </div>
+        </div>
+    </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/uploadFile.js"></script>
 }

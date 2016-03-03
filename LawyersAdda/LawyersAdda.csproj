@@ -232,6 +232,7 @@
     <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\CourtsController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ImgReturn.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="Entities\Lawyer.cs" />
     <Compile Include="Entities\LawyerImage.cs" />
     <Compile Include="Entities\Question.cs" />
+    <Compile Include="Entities\RelatedDocument.cs" />
     <Compile Include="Entities\ServiceType.cs" />
     <Compile Include="Filters\CityCustomFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -748,6 +750,7 @@
     <Content Include="Scripts\tinymce\utils\validate.js" />
     <Content Include="Scripts\typed.js" />
     <Content Include="Scripts\underscore-min.js" />
+    <Content Include="Scripts\uploadFile.js" />
     <Content Include="Scripts\upload.js" />
     <Content Include="Scripts\UploadUserProfilePic.js" />
     <Content Include="Scripts\_references.js" />
@@ -822,6 +825,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\File\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

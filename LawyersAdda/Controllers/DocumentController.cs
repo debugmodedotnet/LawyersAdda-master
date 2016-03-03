@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using LawyersAdda.Entities;
 using LawyersAdda.Models;
+using Microsoft.AspNet.Identity;
 
 namespace LawyersAdda.Controllers
 {
@@ -40,6 +41,18 @@ namespace LawyersAdda.Controllers
         // GET: /Document/Create
         public ActionResult Create()
         {
+            string DocumentID=Guid.NewGuid().ToString();
+            ViewBag.DocumentID = DocumentID;
+            Documentation d = new Documentation()
+            {
+                ID=DocumentID,
+                DocumentType="-",
+                DocumentDescription="-",
+                UserID=User.Identity.GetUserId()
+            };
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Documentations.Add(d);
+            db.SaveChanges();
             return View();
         }
 
@@ -48,12 +61,14 @@ namespace LawyersAdda.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="DocumentType,DocumentDescription")] Documentation documentation)
+        public ActionResult Create([Bind(Include = "ID,DocumentType,DocumentDescription")] Documentation documentation)
         {
             if (ModelState.IsValid)
             {
-                documentation.ID = Guid.NewGuid().ToString();
-                db.Documentations.Add(documentation);
+                Documentation d=db.Documentations.Where(t => t.ID == documentation.ID).Single();
+                d.DocumentType = documentation.DocumentType;
+                d.DocumentDescription = documentation.DocumentDescription;
+                db.Entry(d).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
