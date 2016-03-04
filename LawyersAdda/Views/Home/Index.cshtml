@@ -81,7 +81,7 @@
             <img src="~/images/legal_documentation.png" />
             <h2>Legal Documentation</h2>
             <p class="txtDes">Filing legal documents doesn't have to be hard. Let us do for you</p>
-            <button class="btnmore">More</button>
+            <button class="btnmore" id="legalDocument">More</button>
         </div>
     </div>
 </div>
@@ -194,6 +194,9 @@
         })
         $("#legalConsulting").click(function () {
             window.location.href = "/Questions/AskQuestion"
+        });
+        $("#legalDocument").click(function () {
+            window.location.href = "/document/Create"
         });
         $(document).ready(function () {
             
