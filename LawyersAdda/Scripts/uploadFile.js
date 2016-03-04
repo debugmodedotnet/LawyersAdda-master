@@ -10,6 +10,7 @@
     var uploadFormFiles = document.getElementById('js-upload-files');
     var uploadedImage = document.getElementById("uploadedImage");
     var documentID=document.getElementById("DocumentID").value;
+    var ext = "";
 
     var filesToUpload;
     var UploadedFlag = false;
@@ -53,9 +54,14 @@
             data: data,
             success: function(result) {
                 console.log(result);
-                //uploadedImage.style.display = "block";
-                //uploadedImage.innerHTML = uploadedImage.innerHTML + "<div class='col-md-4'><img class='img-thumbnail img-responsive' src='" + result + "' /></div>";
-                //uploadedImage.setAttribute("href", result);
+                if (ext == "pdf") {
+                    //Create thumbnil for PDF
+                }
+                else {
+                    uploadedImage.style.display = "block";
+                    uploadedImage.innerHTML = uploadedImage.innerHTML + "<div class='col-md-4'><img class='img-thumbnail img-responsive' src='" + result + "' /></div>";
+                    uploadedImage.setAttribute("href", result);
+                }
 
                 $("#progress").attr("value", 100);
                 $("#ProgressHeader").html("Uploaded Successfully...");
@@ -72,6 +78,8 @@
     }
 
     uploadFormFiles.addEventListener('change', function (e) {
+        var file = $(this).val();
+        ext = file.split('.').pop();
         filesToUpload = e.target.files;
     })
 

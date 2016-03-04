@@ -4,14 +4,21 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="~/Content/ProgressBar.css" rel="stylesheet" />
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+    <style>
+        .btnGray{
+            background-color:#aaaaaa;
+        }
+    </style>
     <div class="form-horizontal">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h4> Create Document</h4>
+                <div class="text-banner">
+                    <h1>Request For Document</h1>
+                </div>
                 <hr />
             </div>
         </div>
@@ -27,24 +34,42 @@
 
         <div class="form-group">
             <div class="col-md-8 col-md-offset-2">
-                @Html.LabelFor(model => model.DocumentDescription, "Document Description", new { @class = "control-label" })
-                <br/>
+                @*@Html.LabelFor(model => model.DocumentDescription, "Document Description", new { @class = "control-label" })*@
+                <h3>Document Description</h3>
+                <br />
                 @Html.EditorFor(model => model.DocumentDescription)
                 @Html.ValidationMessageFor(model => model.DocumentDescription)
             </div>
-        </div>        
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-offset-2 col-md-4">
-                    <b>Attach Related Documents</b>
-                    <input class="form-control" type="file" name="files[]" id="js-upload-files" multiple>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    @*<div style="font-size:30px; text-align:center">
+                        <strong>Attach Related Documents</strong>
+                    </div>*@
+                    <h3>Attach Related Documents</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="file" class="form-control" style="margin-left:10px; margin-bottom:10px;" name="files[]" id="js-upload-files">
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-sm btn-warning" id="js-upload-submit">
+                                Upload file
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <button type="button" class="btn btn-sm btn-warning" id="js-upload-submit">Upload files</button>
+                <div class="js-upload-finished">
+                    <h3 style="margin-left:10px;">Processed files</h3>
+                    <div class="list-group" id="uploadedImage" style="display:none;">
+
+                    </div>
+                </div>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-8">
-                <input type="submit" value="Create" class="btn btn-warning" />
+                <input type="submit" value="Submit Request" class="btn btn-warning form-control btnRegister btnGray" />
             </div>
         </div>
     </div>
@@ -62,6 +87,34 @@
         </div>
     </div>
 }
+
+@if(@ViewBag.SubmittedSuccessfully != null)
+    {
+<div class="modal" id="SuccessfullySubmitted">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal">x</button>*@
+                <h3 style="text-align:center">Request Successfully Submited</h3>
+            </div>
+            <div class="modal-body">
+                Your Request submitted Successfully, We will get back to you in 24 hrs
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning input-lg form-control" onclick="window.location.href = '/';">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        localStorage.removeItem("QTitle");
+        localStorage.removeItem("QDetails");
+        localStorage.removeItem("QService");
+        $("#SuccessfullySubmitted").modal('show');
+    });
+</script>
+    }
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
