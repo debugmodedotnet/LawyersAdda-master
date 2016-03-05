@@ -1,5 +1,5 @@
 ﻿.navbar{
-    z-index:0;
+    z-index:100;
 }
 .sidebar{
     position:fixed;
