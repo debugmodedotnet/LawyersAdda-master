@@ -92,7 +92,25 @@ namespace LawyersAdda.Controllers
                     return View(model);
             }
         }
-
+        public string GetProfilePicURL(){
+            ApplicationDbContext db = new ApplicationDbContext();
+            string PicURL = "";
+            string uid=User.Identity.GetUserName().ToString();
+            ApplicationUser u = db.Users.Where(t => t.UserName == uid).Single();
+            if (u.isLawyer)
+            {
+                List<LawyerImage> lst = db.LawyerImages.Where(t => t.LawyerId == u.Id).ToList();
+                if (lst.Count > 0)
+                {
+                    PicURL = lst[0].ImageUrl;
+                }
+            }
+            else
+            {
+                PicURL = u.ProfilePicURL;
+            }
+            return PicURL;
+        }
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]

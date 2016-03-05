@@ -320,6 +320,7 @@
     <Content Include="Content\NanoGallery\css\themes\light\nano_logo.png" />
     <Content Include="Content\ProgressBar.css" />
     <Content Include="Content\SearchLawyer.css" />
+    <Content Include="Content\SideBarMenu.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />

@@ -1,5 +1,15 @@
 ﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
+<ul style="list-style: none;">
+    <li style="text-align: right;float: right;">
+        <button class="navbar-toggle" style="display:block" id="btnHumburger">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </li>
+    <li style="text-align:right;"><button class="btn btn-warning navbar-btn" style="margin-right: 8px;" type="button" onclick="location.href='/Lawyers/RegisterAsLawyerstep1'">Join as a Lawyer</button></li>
+</ul>
+@*@if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
@@ -21,7 +31,7 @@
                 <li class="divider" style="padding:0;float:none;margin:0px;"></li>
                 <li><a class="text-center" href="">View All Cities</a></li>
             </ul>
-        </li>*@
+        </li>
     
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello @User.Identity.GetUserName()<span class="caret"></span></a>
@@ -33,6 +43,13 @@
         </li>
 
         <li><button class="btn btn-warning navbar-btn" style="margin-left:8px" type="button" onclick="location.href='@Url.Action("RegisterAsLawyerstep1", "Lawyers")'">Join as a Lawyer</button></li>
+        <li>
+            <button class="navbar-toggle" style="display:block" id="btnHumburger">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </li>
     </ul>
     }
 }
@@ -56,16 +73,22 @@ else
                     <li class="divider" style="padding:0;float:none;margin:0px;"></li>
                     <li><a class="text-center" href="">View All Cities</a></li>
                 </ul>
-            </li>*@
+            </li>
    
        
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>  
         <li><button class="btn btn-warning navbar-btn" style="margin-left:8px" type="button" onclick="location.href='@Url.Action("RegisterAsLawyerstep1", "Lawyers")'">Join as a Lawyer</button></li>
-      
-        @*<li>@Html.ActionLink("Join as a Lawyer ", "RegisterAsLawyer", "Lawyers",null, new { @class = "btn btn-warning navbar-btn" })</li>*@  
+        <li>
+            <button class="navbar-toggle" style="display:block" id="btnHumburger">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </li>
+        @*<li>@Html.ActionLink("Join as a Lawyer ", "RegisterAsLawyer", "Lawyers",null, new { @class = "btn btn-warning navbar-btn" })</li>
     </ul>
-}
+}*@
 
 
 

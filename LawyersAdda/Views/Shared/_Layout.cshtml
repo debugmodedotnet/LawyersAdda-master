@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -15,6 +16,12 @@
     @Scripts.Render("~/bundles/bootstrap")   
     @Scripts.Render("~/bundles/customjs")
     @*<link href="~/Content/Layout.css" rel="stylesheet" />*@
+    <link href="~/Content/SideBarMenu.css" rel="stylesheet" />
+    <style>
+        #btnHumburger{
+            display:block;
+        }
+    </style>
 </head>
 <body>
     <link href="~/Content/MainMenu.css" rel="stylesheet" />
@@ -35,7 +42,8 @@
                         @*<a href="#" onclick="location.href='@Url.Action("Index","Home")'"><img src="~/images/logo.png"></a>*@
                     </div>
 
-                    <div class="navbar-collapse collapse">                        
+                    @*<div class="navbar-collapse collapse">*@ 
+                    <div>
                         <ul class="nav navbar-nav">
                             <li class="typeahead-menu">
                                 <form class="navbar-form" action="#" role="search">
@@ -51,12 +59,44 @@
             </nav>
         </header>
         @*</div>*@
-
+    <div class="sidebar closed">
+        <div class="text-right">
+            <button id="closeSideBar">
+                <i class="glyphicon glyphicon-remove"></i>
+            </button>
+            <a class="sidebarLogo" onclick="location.href='@Url.Action("Index","Home")'">
+                <img class="img img-responsive" src="~/images/ljeelogo.png" />
+            </a>
+            <hr />
+            <div class="sidebar-menu">
+                <ul>
+                    @if(Request.IsAuthenticated)
+                    {
+                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                        <li style="padding-bottom: 60px;height:200px"><img id="SideBarProfilePic" src="~/images/avatar_default.png" class="img img-thumbnail" style="width:200px;height:200px;" /></li>
+                        <li style="padding-bottom: 60px;"><h2>Hello @User.Identity.GetUserName()</h2></li>
+                        <li>@Html.ActionLink("Manage", "Index", "Profile", routeValues: null, htmlAttributes: new { title = "Manage"})</li>
+                        <li>@Html.ActionLink("Request Consulting", "AskQuestion", "Questions", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                        <li>@Html.ActionLink("Request Document", "Create", "Document", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                        }
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
         <div class="container-fluid">
             @RenderBody()
         </div>  
        @*<footer class="footer">
-           <div class="row">
+           <div class="logorow">
                <div class="col-md-6 col-sm-6">
                    <p>© 2015 lawyer.com develop by xyz</p>
                </div>
@@ -82,5 +122,37 @@
             </div>
         </footer>*@
             @RenderSection("scripts", required: false)
+    
+    <script>
+        var showSideMenu = true;
+        $("#btnHumburger,#closeSideBar").click(function () {
+            if (showSideMenu == true) {
+                $(".sidebar").animate({ left: '0px' });
+                showSideMenu = false;
+            }
+            else {
+                $(".sidebar").animate({ left: '-300px' });
+                showSideMenu = true;
+            }   
+        });
+        
+    </script>
+    @if(Request.IsAuthenticated)
+    {
+        <script>
+            $(document).ready(function () {
+                alert
+                $.ajax({
+                    url: '@Url.Action("GetProfilePicURL", "Account")',
+                    type: 'GET',
+                    success: function (data) {
+                        if (data != "") {
+                            $("#SideBarProfilePic").attr("src", data);
+                        }
+                    }
+                });
+            });
+        </script>
+    }
 </body>
 </html>
