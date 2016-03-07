@@ -247,6 +247,7 @@
     <Compile Include="Entities\Lawyer.cs" />
     <Compile Include="Entities\LawyerImage.cs" />
     <Compile Include="Entities\Question.cs" />
+    <Compile Include="Entities\QuestionRelatedDocuments.cs" />
     <Compile Include="Entities\RelatedDocument.cs" />
     <Compile Include="Entities\ServiceType.cs" />
     <Compile Include="Filters\CityCustomFilter.cs" />
@@ -751,6 +752,7 @@
     <Content Include="Scripts\tinymce\utils\validate.js" />
     <Content Include="Scripts\typed.js" />
     <Content Include="Scripts\underscore-min.js" />
+    <Content Include="Scripts\uploadQuestionRelatedDocument.js" />
     <Content Include="Scripts\uploadFile.js" />
     <Content Include="Scripts\upload.js" />
     <Content Include="Scripts\UploadUserProfilePic.js" />

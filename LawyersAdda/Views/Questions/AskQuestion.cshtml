@@ -4,10 +4,16 @@
     ViewBag.Title = "AskQuestion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<link href="~/Content/ProgressBar.css" rel="stylesheet" />
 <div class="row" style="overflow:hidden">
-    <div class="col-md-3 col-md-offset-1" style="margin-bottom: -99999px; padding-bottom: 99999px; background-color: #ccc; padding-top: 40px;">
-
+    <div class="col-md-3 col-md-offset-1" style="margin-bottom: -99999px; padding-bottom: 99999px; padding-top: 40px;">        
+        <h3>Terms & Condtions</h3>
+        <hr />
+        <ol>
+            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis non nunc vel pharetra. Nam vestibulum sapien ipsum, sagittis blandit nunc sagittis id. Mauris vel dignissim erat. Nunc hendrerit ligula vehicula quam blandit, ac efficitur metus malesuada.<hr /></li>
+            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis non nunc vel pharetra. Nam vestibulum sapien ipsum, sagittis blandit nunc sagittis id. Mauris vel dignissim erat. Nunc hendrerit ligula vehicula quam blandit, ac efficitur metus malesuada.<hr /></li>
+            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis non nunc vel pharetra. Nam vestibulum sapien ipsum, sagittis blandit nunc sagittis id. Mauris vel dignissim erat. Nunc hendrerit ligula vehicula quam blandit, ac efficitur metus malesuada.<hr /></li>
+        </ol>
     </div>
     <div class="col-md-7">
         <form id="frmQuestion" method="post">
@@ -47,7 +53,46 @@
         </form>
         @if (@ViewBag.SubmittedSuccessfully != null)
         {
-            <div class="modal" id="SuccessfullySubmitted">
+            <div class="modal" id="SuccessfullySubmitted1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            @*<button type="button" class="close" data-dismiss="modal">x</button>*@
+                            <h3 style="text-align:center">Attach Related Documents</h3>
+                        </div>
+                        <div class="modal-body">
+                            Attach Related Documents About Your Question<br/>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <input type="hidden" value="@ViewBag.QuestionID" id="qid" />
+                                    <input type="file" class="form-control" style="margin-left:10px; margin-bottom:10px;" name="files[]" id="js-upload-files">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-sm btn-warning" id="js-upload-submit">
+                                        Upload file
+                                    </button>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="js-upload-finished">
+                                <h3 style="margin-left:10px;">Processed files</h3>
+                                <div class="list-group" id="uploadedImage" style="display:none;">
+
+                                </div>
+                            </div>
+                            <hr /><br />
+                            <h3 id="ProgressHeader"></h3>
+                            <progress max="100" value="0" id="progress" style="width:100%">
+                            </progress> 
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-warning input-lg form-control" id="UploadedQuestionDocs">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal" id="SuccessfullySubmitted2">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -68,9 +113,22 @@
             localStorage.removeItem("QTitle");
             localStorage.removeItem("QDetails");
             localStorage.removeItem("QService");
-            $("#SuccessfullySubmitted").modal('show');
+            $('#SuccessfullySubmitted1').modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            $("#SuccessfullySubmitted1").modal('show');
+            $("#UploadedQuestionDocs").click(function () {
+                $('#SuccessfullySubmitted2').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+                $("#SuccessfullySubmitted1").modal('hide');
+                $("#SuccessfullySubmitted2").modal('show');
+            });
         });
             </script>
+            <script src="~/Scripts/uploadQuestionRelatedDocument.js"></script>
         }
     </div>
 </div>

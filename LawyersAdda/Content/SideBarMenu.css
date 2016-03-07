@@ -57,3 +57,21 @@
     background:#ffffff;
     border:#ffffff;
 }
+.Humberger{
+    position:fixed;
+    right:0px;
+    top:20px;
+    z-index:200;
+}
+.Humberger #btnHumburger{
+    display:block;
+    border:1px solid #f0ad4e;
+}
+.Humberger #btnHumburger:hover{
+    display:block;
+    border:1px solid #f0ad4e;
+    background-color:#eeeeee;
+}
+.Humberger #btnHumburger span{
+    border:1px solid #f0ad4e;
+}

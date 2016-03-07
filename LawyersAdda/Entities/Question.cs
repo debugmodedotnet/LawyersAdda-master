@@ -41,5 +41,6 @@ namespace LawyersAdda.Entities
         public bool isAnswered { get; set; }
         public virtual ApplicationUser User { get; set; }
         public virtual ServiceType Services { get; set; }
+        public ICollection<QuestionRelatedDocuments> QuestionRelatedDocuments { get; set; }
     }
 }

@@ -57,6 +57,7 @@ namespace LawyersAdda.Models
 
         public virtual DbSet<Documentation> Documentations { get; set; }
         public virtual DbSet<RelatedDocument> RelatedDocuments { get; set; }
+        public virtual DbSet<QuestionRelatedDocuments> QuestionRelatedDocuments { get; set; }
        
     }
 }

@@ -82,6 +82,7 @@ namespace LawyersAdda.Controllers
             db1.Questions.Add(model);
             db1.SaveChanges();
             ViewBag.SubmittedSuccessfully = true;
+            ViewBag.QuestionID = model.QuestionID;
             return View();
         }
         public ActionResult ViewQuestion(string id)
