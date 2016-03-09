@@ -11,7 +11,7 @@ namespace LawyersAdda.ViewModels
     {
         [AllowHtml]
         [UIHint("tinymce_full_compressed")]
-        [Display(Name = "Descriibe Yourself")]
+        [Display(Name = "Describe Yourself")]
         public string Bio { get; set; }
     }
 }

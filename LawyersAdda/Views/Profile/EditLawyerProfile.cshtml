@@ -1,92 +1,651 @@
-﻿@model LawyersAdda.Entities.Lawyer
+﻿@model LawyersAdda.ViewModels.LawyerEditProfileViewModel
 
 @{
     ViewBag.Title = "EditLawyerProfile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="~/Content/bootstrap.vertical-tabs.css" rel="stylesheet" />
+<link href="~/Content/EditLawyerProfile.css" rel="stylesheet" />
+<div class="col-xs-3">
+    <!-- required for floating -->
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs tabs-left">
+        <!-- 'tabs-right' for right tabs -->
+        <li class="active"><a href="#Profile" data-toggle="tab">Profile</a></li>
+        <li><a href="#General" data-toggle="tab">General</a></li>
+        <li><a href="#Security" data-toggle="tab">Security</a></li>
+        <li><a href="#Courts" data-toggle="tab">Courts</a></li>
+        <li><a href="#Services" data-toggle="tab">Services</a></li>
+        <li><a href="#Pictures" data-toggle="tab">Pictures</a></li>
+        <li><a href="#Description" data-toggle="tab">Describe Yourself</a></li>
+    </ul>
+</div>
+<div class="col-xs-9">
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="Profile">
+            <div class="text-banner">
+                <h1>Edit Your Profile</h1>
+            </div>
+            <hr />
+            @using (Html.BeginForm("UpdateProfile", "Profile", FormMethod.Post, new { @class = "form-horizontal", id = "Form1", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group form-group-lg">
+                    <div class="col-md-10 col-md-offset-1">
+                        @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control input-lg Reset", @placeholder = "Your Full Name" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-1">
+                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label" })
+                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control input-lg Reset", @placeholder = "Your PhoneNumber" } })
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-1">
+                        @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control input-lg Reset",@placeholder="Your Email" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        <span id="EmailExist"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-1">
+                        @Html.LabelFor(m => m.WebSiteUrl, new { @class = "control-label" })
+                        @Html.EditorFor(model => model.WebSiteUrl, new { htmlAttributes = new { @class = "form-control input-lg Reset", @placeholder = "Your Blog/Website URL" } })
+                        @Html.ValidationMessageFor(model => model.WebSiteUrl, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-1">
+                        @Html.LabelFor(m => m.CityId, new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.CityId, new SelectList(ViewBag.city, "Id", "CityName", Model.CityId), "Select your city", new { @class = "form-control input-lg Reset" })
+                        @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-1">
+                        <input type="submit" class="form-control btnRegister" value="Save Profile Details" />
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="tab-pane" id="General">
+            <div class="text-banner">
+                <h1>Edit General Details</h1>
+            </div>
+            <hr />
+            @using (Html.BeginForm("UpdateGeneralDetails", "Profile", FormMethod.Post, new { @class = "form-horizontal", id = "Form2", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group form-group-lg">
+                    <div class="col-md-10 col-md-offset-1">
+                        @Html.LabelFor(m => m.NumberOfExpereince, new { @class = "control-label" })
+                        @Html.EditorFor(model => model.NumberOfExpereince, new { htmlAttributes = new { @class = "form-control input-lg Reset", @placeholder = "Your Total Expereince" } })
+                        @Html.ValidationMessageFor(model => model.NumberOfExpereince, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-1">
+                        @Html.LabelFor(m => m.HourlyRate, new { @class = "control-label" })
+                        @Html.EditorFor(model => model.HourlyRate, new { htmlAttributes = new { @class = "form-control input-lg Reset", @placeholder = "Your Fee Per Hour" } })
+                        @Html.ValidationMessageFor(model => model.HourlyRate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="input-group input-append date" id='datetimepicker'>
+                            @Html.LabelFor(m => m.Dob, new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Dob, new { htmlAttributes = new { @class = "form-control input-lg Reset", @placeholder = "Your Date Of Birth" } })
+                            <span class="input-group-addon add-on">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Dob, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-1">
+                        @Html.LabelFor(m => m.Sex, new { @class = "control-label" })
+                        <select id="Sex" name="Sex" class="form-control input-lg">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-1">
+                        @Html.LabelFor(m => m.AlternatePhoneNumber, new { @class = "control-label" })
+                        @Html.EditorFor(model => model.AlternatePhoneNumber, new { htmlAttributes = new { @class = "form-control input-lg Reset", @placeholder = "Your one more PhoneNumber" } })
+                        @Html.ValidationMessageFor(model => model.AlternatePhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-1">
+                        <input type="submit" class="form-control btnRegister" value="Save General Details" />
+                    </div>
+                </div>
+                <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+            <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+            <script>
+                var TodayDate = "@DateTime.Now.ToString("MM/dd/yyyy")";
+                $(function () {
+                    $(document).ready(function () {
+                        $('#datetimepicker').datetimepicker({
+                            endDate: TodayDate
+                        });
+                    });
+                });
+                $(".Reset").keydown(function () { reset(); });
+                function reset() {
+                    $(".field-validation-error").empty();
+                }
+            </script>
+            }
+        </div>
+        <div class="tab-pane" id="Security">
+            <div class="text-banner">
+                <h1>Change Password</h1>
+            </div>
+            <hr />
+            @using (Html.BeginForm("ChangePassword", "Profile", FormMethod.Post, new { @class = "form-horizontal", id = "Form3", role = "form" }))
+            {
+                <style>
+                    .error{
+                        color:#d40000;
+                    }
+                </style>
+                <div class="form-group form-group-lg">
+                    <div class="col-md-10 col-md-offset-1">
+                        <input class="form-control input-lg Reset" id="CurrentPassword" name="CurrentPassword" placeholder="Curent Password" type="password" />
+                        <span id="CurrentPasswordMessage" class="error"></span>
+                    </div>
+                </div>
+                <div class="form-group form-group-lg">
+                    <div class="col-md-10 col-md-offset-1">
+                        <input class="form-control input-lg Reset" id="NewPassword" name="NewPassword" placeholder="New Password" type="password" />
+                        <span id="NewPasswordMessage" class="error"></span>
+                    </div>
+                </div>
+                <div class="form-group form-group-lg">
+                    <div class="col-md-10 col-md-offset-1">
+                        <input class="form-control input-lg Reset" id="RetypePassword" name="RetypePassword" placeholder="Retype New Password" type="password" />
+                        <span id="ReTypePasswordMessage" class="error"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-1">
+                        <input type="submit" class="form-control btnRegister" value="Change Password" />
+                    </div>
+                </div>
+            }
+            <div class="modal" id="SuccessfullyPasswordChanged">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            @*<button type="button" class="close" data-dismiss="modal">x</button>*@
+                            <h3 style="text-align:center" id="PasswordChangeHeading">Password Changed Successfully</h3>
+                        </div>
+                        <div class="modal-body" id="PasswordChangeBody">
+                            Your Password is Changed Successfully.
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-warning input-lg form-control" onclick="window.location.href = '@(Url.Action("Edit"))';">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                var reset = false;
+                $("#Form3").submit(function () {
+                    if ($("#CurrentPassword").val() == "") {
+                        $("#CurrentPasswordMessage").html("Current Password Cannot be Empty");
+                        reset = true;
+                    }
+                    if ($("#NewPassword").val() == "" || $("#NewPassword").val().length<6) {
+                        $("#NewPasswordMessage").html("New Password Cannot be Empty & The Password must be at least 6 characters long.");
+                        reset = true;
+                    }
+                    if ($("#NewPassword").val() != $("#RetypePassword").val()) {
+                        $("#ReTypePasswordMessage").html("New Password and Confirmation Password Not Match");
+                        reset = true;
+                    }
+                    if (reset == false) {
+                        $.ajax({
+                            type: "POST",
+                            data:{
+                                CurrentPassword:$("#CurrentPassword").val(),
+                                NewPassword:$("#NewPassword").val()
+                                },
+                            url: "@(Url.Action("ChangePassword"))",
+                            success: function (data) {
+                                if(data==true){
+                                    $("#SuccessfullyPasswordChanged").modal('show');
+                                }
+                                else{
+                                    $("#PasswordChangeHeading").html("Error in Password Changing");
+                                    $("#PasswordChangeBody").html("Error! Password Not Changed");
+                                    $("#SuccessfullyPasswordChanged").modal('show');
+                                }
+                            },
+                            error:function(data){
+                                $("#PasswordChangeHeading").html("Error in Password Changing");
+                                $("#PasswordChangeBody").html("Error! Password Not Changed");
+                                $("#SuccessfullyPasswordChanged").modal('show');
+                            }
+                        });
+                    }
+                    return false;
+                });
+                $("#CurrentPassword,#NewPassword,#RetypePassword").keyup(function () {
+                    if (reset == true) {
+                        $("#CurrentPasswordMessage,#NewPasswordMessage,#ReTypePasswordMessage").html("");
+                    }
+                });
+            </script>
+        </div>
+        <div class="tab-pane" id="Courts">
+            <div class="text-banner">
+                <h1>Edit Courts</h1>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="row">
+                    <div class="col-md-5">
+                        @*@Html.Label("Select City")*@
+                        <div class="form-group">
+                            @Html.DropDownList("CityList", new SelectList(string.Empty, "Value", "Text"), "Please select a City", new { @class = "form-control input-lg" })
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        @*@Html.Label("Select Court")*@
+                        <div class="form-group">
+                            @Html.DropDownList("CourtList", new SelectList(string.Empty, "Value", "Text"), "Please select a Court", new { @class = "form-control input-lg" })
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="btnAddCourts" class="btnAddLawyerRegisterStep3 form-control">add</button>
+                    </div>
+                </div>
 
-<h2>EditLawyerProfile</h2>
 
-@using (Html.BeginForm("EditLawyer", "Profile", System.Web.Mvc.FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Lawyer</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.CreatedDate)
-        @Html.HiddenFor(model => model.ModifiedDate)
-        @Html.HiddenFor(model => model.CreatedBy)
-        @Html.HiddenFor(model => model.ModifiedBy)
-        @Html.HiddenFor(model => model.ImageUrl)
-        @Html.HiddenFor(model => model.Sex)
+            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name)
+            <div class="row">
+
+            </div>
+            <br />
+
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <table id="courttable" style="visibility:hidden" class="table">
+                        <tr>
+                            <th>City</th>
+                            <th>Court</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <button id="btnSaveCourts" style="visibility:hidden" class="form-control btnRegister">Save Courts</button>
+                </div>
+            </div>
+
+            <div class="modal" id="ErrorResult">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 style="text-align:center" id="ErrorResultHeader"></h3>
+                        </div>
+                        <div class="modal-body" id="ErrorResultBody">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-warning input-lg form-control" onclick="CloseModal();">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                function CloseModal() {
+                    $("#ErrorResult").hide();
+                }
+                var courtsoflawyer = [];
+                var courtListToSave = [];
+                $(document).ready(function () {
+                    $.ajax({
+                        cache: false,
+                        type: "GET",
+                        url: "@(Url.Action("GetCities","Lawyers"))",
+                        success: function (data) {
+                            $.each(data, function (id, option) {
+                                $('#CityList').append($('<option></option>').val(option.Id).html(option.CityName));
+                            });
+                            var objcourtsoflawyer = {};
+                            @foreach (var item in Model.Courts)
+                            {
+                                <text>
+                                objcourtsoflawyer = {
+                                    "cname": $("#CityList").find('option[value=@item.CityId]').text(),
+                                    "cid": '@item.CityId',
+                                    "crtname": '@item.Name',
+                                    "crtid": '@item.Id'
+                                };
+                                courtsoflawyer.push(objcourtsoflawyer);
+                                courtListToSave.push(@item.Id);
+                                $("#courttable").append('<tr><td>' + $("#CityList").find('option[value=@item.CityId]').text() + '</td><td>  @item.Name  </td><td><button class="btn btn-default btn-sm" hiddenvalue="' + @item.Id + '" onclick="RemoveCourt(this);"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>');
+                                $("#courttable").css('visibility', 'visible');
+                                $("#btnSaveCourts").css('visibility', 'visible');
+                            </text>
+                            }
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert('Failed to retrieve Cities.');
+                            statesProgress.hide();
+                        }
+                    });
+                    
+                    $("#CityList").change(function () {
+                        $("#CourtList").empty();
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("GetCourts","Lawyers")',
+                            dataType: 'json',
+                            data: { cityId: $("#CityList").val() },
+                            success: function (courts) {
+                                // states contains the JSON formatted list
+                                // of states passed from the controller
+                                $.each(courts, function (i, court) {
+                                    //$("#CourtList").append('<option value="' + court.Value + '">' +
+                                    //     court.Name + '</option>');
+                                    // here we are adding option for States
+                                    $('#CourtList').append($('<option></option>').val(court.Id).html(court.Name));
+                                });
+                            },
+                            error: function (ex) {
+                                alert('Failed to retrieve states.' + ex);
+                            }
+                        });
+                    });
+                    $('#btnAddCourts').click(function () {
+                        var alredayaddedflag = false;
+                        var cityname = $("#CityList option:selected").text();
+                        var cityid = $("#CityList option:selected").val();
+                        var courtname = $("#CourtList option:selected").text();
+                        var courtid = $("#CourtList option:selected").val();
+                        if (courtname == "" || courtname == "Please select a Court") {
+                            //alert("Court is Empty");
+                            $("#ErrorResultHeader").html("Court is Empty");
+                            $("#ErrorResultBody").html("Please select atleast one Court");
+                            $("#ErrorResult").show();
+                        }
+                        else {
+                            // Creating object to add to array of courts
+                            var objcourtsoflawyer = {
+                                "cname": cityname,
+                                "cid": cityid,
+                                "crtname": courtname,
+                                "crtid": courtid
+                            };
+
+
+                            // Logic to find whether court is already added before
+
+                            for (var i = 0; i < courtsoflawyer.length; i++) {
+
+                                if (courtsoflawyer[i]["crtid"] == courtid) {
+                                    alredayaddedflag = true;
+                                    break;
+                                }
+                            }
+
+
+
+                    // if already added alert else add
+
+                    if (alredayaddedflag == true) {
+                        //alert("Alreday added");
+                        $("#ErrorResultHeader").html("Court is Already Added");
+                        $("#ErrorResultBody").html("The Court Which you want to add that is already added to list");
+                        $("#ErrorResult").show();
+                    }
+                    else {
+                        courtsoflawyer.push(objcourtsoflawyer);
+                        courtListToSave.push(courtid);
+                        $("#courttable").append('<tr><td>' + cityname + '</td><td>' + courtname + '</td><td><button class="btn btn-default btn-sm" hiddenvalue="' + courtid + '" onclick="RemoveCourt(this);"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>');
+                        $("#courttable").css('visibility', 'visible');
+                        $("#btnSaveCourts").css('visibility', 'visible');
+                    }
+                }
+            });
+
+
+                    $('#btnSaveCourts').click(function () {
+
+                $.ajax({
+                    url: '@Url.Action("SaveCourtsToLawyers", "Lawyers")',
+                    type: 'POST',
+                    data: {
+                        "courts": courtListToSave
+                    },
+                    success: function (data) {
+                        //alert(data);
+                        var url = '@Url.Action("Edit")';
+                        window.location.href = url;
+                    }
+                });
+            });
+        });
+        //Removing Court
+        function RemoveCourt(btnCurrent) {
+            var CourtID = $(btnCurrent).attr("hiddenvalue");
+            var indexOfArray = courtListToSave.indexOf(CourtID);
+            courtsoflawyer.splice(indexOfArray, 1)
+            courtListToSave.splice(indexOfArray, 1)
+            console.log($(btnCurrent).parent().parent().remove());
+            if (courtListToSave.length == 0) {
+                $("#courttable").css('visibility', 'hidden');
+                $("#btnSaveStep2").css('visibility', 'hidden');
+            }
+        }
+    </script>
+        </div>
+        <div class="tab-pane" id="Services">
+            <link href="~/Content/bootstrap-duallistbox.css" rel="stylesheet" />
+            <style>
+                .bootstrap-duallistbox-container .btn.moveall,
+                .bootstrap-duallistbox-container .btn.removeall {
+                    display: none;
+                }
+
+                .bootstrap-duallistbox-container .btn.move,
+                .bootstrap-duallistbox-container .btn.remove {
+                    width: 100%;
+                }
+
+                .bootstrap-duallistbox-container .info-container {
+                    display: none;
+                }
+            </style>
+            <div class="text-banner">
+                <h1>Edit Services</h1>
+            </div>
+            <hr />
+            <div class="row">
+                <div>
+                    <select multiple="multiple" size="10" name="Services" id="ddlServices" class="DualListBox">
+                        @foreach (var service in ViewBag.ListofServices)
+                        {
+                            <option value="@service.Id">@service.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <br />
+            <div class="row text-center">
+                <button id="btnSaveStep2" class="form-control btnRegister" onclick="addServiceToLawyer();">
+                    Save Services
+                </button>
+                <br /><br />
+            </div>
+
+            <script src="~/Scripts/jquery.bootstrap-duallistbox.js"></script>
+            @foreach (var item in Model.ServiceTypes)
+            {
+                <script>
+                    $('.DualListBox option[value="@item.Id"]').attr("selected", "selected");
+                </script>
+            }
+            <script>
+                var DualListBox = $('.DualListBox').bootstrapDualListbox({
+                    nonSelectedListLabel: 'Select Services',
+                    selectedListLabel: 'Your Services',
+                    preserveSelectionOnMove: 'moved',
+                    moveOnSelect: false,
+                });
+            </script>
+            <script>
+                var lawyerServices = [];
+                function addService(id) {
+                    var service = document.getElementById(id);
+                    if (service.className == "btn-default btn") {
+                        lawyerServices.push(id);
+                        service.className = "btn-warning btn";
+                    }
+                    else {
+                        lawyerServices.splice(lawyerServices.indexOf(id), 1)
+                        service.className = "btn-default btn";
+                    }
+                    console.log(lawyerServices);
+                    var total = document.getElementById("total");
+                    if (lawyerServices.length > 0)
+                        total.innerHTML = "<h4>total " + lawyerServices.length + " services selected</h4>";
+                    else
+                        total.innerHTML = "";
+                }
+                function addServiceToLawyer() {
+                    $('.DualListBox :selected').each(function (i, selected) {
+                        lawyerServices.push($(selected).val());
+                    });
+                    $.ajax({
+                        url: '@Url.Action("SaveServicesToLawyers", "Lawyers")',
+                        type: 'POST',
+                        data: {
+                            "services": lawyerServices
+                        },
+                        success: function (data) {
+                            //alert(data);
+                            var url = '@Url.Action("RegisterAsLawyerstep5", "Lawyers")';
+                            window.location.href = url;
+                        }
+                    });
+                }
+            </script>
+        </div>
+        <div class="tab-pane" id="Pictures">
+            <link href="~/Content/ProgressBar.css" rel="stylesheet" />
+            <div class="text-banner">
+                <h1>Add Pictures</h1>
+            </div>
+            <hr />
+            <div>
+                <div class="panel panel-default">
+                <div class="panel-heading"><strong>Upload Photos</strong> <small> to you profile</small></div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Drop Zone -->
+                            <h4>Or drag and drop files below</h4>
+                            <div class="upload-drop-zone" id="drop-zone">
+                                Just drag and drop files here
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Standar Form -->
+                            <h4>Select files from your computer</h4>
+                            <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <input class="form-control" type="file" name="files[]" id="js-upload-files" multiple>
+                                    </div>
+                                    <button type="submit" class="btn btn-sm btn-warning" id="js-upload-submit">Upload files</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    @*<div class="progress progress-bar-striped" id="progress" style="display:none;">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                        <span class="sr-only">Loading in Progress</span>
+                    </div>
+                </div>*@
+                    <!-- Upload Finished -->
+                    <div class="js-upload-finished">
+                        <h3>Processed files</h3>
+                        <div class="list-group" id="uploadedImage" style="display:none;">
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5 col-md-offset-4">
+                            <button class="btn btn-lg btn-warning" id="next">Save and go to next step</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+                <div class="modal" id="uploadingData">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 style="text-align:center" id="ProgressHeader">Please Wait Photo is Uploading...</h3>
+                        </div>
+                        <div class="modal-body" style="text-align:center">
+                            <progress max="100" value="0" id="progress">
+                            </progress>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <script src="~/Scripts/upload.js"></script>
+                <script>
+                    $("#next").click(function () {
+                        window.location.href = "/Lawyers/RegisterAsLawyerstep6";
+                    });
+                </script>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email)
+        <div class="tab-pane" id="Description">
+            <div class="text-banner">
+                <h1>Edit Description</h1>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PhoneNumber,"Phone Number", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PhoneNumber)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AlternatePhoneNumber,"Alternet Phone Number", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AlternatePhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AlternatePhoneNumber)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Bio,"About Yourself",new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Bio, new { @class = "form-control", @rows = 5 })
-                @Html.ValidationMessageFor(model => model.Bio)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.WebSiteUrl,"Website", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.WebSiteUrl, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.WebSiteUrl)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CityId,"City", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.CityId, new SelectList(ViewBag.city, "Id", "CityName", Model.CityId), "Select your city", new { @class = "form-control"})
-                @Html.ValidationMessageFor(model => model.CityId)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-danger" />
-            </div>
+            <hr />
+            @using (Html.BeginForm("UpdateDescription", "profile", FormMethod.Post, new { @class = "form-horizontal", id = "Form1", role = "form" }))
+            {
+                <div class="form-group form-group-lg">
+                    <div class="col-md-10 col-md-offset-1">
+                        @Html.EditorFor(m => m.Bio, new { @class = "form-control input-lg" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-1">
+                        <input type="submit" class="btn btn-warning form-control input-lg" value="Save Description" />
+                    </div>
+                </div>
+            }
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
