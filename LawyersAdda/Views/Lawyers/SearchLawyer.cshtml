@@ -89,14 +89,54 @@
             </div>*@
             <div class="divider"></div>
         </div>
+        <div class="col-md-10 col-md-offset-1" id="SearchedDiv">
+            @if (Session["CityList"] != null)
+            {
+                <div class="row">
+                    <div class="col-md-5" style="font-size:20px;">
+                            <strong>Your Selected City : </strong>
+                            @foreach (var city in @ViewBag.Cities)
+                            {
+                                if (Session["CityList"].ToString() == @city.Id)
+                                {
+                                    <span>
+                                        @city.CityName
+                                    </span>
+                                }
+                            }
+                    </div>
+                    <div class="col-md-5" style="font-size:20px;">
+                        <strong>Your Selected Service : </strong>
+                        @if (Session["LawServiceList"].ToString() == "Any")
+                        {
+                            <span>Any</span>
+                        }
+                        else
+                        {
+                            foreach (var Service in @ViewBag.LawServices)
+                            {
+                                if (Session["LawServiceList"].ToString() == @Service.Id)
+                                {
+                                    <span>@Service.Name</span>
+                                }
+                            }
+                        }
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btnSearch2 form-control" id="redefineSearch">Change</button>
+                    </div>
+                </div>
+            }
+            <div class="divider"></div>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="row Laywer-Search-Content" style="overflow:hidden">
                 <div class="col-md-3" style="margin-bottom: -99999px; padding-bottom: 99999px; background-color: #ccc; padding-top: 40px;">
-                    <button type="button" id="redefineSearch" class="btn btnSearch" style="width:220px">
+                    @*<button type="button" id="redefineSearch" class="btn btnSearch" style="width:220px">
                         <i class="glyphicon glyphicon-search"></i> Search Again
-                    </button><br />
+                    </button><br />*@
                     <label class="filter-col" style="margin-right:0;" for="pref-perpage">Experience</label>
                     <select id="experience" class="form-control">
                         <option value="">Select experience</option>
@@ -251,7 +291,8 @@
         }
         $("#SearchingDiv").hide();
         $("#redefineSearch").click(function () {
-            $("#SearchingDiv").slideToggle(1000);
+            $("#SearchedDiv").hide();
+            $("#SearchingDiv").show();
         });
         var cityName = document.getElementById("cityName");
         //cityName.innerHTML = localStorage.getItem("MenuCityName");
