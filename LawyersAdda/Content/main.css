@@ -252,14 +252,13 @@ btn-margin-5{
 /*For Navigation Menu*/
 
 body {
-    padding-top: 80px;
+    /*padding-top: 80px;*/
 }
 
 .navbar {
     margin-bottom: 0px;
-    padding-top: 20px;
     padding-right: 30px;
-    margin-bottom: 10px;
+    background-color:rgba(0,0,0,0.5);
 }
 
 .navbar-default {

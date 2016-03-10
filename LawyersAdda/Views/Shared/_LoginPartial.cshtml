@@ -1,60 +1,19 @@
 ﻿@using Microsoft.AspNet.Identity
+
 <ul style="list-style: none;">
     
 </ul>
-@*@if (Request.IsAuthenticated)
+@if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right navbar-collapse collapse">
         @*<li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-map-marker"></span><span id="menuCityNameTop"></span><span class="caret"></span></a>
-            <ul class="dropdown-menu dropdown-cart" role="menu">
-
-                @foreach (var item in ViewBag.Cities)
-                {
-                    <li style="float:none;text-align:center">
-                        <span class="item" id=@item.Id>
-                            @item.CityName
-                        </span>
-                    </li>
-                }
-                <li class="divider" style="padding:0;float:none;margin:0px;"></li>
-                <li><a class="text-center" href="">View All Cities</a></li>
-            </ul>
-        </li>
-    
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello @User.Identity.GetUserName()<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li style="float:none;text-align:center;padding:0px;">@Html.ActionLink("Manage", "Index", "Profile", routeValues: null, htmlAttributes: new { title = "Manage", style = "padding: 10px 20px" })</li>
-                <li role="separator" class="divider" style="padding:0;float:none;margin:0px;"></li>
-                <li style="float:none;text-align:center;padding:0px;"><a style="padding:10px 20px" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-            </ul>
-        </li>
-
-        <li><button class="btn btn-warning navbar-btn" style="margin-left:8px" type="button" onclick="location.href='@Url.Action("RegisterAsLawyerstep1", "Lawyers")'">Join as a Lawyer</button></li>
-        <li>
-            <button class="navbar-toggle" style="display:block" id="btnHumburger">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </li>
-    </ul>
-    }
-}
-else
-{
-    <ul class="nav navbar-nav navbar-right">
-        
-
-            @*<li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-map-marker"></span><span id="menuCityNameTop"></span><span class="caret"></span></a>
+                @*<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-map-marker"></span><span id="menuCityNameTop"></span><span class="caret"></span></a>
                 <ul class="dropdown-menu dropdown-cart" role="menu">
-                   
+
                     @foreach (var item in ViewBag.Cities)
                     {
                         <li style="float:none;text-align:center">
@@ -66,22 +25,57 @@ else
                     <li class="divider" style="padding:0;float:none;margin:0px;"></li>
                     <li><a class="text-center" href="">View All Cities</a></li>
                 </ul>
-            </li>
-   
-       
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>  
-        <li><button class="btn btn-warning navbar-btn" style="margin-left:8px" type="button" onclick="location.href='@Url.Action("RegisterAsLawyerstep1", "Lawyers")'">Join as a Lawyer</button></li>
-        <li>
-            <button class="navbar-toggle" style="display:block" id="btnHumburger">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+            </li>*@
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello @User.Identity.GetUserName()<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li style="float:none;text-align:center;padding:0px;">@Html.ActionLink("Manage", "Index", "Profile", routeValues: null, htmlAttributes: new { title = "Manage", style = "padding: 10px 20px" })</li>
+                <li role="separator" class="divider" style="padding:0;float:none;margin:0px;"></li>
+                <li style="float:none;text-align:center;padding:0px;"><a style="padding:10px 20px" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+            </ul>
         </li>
-        @*<li>@Html.ActionLink("Join as a Lawyer ", "RegisterAsLawyer", "Lawyers",null, new { @class = "btn btn-warning navbar-btn" })</li>
+
+        <li><button class="btn btn-warning navbar-btn" style="margin-left:8px" type="button" onclick="location.href='@Url.Action("RegisterAsLawyerstep1", "Lawyers")'">Join as a Lawyer</button></li>
+        @*<li>
+                <button class="navbar-toggle" style="display:block" id="btnHumburger">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </li>*@
     </ul>
-}*@
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right navbar-collapse collapse">
+
+
+        @*<li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-map-marker"></span><span id="menuCityNameTop"></span><span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-cart" role="menu">
+
+                    @foreach (var item in ViewBag.Cities)
+                    {
+                        <li style="float:none;text-align:center">
+                            <span class="item" id=@item.Id>
+                                @item.CityName
+                            </span>
+                        </li>
+                    }
+                    <li class="divider" style="padding:0;float:none;margin:0px;"></li>
+                    <li><a class="text-center" href="">View All Cities</a></li>
+                </ul>
+            </li>*@
+
+
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li><button class="btn btn-warning navbar-btn" style="margin-left:8px" type="button" onclick="location.href='@Url.Action("RegisterAsLawyerstep1", "Lawyers")'">Join as a Lawyer</button></li>
+        @*<li>@Html.ActionLink("Join as a Lawyer ", "RegisterAsLawyer", "Lawyers",null, new { @class = "btn btn-warning navbar-btn" })</li>*@
+    </ul>
+}
 
 
 

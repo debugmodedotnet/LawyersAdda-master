@@ -22,67 +22,52 @@
     <link href="~/Content/MainMenu.css" rel="stylesheet" />
         @*<div class="header_main" style="border-bottom: 1px solid #FF9900">*@
         <header>
-            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-3" style="height:40px;">
+                    @*<div class="row">
+                        <div class="col-xs-3" style="height:40px;">
                             <a href="#" onclick="location.href='@Url.Action("Index","Home")'">
-                                <img class="img img-responsive" src="~/images/ljeelogo.png" />
+                                <img class="img img-responsive" src="~/images/lj.png" style="height:100%;width:25%" />
                             </a>
                         </div>
-                        <div class="col-sm-9 text-right">
+                        <div class="col-xs-9 text-right">
+                            
                             <button class="btn btn-warning navbar-btn" style="margin-right: 25px;" type="button" onclick="location.href='/Lawyers/RegisterAsLawyerstep1'">Join as a Lawyer</button>
                         </div>
-                    </div>
-                    @*<div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle Navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a href="#" onclick="location.href='@Url.Action("Index","Home")'">
-                            <img class="img img-responsive" src="~/images/ljeelogo.png" />
-                        </a>
                     </div>*@
-                    @*<div>
-                        <ul class="nav navbar-nav">
-                            <li class="typeahead-menu">
-                                @*<form class="navbar-form" action="#" role="search">
-                                    <input type="text" id="Lawyer" data-provide="typeahead" autocomplete="off" class="form-control typeahead" name="LawyerName" placeholder="Type name to search verified lawyers across the country">
-                                    <br/>
-                                    <input type="hidden" class="span1" name="bondId" id="bondId" value="" />
-                                </form>*@
-                            @*</li>
-                            <li style="text-align: right;float: right;">
-                                <button class="navbar-toggle" style="display:block" id="btnHumburger">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </li>
-                            <li style="text-align:right;"><button class="btn btn-warning navbar-btn" style="margin-right: 8px;" type="button" onclick="location.href='/Lawyers/RegisterAsLawyerstep1'">Join as a Lawyer</button></li>
-                        </ul>
-                        @Html.Partial("_LoginPartial")
-                    </div>*@
+                    <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" onclick="location.href='@Url.Action("Index","Home")'">
+                        <img class="img img-responsive" src="~/images/lj.png" style="height:100%;width:20%" />
+                    </a>
+                </div>
+                    <div>
+                    @Html.Partial("_LoginPartial")
+                </div>
+
                 </div>
             </nav>
         </header>
         @*</div>*@
-    <div class="Humberger">
+    @*<div class="Humberger">
         <button class="navbar-toggle" style="display:block" id="btnHumburger">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-    </div>
-    <div class="sidebar closed">
-        <div class="text-right">
+    </div>*@
+    @*<div class="sidebar closed">
+        <div class="text-right">*@
             @*<form class="navbar-form" action="#" role="search">
                 <input type="text" id="Lawyer" data-provide="typeahead" autocomplete="off" class="form-control typeahead" name="LawyerName" placeholder="Type name to search verified lawyers across the country">
                 <br />
                 <input type="hidden" class="span1" name="bondId" id="bondId" value="" />
-            </form>*@
+            </form>
             <button id="closeSideBar">
                 <i class="glyphicon glyphicon-remove"></i>
             </button>
@@ -113,10 +98,10 @@
                 </ul>
             </div>
         </div>
-    </div>
-        <div class="container-fluid">
-            @RenderBody()
-        </div>  
+    </div>*@
+    <div class="container-fluid" style="margin-top: -10px;">
+        @RenderBody()
+    </div>  
        @*<footer class="footer">
            <div class="logorow">
                <div class="col-md-6 col-sm-6">
