@@ -88,7 +88,7 @@ namespace LawyersAdda.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("LoginError", "Invalid user name or password");
                     return View(model);
             }
         }

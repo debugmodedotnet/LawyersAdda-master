@@ -3,12 +3,12 @@
 @{
     ViewBag.Title = "Log in";
 }
-<div class="col-md-8 col-md-offset-2">
+<div class="col-md-6 col-md-offset-3">
     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
-        <h4>Login</h4>
-        <hr />
+        @*<h4 style="text-align: center; font-size: 30px; margin: 0px; padding: 10px;">Login to Lawyerjee</h4>*@
+        <div class="text-banner">            <h1>Login to LawyerJee</h1>        </div>
         @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
         <div class="form-group">
             @*@Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })*@
@@ -27,24 +27,29 @@
         <div class="form-group">
             <div class="col-md-10 col-md-offset-1">
                 <div class="checkbox">
-                    @Html.CheckBoxFor(m => m.RememberMe)
+                    @Html.CheckBoxFor(m => m.RememberMe, new {@style="margin-top: 15px;margin-left: 5px;" })
                     @Html.LabelFor(m => m.RememberMe, new { @class = "input-lg" })
                 </div>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-10 col-md-offset-1">
-                <input type="submit" value="Log in" class="btn btn-warning form-control input-lg" />
+                @Html.ValidationMessage("LoginError", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-10 col-md-offset-1">
-                @Html.ActionLink("Register as a new user", "Register", "Account", null, new { @class = "btn btn-warning input-lg form-control" })
+                <input type="submit" value="Log in" class="btn btn-warning form-control input-lg" style="font-size:22px;height:100%" />
             </div>
         </div>
-        
-        
-        
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-1 text-center">
+                @Html.ActionLink("Register as a new user", "Register", "Account", null)
+            </div>
+        </div>
+
+
+
         @* Enable this once you have account confirmation enabled for password reset functionality
             <p>
                 @Html.ActionLink("Forgot your password?", "ForgotPassword")
