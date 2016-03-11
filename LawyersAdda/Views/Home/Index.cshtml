@@ -16,19 +16,19 @@
             </div>
         </div>
                 
-                <div class="row">
-                    <div class="col-md-6" style="margin-bottom:5px;">
+                <div class="row searchLawyerContainer">
+                    <div class="col-md-5" style="margin-bottom:5px;">
                         <select class="form-control input-lg" id="CitySelect">
                             @foreach (var item in ViewBag.Cities)
-                              {
-                            <option class="item" id="@item.Id" value="@item.Id">
-                                @item.CityName
-                            </option>
-                              }
+                            {
+                                <option class="item" id="@item.Id" value="@item.Id">
+                                    @item.CityName
+                                </option>
+                            }
                         </select>
 
                     </div>
-                    <div class="col-md-6" style="margin-bottom:5px;">
+                    <div class="col-md-5" style="margin-bottom:5px;">
                         <select class="form-control input-lg" id="ServicesSelect">
                             <option class="item">Any</option>
                             @foreach (var item in ViewBag.LawServices)
@@ -39,15 +39,19 @@
                             }
                         </select>
                         @*<input id="project" class="form-control input-lg" placeholder="Select Service or Type Lawyer Name">
-                        <input id="projectVal" type="hidden" />
-                        <input id="categ" type="hidden" />*@
+                <input id="projectVal" type="hidden" />
+                <input id="categ" type="hidden" />*@
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btnSearch3" id="searchLawyer">Search</button>
                     </div>
                 </div>
-                <div class="row" style="margin-top:10px;">
+
+                @*<div class="row" style="margin-top:10px;">
                     <div class="col-md-12 text-center">
                         <button class="btnSearch" id="searchLawyer">Search</button>
                     </div>
-                </div>
+                </div>*@
             </div>
 
         </div>
